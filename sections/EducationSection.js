@@ -1,9 +1,9 @@
-import EducationPath from '@/components/EducationPath';
+import EducationTimeline from '@/components/EducationTimeline';
 import SectionTitle from '@/components/SectionTitle';
 
 export default function EducationSection() {
   return (
-    <section id="education" className="section edu-v3-section">
+    <section id="education" className="section edu-v4-section">
       <div className="container">
         <SectionTitle
           icon="fas fa-graduation-cap"
@@ -13,7 +13,7 @@ export default function EducationSection() {
           ghost="EDUCATION"
         />
 
-        <EducationPath />
+        <EducationTimeline />
       </div>
     </section>
   );
