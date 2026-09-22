@@ -46,3 +46,6 @@ next-env.d.ts
 
 # private project source notes (not committed)
 PROJECTS_SOURCE.md
+
+Gallery/
+reference/
