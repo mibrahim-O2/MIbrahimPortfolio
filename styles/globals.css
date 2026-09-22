@@ -6223,3 +6223,114 @@
             outline: 2px solid var(--accent);
             outline-offset: 3px;
         }
+
+        /* ==========================================================================
+           CLAYMORPHIC CARD GLOW  -  shared visual technique for the About bio card and
+           the Skills / Projects / Certificates / Volunteer / Experience / Education cards.
+           Each card already relies on its own overflow:hidden (banners, backdrop-filter,
+           existing ::before/::after accents), so a glow pseudo-element placed outside the
+           card box would just get clipped. box-shadow paints outside the box regardless of
+           overflow, so the "soft glowing border + puffy depth layer" is built as a layered
+           box-shadow instead: a thin glow ring plus a wide, softly blurred outer layer. On
+           hover the ring tightens, the outer layer widens/blurs further and warms toward
+           --accent-soft, giving the "glow reshapes and blurs more" feel without touching
+           any existing pseudo-element, layout, padding or content.
+           ========================================================================== */
+
+        .about-v2-card,
+        .project-card,
+        .skl-v4-card,
+        .cert-v2-card,
+        .vol-v2-card,
+        .exp-v2-card,
+        .edu-v4-card {
+            transition: transform var(--dur-fast) var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
+        }
+
+        .about-v2-card {
+            box-shadow: 0 24px 60px rgba(var(--rust-rgb), 0.35), 0 0 40px rgba(var(--rust-rgb), 0.18),
+                0 0 0 1px rgba(var(--accent-rgb), 0.22), 0 0 44px 4px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .about-v2-card:hover,
+        .about-v2-card:focus-within {
+            box-shadow: 0 30px 72px rgba(var(--rust-rgb), 0.4), 0 0 48px rgba(var(--rust-rgb), 0.2),
+                0 0 0 1.5px rgba(var(--accent-rgb), 0.4), 0 0 60px 8px rgba(var(--accent-soft-rgb), 0.16);
+        }
+
+        .project-card {
+            box-shadow: var(--shadow), 0 0 0 1px rgba(var(--accent-rgb), 0.2), 0 0 40px 3px rgba(var(--accent-rgb), 0.08);
+        }
+
+        .project-card:hover {
+            box-shadow: var(--shadow-hover), 0 0 0 1.5px rgba(var(--accent-rgb), 0.38),
+                0 0 56px 8px rgba(var(--accent-soft-rgb), 0.15);
+        }
+
+        .skl-v4-card {
+            box-shadow: 0 24px 60px rgba(var(--rust-rgb), 0.3), 0 0 36px rgba(var(--rust-rgb), 0.14),
+                0 0 0 1px rgba(var(--accent-rgb), 0.22), 0 0 44px 4px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .skl-v4-card:hover,
+        .skl-v4-card:focus-within {
+            box-shadow: 0 30px 72px rgba(var(--rust-rgb), 0.36), 0 0 46px rgba(var(--rust-rgb), 0.2),
+                0 0 0 1.5px rgba(var(--accent-rgb), 0.4), 0 0 60px 8px rgba(var(--accent-soft-rgb), 0.16);
+        }
+
+        .cert-v2-card {
+            box-shadow: 0 20px 50px rgba(var(--rust-rgb), 0.28), 0 0 30px rgba(var(--rust-rgb), 0.12),
+                0 0 0 1px rgba(var(--accent-rgb), 0.2), 0 0 40px 4px rgba(var(--accent-rgb), 0.08);
+        }
+
+        .cert-v2-card:hover,
+        .cert-v2-card:focus-within {
+            box-shadow: 0 26px 62px rgba(var(--rust-rgb), 0.34), 0 0 40px rgba(var(--rust-rgb), 0.18),
+                0 0 0 1.5px rgba(var(--accent-rgb), 0.38), 0 0 54px 8px rgba(var(--accent-soft-rgb), 0.15);
+        }
+
+        .vol-v2-card {
+            box-shadow: 0 20px 50px rgba(var(--rust-rgb), 0.28), 0 0 30px rgba(var(--rust-rgb), 0.12),
+                0 0 0 1px rgba(var(--accent-rgb), 0.2), 0 0 40px 4px rgba(var(--accent-rgb), 0.08);
+        }
+
+        .vol-v2-card:hover,
+        .vol-v2-card:focus-visible {
+            box-shadow: 0 26px 62px rgba(var(--rust-rgb), 0.34), 0 0 40px rgba(var(--rust-rgb), 0.18),
+                0 0 0 1.5px rgba(var(--accent-rgb), 0.38), 0 0 54px 8px rgba(var(--accent-soft-rgb), 0.15);
+        }
+
+        .exp-v2-card {
+            box-shadow: 0 24px 60px rgba(var(--rust-rgb), 0.3), 0 0 36px rgba(var(--rust-rgb), 0.14),
+                0 0 0 1px rgba(var(--accent-rgb), 0.22), 0 0 44px 4px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .exp-v2-card:hover,
+        .exp-v2-card:focus-within {
+            box-shadow: 0 30px 72px rgba(var(--rust-rgb), 0.36), 0 0 46px rgba(var(--rust-rgb), 0.2),
+                0 0 0 1.5px rgba(var(--accent-rgb), 0.4), 0 0 60px 8px rgba(var(--accent-soft-rgb), 0.16);
+        }
+
+        .edu-v4-card {
+            box-shadow: 0 24px 60px rgba(var(--rust-rgb), 0.3), 0 0 36px rgba(var(--rust-rgb), 0.14),
+                0 0 0 1px rgba(var(--accent-rgb), 0.22), 0 0 44px 4px rgba(var(--accent-rgb), 0.1);
+        }
+
+        .edu-v4-card:hover,
+        .edu-v4-card:focus-within {
+            box-shadow: 0 30px 72px rgba(var(--rust-rgb), 0.36), 0 0 46px rgba(var(--rust-rgb), 0.2),
+                0 0 0 1.5px rgba(var(--accent-rgb), 0.4), 0 0 60px 8px rgba(var(--accent-soft-rgb), 0.16);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .about-v2-card,
+            .project-card,
+            .skl-v4-card,
+            .cert-v2-card,
+            .vol-v2-card,
+            .exp-v2-card,
+            .edu-v4-card {
+                transition: none;
+            }
+        }
