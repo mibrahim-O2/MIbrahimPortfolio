@@ -15,65 +15,64 @@
             pointer-events: none;
         }
 
-        :root {
-            --nav-h: 88px; /* floating navbar: 1rem top padding + pill height, used to keep the chat panel below it */
+:root {
+    --nav-h: 88px;
 
-            /* ---- Motion tokens (twins of theme/motion.js) ---- */
-            --ease: cubic-bezier(0.22, 1, 0.36, 1);
-            --ease-css: cubic-bezier(0.22, 1, 0.36, 1);
-            --dur-fast: 0.25s;
-            --dur-base: 0.7s;
-            --dur-slow: 0.9s;
-            color-scheme: dark;
+    /* ---- Motion tokens ---- */
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-css: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-fast: 0.25s;
+    --dur-base: 0.7s;
+    --dur-slow: 0.9s;
+    color-scheme: dark;
 
-            /* ---- Palette tokens (dark rust theme) ---- */
-            --bg: #020403;
-            --surface: #141413;
-            --surface-2: #1A2324;
-            --rust: #5F2E1B;          /* fills, borders, glows, gradient starts ONLY - never text */
-            --rust-2: #8F4726;        /* lighter rust for hover / gradient ends */
-            --accent: #D97B4A;
-            --accent-soft: #F0A070;
-            --teal: #7FA3A6;
-            --teal-soft: #9DB8BA;
-            --text: #E8E2DA;
-            --text-muted: #A8A29A;
-            --text-dim: #8A847C;
-            --border: rgba(232, 226, 218, 0.08);
-            --border-accent: rgba(217, 123, 74, 0.28);
-            --accent-rgb: 217, 123, 74;
-            --accent-soft-rgb: 240, 160, 112;
-            --rust-rgb: 95, 46, 27;
-            --teal-rgb: 127, 163, 166;
-            --text-rgb: 232, 226, 218;
-            --surface-rgb: 20, 20, 19;
-            --surface-2-rgb: 26, 35, 36;
-            --gradient-button: linear-gradient(135deg, #5F2E1B, #8F4726);
-            --gradient-text: linear-gradient(90deg, #D97B4A, #F0A070);
-            --gradient-accent: linear-gradient(90deg, #5F2E1B, #D97B4A, #7FA3A6);
+    /* ---- Palette tokens (onyx/carbon-black base, mahogany/strawberry-red accents) ---- */
+    --bg: #0b090a;                  /* onyx */
+    --surface: #161a1d;             /* carbon-black */
+    --surface-2: #1d1417;           /* carbon-black, warm-lifted */
+    --rust: #660708;                /* dark-garnet - fills, borders, glows ONLY - never text */
+    --rust-2: #ba181b;              /* mahogany-red-2 - hover / gradient ends */
+    --accent: #ba181b;              /* mahogany-red-2 */
+    --accent-soft: #f2a9aa;         /* strawberry-red tint - readable accent text on dark bg */
+    --teal: #d3d3d3;                /* silver-chalice (secondary/cool accent) */
+    --teal-soft: #b1a7a6;           /* silver */
+    --text: #f5f3f4;                /* white-smoke */
+    --text-muted: #d3d3d3;          /* silver-chalice */
+    --text-dim: #b1a7a6;            /* silver */
+    --border: rgba(245, 243, 244, 0.08);
+    --border-accent: rgba(186, 24, 27, 0.35);
+    --accent-rgb: 186, 24, 27;
+    --accent-soft-rgb: 242, 169, 170;
+    --rust-rgb: 102, 7, 8;
+    --teal-rgb: 211, 211, 211;
+    --text-rgb: 245, 243, 244;
+    --surface-rgb: 22, 26, 29;
+    --surface-2-rgb: 29, 20, 23;
+    --gradient-button: linear-gradient(135deg, #660708, #ba181b);
+    --gradient-text: linear-gradient(90deg, #ba181b, #e5383b);
+    --gradient-accent: linear-gradient(90deg, #660708, #ba181b, #e5383b);
 
-            /* ---- Legacy variable names -> closest new token ---- */
-            --primary: var(--accent);
-            --primary-dark: var(--rust-2);
-            --secondary: var(--accent-soft);
-            --accent-gradient: var(--gradient-accent);
-            --dark: var(--surface);
-            --darker: var(--bg);
-            --light: var(--surface-2);
-            --gray: var(--text-muted);
-            --light-gray: var(--text);
+    /* ---- Legacy variable names -> closest new token ---- */
+    --primary: var(--accent);
+    --primary-dark: var(--rust-2);
+    --secondary: var(--accent-soft);
+    --accent-gradient: var(--gradient-accent);
+    --dark: var(--surface);
+    --darker: var(--bg);
+    --light: var(--surface-2);
+    --gray: var(--text-muted);
+    --light-gray: var(--text);
 
-            --background: var(--bg);
-            --foreground: var(--text);
-            --card: var(--surface);
-            --card-foreground: var(--text);
-            --shadow: rgba(0, 0, 0, 0.5);
-            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
-            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(var(--accent-rgb), 0.15);
-            --muted: var(--surface-2);
-            --muted-foreground: var(--text-muted);
-        }
-
+    --background: var(--bg);
+    --foreground: var(--text);
+    --card: var(--surface);
+    --card-foreground: var(--text);
+    --shadow: rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(var(--accent-rgb), 0.15);
+    --muted: var(--surface-2);
+    --muted-foreground: var(--text-muted);
+}
         html {
             color-scheme: dark;
         }
@@ -505,7 +504,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 8rem 0 5rem;
+            padding: 5.1rem 0 5rem;
             position: relative;
             overflow: hidden;
         }
@@ -3758,7 +3757,7 @@
             }
 
             .edu-v3-tab.is-active .edu-v3-chevron {
-                color: var(--accent);
+                color: var(--accent-soft);
             }
 
             .edu-v3-tab-short {
@@ -4340,7 +4339,7 @@
         }
 
         .project-cover i {
-            color: var(--accent);
+            color: var(--accent-soft);
             font-size: 2.6rem;
         }
 

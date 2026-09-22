@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { palette, rgb } from '@/theme/colors';
 
 export default function BackgroundCanvas() {
   const canvasRef = useRef(null);
@@ -31,12 +32,12 @@ export default function BackgroundCanvas() {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Color palettes for particles
+    // Color palette for particles — onyx / carbon-black theme with mahogany-red accents
     const colors = [
-      'rgba(108, 99, 255, ', // Electric Indigo
-      'rgba(255, 75, 139, ', // Neon Pink
-      'rgba(67, 206, 162, ', // Mint Cyan
-      'rgba(157, 78, 221, '  // Vibrant Purple
+      `rgba(${rgb.accent}, `,      // accent (mahogany-red-2)
+      `rgba(${rgb.accentSoft}, `,  // accent-soft (strawberry-red tint)
+      `rgba(${rgb.rust}, `,        // rust (dark-garnet)
+      `rgba(${rgb.tealSoft}, `     // teal-soft (silver)
     ];
 
     // Particle nodes array
@@ -60,9 +61,9 @@ export default function BackgroundCanvas() {
 
     // Floating ambient background mesh Orbs
     const orbs = [
-      { x: width * 0.15, y: height * 0.25, radius: 220, color: 'rgba(108, 99, 255, 0.08)', vx: 0.2, vy: 0.3 },
-      { x: width * 0.85, y: height * 0.45, radius: 260, color: 'rgba(255, 75, 139, 0.06)', vx: -0.2, vy: 0.2 },
-      { x: width * 0.5, y: height * 0.8, radius: 200, color: 'rgba(67, 206, 162, 0.07)', vx: 0.15, vy: -0.25 }
+      { x: width * 0.15, y: height * 0.25, radius: 220, color: `rgba(${rgb.rust}, 0.10)`, vx: 0.2, vy: 0.3 },
+      { x: width * 0.85, y: height * 0.45, radius: 260, color: `rgba(${rgb.accent}, 0.07)`, vx: -0.2, vy: 0.2 },
+      { x: width * 0.5, y: height * 0.8, radius: 200, color: `rgba(${rgb.tealSoft}, 0.06)`, vx: 0.15, vy: -0.25 }
     ];
 
     // Render loop
@@ -95,8 +96,8 @@ export default function BackgroundCanvas() {
           mouse.y,
           mouse.radius * 1.6
         );
-        glowGradient.addColorStop(0, 'rgba(108, 99, 255, 0.12)');
-        glowGradient.addColorStop(0.4, 'rgba(255, 75, 139, 0.05)');
+        glowGradient.addColorStop(0, `rgba(${rgb.accent}, 0.14)`);
+        glowGradient.addColorStop(0.4, `rgba(${rgb.rust}, 0.06)`);
         glowGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
         ctx.fillStyle = glowGradient;
         ctx.fillRect(0, 0, width, height);
@@ -129,11 +130,13 @@ export default function BackgroundCanvas() {
         ctx.arc(p.x, p.y, p.radius * scaleMultiplier, 0, Math.PI * 2);
         ctx.fillStyle = `${p.color}${Math.min(p.baseAlpha * alphaMultiplier, 0.9)})`;
         ctx.shadowBlur = 12;
-        ctx.shadowColor = p.color.includes('108')
-          ? '#6c63ff'
-          : p.color.includes('255')
-          ? '#ff4b8b'
-          : '#43cea2';
+        ctx.shadowColor = p.color.includes(rgb.accent)
+          ? palette.accent
+          : p.color.includes(rgb.accentSoft)
+          ? palette.accentSoft
+          : p.color.includes(rgb.rust)
+          ? palette.rust
+          : palette.tealSoft;
         ctx.fill();
 
         // Connect node lines
@@ -148,7 +151,7 @@ export default function BackgroundCanvas() {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(124, 58, 237, ${lineAlpha})`;
+            ctx.strokeStyle = `rgba(${rgb.accent}, ${lineAlpha})`;
             ctx.lineWidth = 0.85;
             ctx.stroke();
           }
