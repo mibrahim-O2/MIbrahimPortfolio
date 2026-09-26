@@ -1,7 +1,9 @@
 // Technical skills shown by components/SkillsStack.js (home + /skills) and read by the terminal and chatbot.
-// Shape: { id, title, icon, items: [{ name, icon }], live? }.
-// Every chip has its own icon: a Devicon glyph (loaded in app/layout.js, monochrome, tinted by the theme) when Devicon has one,
-// otherwise a Font Awesome 6.4 icon. No per-technology colors. A card never repeats an icon.
+// Shape: { id, title, icon, items: [{ name, icon, color }], live? }.
+// Every chip has its own icon: a Devicon glyph (loaded in app/layout.js) when Devicon has one,
+// otherwise a Font Awesome 6.4 icon. Each chip also carries its own real/brand `color`, shown on a
+// light tile behind the icon (see components/SkillChip.js) so it stands out on the dark background.
+// A card never repeats an icon.
 // `live: true` shows a small pulsing "active" indicator next to the title (used for the automation card,
 // since it is about live/running workflows).
 export const skillCategories = [
@@ -10,11 +12,11 @@ export const skillCategories = [
     title: "Languages",
     icon: "fa-solid fa-code",
     items: [
-      { name: "Python", icon: "devicon-python-plain" },
-      { name: "JavaScript", icon: "devicon-javascript-plain" },
-      { name: "TypeScript", icon: "devicon-typescript-plain" },
-      { name: "SQL", icon: "fa-solid fa-database" },
-      { name: "C++", icon: "devicon-cplusplus-plain" }
+      { name: "Python", icon: "devicon-python-plain", color: "#3776AB" },
+      { name: "JavaScript", icon: "devicon-javascript-plain", color: "#F0DB4F" },
+      { name: "TypeScript", icon: "devicon-typescript-plain", color: "#3178C6" },
+      { name: "SQL", icon: "fa-solid fa-database", color: "#F29111" },
+      { name: "C++", icon: "devicon-cplusplus-plain", color: "#00599C" }
     ]
   },
   {
@@ -22,18 +24,18 @@ export const skillCategories = [
     title: "AI / ML",
     icon: "fa-solid fa-brain",
     items: [
-      { name: "scikit-learn", icon: "devicon-scikitlearn-plain" },
-      { name: "pandas", icon: "devicon-pandas-plain" },
-      { name: "NumPy", icon: "devicon-numpy-plain" },
-      { name: "Plotly", icon: "devicon-plotly-plain" },
-      { name: "Genetic Algorithms", icon: "fa-solid fa-dna" },
-      { name: "Google OR-Tools", icon: "fa-solid fa-route" },
-      { name: "RAG", icon: "fa-solid fa-book-open-reader" },
-      { name: "LLM Integration (OpenAI, Google Gemini)", icon: "fa-solid fa-robot" },
-      { name: "ChromaDB", icon: "fa-solid fa-vector-square" },
-      { name: "sentence-transformers", icon: "fa-solid fa-language" },
-      { name: "Tree-sitter", icon: "fa-solid fa-tree" },
-      { name: "Prompt and Context Engineering", icon: "fa-solid fa-wand-magic-sparkles" }
+      { name: "scikit-learn", icon: "devicon-scikitlearn-plain", color: "#F7931E" },
+      { name: "pandas", icon: "devicon-pandas-plain", color: "#150458" },
+      { name: "NumPy", icon: "devicon-numpy-plain", color: "#4DABCF" },
+      { name: "Plotly", icon: "devicon-plotly-plain", color: "#3F4F75" },
+      { name: "Genetic Algorithms", icon: "fa-solid fa-dna", color: "#8FBC8F" },
+      { name: "Google OR-Tools", icon: "fa-solid fa-route", color: "#4285F4" },
+      { name: "RAG", icon: "fa-solid fa-book-open-reader", color: "#B08968" },
+      { name: "LLM Integration (OpenAI, Google Gemini)", icon: "fa-solid fa-robot", color: "#10A37F" },
+      { name: "ChromaDB", icon: "fa-solid fa-vector-square", color: "#6E56CF" },
+      { name: "sentence-transformers", icon: "fa-solid fa-language", color: "#FFB000" },
+      { name: "Tree-sitter", icon: "fa-solid fa-tree", color: "#4E944F" },
+      { name: "Prompt and Context Engineering", icon: "fa-solid fa-wand-magic-sparkles", color: "#B983FF" }
     ]
   },
   {
@@ -41,20 +43,20 @@ export const skillCategories = [
     title: "Backend",
     icon: "fa-solid fa-server",
     items: [
-      { name: "FastAPI", icon: "devicon-fastapi-plain" },
-      { name: "Flask", icon: "devicon-flask-plain" },
-      { name: "Node.js", icon: "devicon-nodejs-plain" },
-      { name: "Express", icon: "devicon-express-original" },
-      { name: "REST APIs", icon: "fa-solid fa-plug" },
-      { name: "SQLAlchemy", icon: "devicon-sqlalchemy-plain" },
-      { name: "Alembic", icon: "fa-solid fa-code-branch" },
-      { name: "Drizzle ORM", icon: "fa-solid fa-droplet" },
-      { name: "Pydantic", icon: "fa-solid fa-shield-halved" },
-      { name: "Jinja2", icon: "fa-solid fa-file-lines" },
-      { name: "Socket.io", icon: "devicon-socketio-plain" },
-      { name: "JWT Authentication", icon: "fa-solid fa-key" },
-      { name: "Firebase Authentication", icon: "fa-solid fa-user-shield" },
-      { name: "Resend", icon: "fa-solid fa-paper-plane" }
+      { name: "FastAPI", icon: "devicon-fastapi-plain", color: "#009688" },
+      { name: "Flask", icon: "devicon-flask-plain", color: "#FFFFFF" },
+      { name: "Node.js", icon: "devicon-nodejs-plain", color: "#68A063" },
+      { name: "Express", icon: "devicon-express-original", color: "#FFFFFF" },
+      { name: "REST APIs", icon: "fa-solid fa-plug", color: "#61AFFE" },
+      { name: "SQLAlchemy", icon: "devicon-sqlalchemy-plain", color: "#D71F00" },
+      { name: "Alembic", icon: "fa-solid fa-code-branch", color: "#8A8A8A" },
+      { name: "Drizzle ORM", icon: "fa-solid fa-droplet", color: "#C5F74F" },
+      { name: "Pydantic", icon: "fa-solid fa-shield-halved", color: "#E92063" },
+      { name: "Jinja2", icon: "fa-solid fa-file-lines", color: "#B41717" },
+      { name: "Socket.io", icon: "devicon-socketio-plain", color: "#FFFFFF" },
+      { name: "JWT Authentication", icon: "fa-solid fa-key", color: "#FB015B" },
+      { name: "Firebase Authentication", icon: "fa-solid fa-user-shield", color: "#FFCA28" },
+      { name: "Resend", icon: "fa-solid fa-paper-plane", color: "#000000" }
     ]
   },
   {
@@ -62,17 +64,17 @@ export const skillCategories = [
     title: "Frontend",
     icon: "fa-solid fa-laptop-code",
     items: [
-      { name: "React", icon: "devicon-react-plain" },
-      { name: "Next.js", icon: "devicon-nextjs-plain" },
-      { name: "Vite", icon: "devicon-vitejs-plain" },
-      { name: "Tailwind CSS", icon: "devicon-tailwindcss-plain" },
-      { name: "shadcn/ui", icon: "fa-solid fa-cube" },
-      { name: "Framer Motion", icon: "devicon-framermotion-plain" },
-      { name: "Recharts", icon: "fa-solid fa-chart-line" },
-      { name: "Monaco Editor", icon: "fa-solid fa-file-code" },
-      { name: "Bootstrap", icon: "devicon-bootstrap-plain" },
-      { name: "HTML", icon: "devicon-html5-plain" },
-      { name: "CSS", icon: "devicon-css3-plain" }
+      { name: "React", icon: "devicon-react-plain", color: "#61DAFB" },
+      { name: "Next.js", icon: "devicon-nextjs-plain", color: "#FFFFFF" },
+      { name: "Vite", icon: "devicon-vitejs-plain", color: "#646CFF" },
+      { name: "Tailwind CSS", icon: "devicon-tailwindcss-plain", color: "#38BDF8" },
+      { name: "shadcn/ui", icon: "fa-solid fa-cube", color: "#FFFFFF" },
+      { name: "Framer Motion", icon: "devicon-framermotion-plain", color: "#0055FF" },
+      { name: "Recharts", icon: "fa-solid fa-chart-line", color: "#22B5BF" },
+      { name: "Monaco Editor", icon: "fa-solid fa-file-code", color: "#519ABA" },
+      { name: "Bootstrap", icon: "devicon-bootstrap-plain", color: "#7952B3" },
+      { name: "HTML", icon: "devicon-html5-plain", color: "#E34F26" },
+      { name: "CSS", icon: "devicon-css3-plain", color: "#1572B6" }
     ]
   },
   {
@@ -80,11 +82,11 @@ export const skillCategories = [
     title: "Databases",
     icon: "fa-solid fa-database",
     items: [
-      { name: "PostgreSQL", icon: "devicon-postgresql-plain" },
-      { name: "MongoDB (Mongoose)", icon: "devicon-mongodb-plain" },
-      { name: "SQLite", icon: "devicon-sqlite-plain" },
-      { name: "Supabase", icon: "devicon-supabase-plain" },
-      { name: "Firebase / Firestore", icon: "devicon-firebase-plain" }
+      { name: "PostgreSQL", icon: "devicon-postgresql-plain", color: "#4169E1" },
+      { name: "MongoDB (Mongoose)", icon: "devicon-mongodb-plain", color: "#47A248" },
+      { name: "SQLite", icon: "devicon-sqlite-plain", color: "#003B57" },
+      { name: "Supabase", icon: "devicon-supabase-plain", color: "#3ECF8E" },
+      { name: "Firebase / Firestore", icon: "devicon-firebase-plain", color: "#FFCA28" }
     ]
   },
   {
@@ -92,16 +94,16 @@ export const skillCategories = [
     title: "Tools & DevOps",
     icon: "fa-solid fa-screwdriver-wrench",
     items: [
-      { name: "Git", icon: "devicon-git-plain" },
-      { name: "GitHub", icon: "devicon-github-plain" },
-      { name: "Docker", icon: "devicon-docker-plain" },
-      { name: "Netlify", icon: "devicon-netlify-plain" },
-      { name: "Vercel", icon: "devicon-vercel-plain" },
-      { name: "Railway", icon: "devicon-railway-plain" },
-      { name: "Streamlit", icon: "devicon-streamlit-plain" },
-      { name: "Arduino", icon: "devicon-arduino-plain" },
-      { name: "Linux", icon: "devicon-linux-plain" },
-      { name: "Piston", icon: "fa-solid fa-gears" }
+      { name: "Git", icon: "devicon-git-plain", color: "#F05032" },
+      { name: "GitHub", icon: "devicon-github-plain", color: "#FFFFFF" },
+      { name: "Docker", icon: "devicon-docker-plain", color: "#2496ED" },
+      { name: "Netlify", icon: "devicon-netlify-plain", color: "#00C7B7" },
+      { name: "Vercel", icon: "devicon-vercel-plain", color: "#FFFFFF" },
+      { name: "Railway", icon: "devicon-railway-plain", color: "#0B0D0E" },
+      { name: "Streamlit", icon: "devicon-streamlit-plain", color: "#FF4B4B" },
+      { name: "Arduino", icon: "devicon-arduino-plain", color: "#00979D" },
+      { name: "Linux", icon: "devicon-linux-plain", color: "#FCC624" },
+      { name: "Piston", icon: "fa-solid fa-gears", color: "#8A8A8A" }
     ]
   },
   {
@@ -110,14 +112,14 @@ export const skillCategories = [
     icon: "fa-solid fa-gears",
     live: true,
     items: [
-      { name: "n8n", icon: "fa-solid fa-diagram-project" },
-      { name: "Chatwoot", icon: "fa-solid fa-headset" },
-      { name: "WhatsApp Cloud API", icon: "fa-brands fa-whatsapp" },
-      { name: "AI Sales Agents", icon: "fa-solid fa-robot" },
-      { name: "Lead Collection", icon: "fa-solid fa-funnel-dollar" },
-      { name: "Webhooks", icon: "fa-solid fa-tower-broadcast" },
-      { name: "Google Sheets API", icon: "fa-solid fa-table-cells" },
-      { name: "Workflow Orchestration", icon: "fa-solid fa-sitemap" }
+      { name: "n8n", icon: "fa-solid fa-diagram-project", color: "#EA4B71" },
+      { name: "Chatwoot", icon: "fa-solid fa-headset", color: "#1F93FF" },
+      { name: "WhatsApp Cloud API", icon: "fa-brands fa-whatsapp", color: "#25D366" },
+      { name: "AI Sales Agents", icon: "fa-solid fa-robot", color: "#10A37F" },
+      { name: "Lead Collection", icon: "fa-solid fa-funnel-dollar", color: "#F0A070" },
+      { name: "Webhooks", icon: "fa-solid fa-tower-broadcast", color: "#7FA3A6" },
+      { name: "Google Sheets API", icon: "fa-solid fa-table-cells", color: "#0F9D58" },
+      { name: "Workflow Orchestration", icon: "fa-solid fa-sitemap", color: "#8F4726" }
     ]
   }
 ];
