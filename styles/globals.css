@@ -26,31 +26,31 @@
     --dur-slow: 0.9s;
     color-scheme: dark;
 
-    /* ---- Palette tokens (onyx/carbon-black base, mahogany/strawberry-red accents) ---- */
-    --bg: #0b090a;                  /* onyx */
-    --surface: #1f2427;             /* carbon-black, lightened for depth */
-    --surface-2: #261e21;           /* carbon-black, warm-lifted (same lightening as --surface) */
-    --rust: #a4161a;                /* mahogany-red - fills, borders, glows ONLY - never text */
-    --rust-2: #ba181b;              /* mahogany-red-2 - hover / gradient ends */
-    --accent: #ba181b;              /* mahogany-red-2 */
-    --accent-soft: #f2a9aa;         /* strawberry-red tint - readable accent text on dark bg */
-    --teal: #d3d3d3;                /* silver-chalice (secondary/cool accent) */
-    --teal-soft: #b1a7a6;           /* silver */
-    --text: #f5f3f4;                /* white-smoke */
-    --text-muted: #d3d3d3;          /* silver-chalice */
-    --text-dim: #b1a7a6;            /* silver */
-    --border: rgba(245, 243, 244, 0.08);
-    --border-accent: rgba(186, 24, 27, 0.35);
-    --accent-rgb: 186, 24, 27;
-    --accent-soft-rgb: 242, 169, 170;
-    --rust-rgb: 164, 22, 26;
-    --teal-rgb: 211, 211, 211;
-    --text-rgb: 245, 243, 244;
-    --surface-rgb: 31, 36, 39;
-    --surface-2-rgb: 38, 30, 33;
-    --gradient-button: linear-gradient(135deg, #a4161a, #ba181b);
-    --gradient-text: linear-gradient(90deg, #ba181b, #e5383b);
-    --gradient-accent: linear-gradient(90deg, #a4161a, #ba181b, #e5383b);
+    /* ---- Palette tokens (Subtle Elegance theme) ---- */
+    --bg: #020403;
+    --surface: #141413;
+    --surface-2: #1A2324;
+    --rust: #5F2E1B;          /* fills, borders, glows, gradient starts ONLY - never text */
+    --rust-2: #8F4726;        /* lighter rust for hover / gradient ends */
+    --accent: #D97B4A;
+    --accent-soft: #F0A070;
+    --teal: #7FA3A6;
+    --teal-soft: #9DB8BA;
+    --text: #E8E2DA;
+    --text-muted: #A8A29A;
+    --text-dim: #8A847C;
+    --border: rgba(232, 226, 218, 0.08);
+    --border-accent: rgba(217, 123, 74, 0.28);
+    --accent-rgb: 217, 123, 74;
+    --accent-soft-rgb: 240, 160, 112;
+    --rust-rgb: 95, 46, 27;
+    --teal-rgb: 127, 163, 166;
+    --text-rgb: 232, 226, 218;
+    --surface-rgb: 20, 20, 19;
+    --surface-2-rgb: 26, 35, 36;
+    --gradient-button: linear-gradient(135deg, #5F2E1B, #8F4726);
+    --gradient-text: linear-gradient(90deg, #D97B4A, #F0A070);
+    --gradient-accent: linear-gradient(90deg, #5F2E1B, #D97B4A, #7FA3A6);
 
     /* ---- Legacy variable names -> closest new token ---- */
     --primary: var(--accent);
@@ -504,7 +504,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding: 5.1rem 0 5rem;
+            padding: 5.5rem 0 5rem;
             position: relative;
             overflow: hidden;
         }
@@ -2755,15 +2755,20 @@
             font-size: 2.75rem !important;
             font-weight: 800 !important;
             text-align: center;
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 50%, var(--teal) 100%);
-            -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
             filter: drop-shadow(0 4px 12px rgba(var(--accent-rgb), 0.3));
             letter-spacing: -0.5px;
             position: relative;
             display: inline-block;
             margin-bottom: 0.75rem;
             transform: translateZ(0);
+        }
+
+        .st-word-first {
+             color: var(--text);
+        }
+
+        .st-word-rest {
+            color: var(--accent-soft);
         }
 
         /* ==========================================================================
@@ -2959,298 +2964,256 @@
             }
         }
 
-        /* ==========================================================================
-           About bio card v2  (about-v2-*)
-           Tokens only. Motion: one IntersectionObserver + passive scroll + pointermove in JS;
-           the border shimmer is CSS-only. prefers-reduced-motion shows everything instantly.
-           ========================================================================== */
+/* ==========================================================================
+   About bio card v3  (about-v3-*)  -  "HUD Scanner" style
+   Terminal-style header strip, animated corner brackets, diagonal scan-line
+   sweep, and a mouse-follow spotlight. No clip-path, no tilt.
+   ========================================================================== */
 
-        .about-v2-card {
-            --about-v2-p: 0;
-            --about-v2-rail-x: -1.9rem;
-            position: relative;
-            isolation: isolate;
-            overflow: hidden;
-            min-width: 0;
-            max-width: 100%;
-            text-align: left;
-            padding: 1.5rem 1.75rem 1.75rem 3.4rem;
-            border-radius: 20px;
-            background: rgba(var(--surface-rgb), 0.7);
-            -webkit-backdrop-filter: blur(14px);
-            backdrop-filter: blur(14px);
-            border: 1px solid var(--border-accent);
-            box-shadow: 0 24px 60px rgba(var(--rust-rgb), 0.35), 0 0 40px rgba(var(--rust-rgb), 0.18);
-        }
+.about-v3-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-width: 0;
+    max-width: 100%;
+    height: 100%;
+    text-align: left;
+    border-radius: 18px;
+    background: rgba(var(--surface-rgb), 0.85);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    box-shadow: 0 24px 60px rgba(var(--rust-rgb), 0.25), 0 0 40px rgba(var(--rust-rgb), 0.1);
+    transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+}
 
-        /* Slow border shimmer: a light band sweeps along a 1px ring (CSS only, 9s loop) */
-        .about-v2-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            padding: 1px;
-            border-radius: inherit;
-            pointer-events: none;
-            background: linear-gradient(115deg, transparent 35%, rgba(var(--accent-rgb), 0.7) 50%, transparent 65%) 0 0 / 250% 100%;
-            -webkit-mask: linear-gradient(var(--bg) 0 0) content-box, linear-gradient(var(--bg) 0 0);
-            -webkit-mask-composite: xor;
-            mask: linear-gradient(var(--bg) 0 0) content-box exclude, linear-gradient(var(--bg) 0 0);
-            animation: about-v2-shimmer 9s linear infinite;
-        }
+.about-v3-card:hover {
+    border-color: var(--border-accent);
+    box-shadow: 0 28px 70px rgba(var(--rust-rgb), 0.35), 0 0 50px rgba(var(--accent-rgb), 0.18);
+}
 
-        @keyframes about-v2-shimmer {
-            from { background-position: 150% 0; }
-            to { background-position: -50% 0; }
-        }
+/* ---- Terminal-style header strip ---- */
+.about-v3-header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.85rem 1.25rem;
+    background: rgba(var(--surface-2-rgb), 0.75);
+    border-bottom: 1px solid var(--border);
+    font-family: 'Fira Code', ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+}
 
-        /* Mouse-follow spotlight (position set from JS via --mx / --my) */
-        .about-v2-spot {
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity var(--dur-fast) var(--ease);
-            background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 30%), rgba(var(--accent-rgb), 0.14), transparent 65%);
-        }
+.about-v3-dots {
+    display: flex;
+    gap: 6px;
+}
 
-        .about-v2-card.is-spot .about-v2-spot {
-            opacity: 1;
-        }
+.about-v3-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    opacity: 0.4;
+}
 
-        @media (hover: none), (pointer: coarse) {
-            .about-v2-spot {
-                display: none;
-            }
-        }
+.about-v3-dot:nth-child(1) { background: var(--accent); opacity: 0.7; }
+.about-v3-dot:nth-child(2) { background: var(--teal); opacity: 0.55; }
 
-        .about-v2-head {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.5rem 1rem;
-            margin-bottom: 1.25rem;
-            font-family: 'Fira Code', ui-monospace, monospace;
-            font-size: 0.72rem;
-            letter-spacing: 0.08em;
-        }
+.about-v3-label {
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
 
-        .about-v2-label {
-            color: var(--text-muted);
-        }
+.about-v3-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--teal-soft);
+    text-transform: uppercase;
+}
 
-        .about-v2-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            color: var(--teal-soft);
-            text-transform: uppercase;
-        }
+.about-v3-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 8px rgba(var(--teal-rgb), 0.8);
+    animation: about-v3-blink 1.8s ease-in-out infinite;
+}
 
-        .about-v2-status::before {
-            content: '';
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--teal);
-            box-shadow: 0 0 10px rgba(var(--teal-rgb), 0.8);
-        }
+@keyframes about-v3-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+}
 
-        .about-v2-blocks {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 1.6rem;
-        }
+/* ---- Corner brackets (HUD/scanner look) ---- */
+.about-v3-bracket {
+    position: absolute;
+    z-index: 2;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(var(--accent-rgb), 0.35);
+    opacity: 0.6;
+    transition: opacity var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+    pointer-events: none;
+}
 
-        /* Left rail: track + fill that follows scroll progress (scaleY, GPU friendly) */
-        .about-v2-rail {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: var(--about-v2-rail-x);
-            width: 2px;
-            border-radius: 2px;
-            overflow: hidden;
-            background: rgba(var(--text-rgb), 0.1);
-        }
+.about-v3-card:hover .about-v3-bracket {
+    opacity: 1;
+    border-color: var(--accent);
+}
 
-        .about-v2-rail-fill {
-            position: absolute;
-            inset: 0;
-            transform-origin: top;
-            transform: scaleY(var(--about-v2-p, 0));
-            background: linear-gradient(180deg, var(--rust), var(--accent), var(--teal));
-        }
+.about-v3-bracket--tl { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
+.about-v3-bracket--br { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
 
-        /* Block: fades up and de-blurs once, when it enters the viewport */
-        .about-v2-block {
-            position: relative;
-            opacity: 0;
-            transform: translateY(18px);
-            filter: blur(6px);
-            transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease), filter var(--dur-base) var(--ease);
-        }
+/* ---- Diagonal scan-line sweep ---- */
+.about-v3-scanline {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
 
-        .about-v2-block.is-visible {
-            opacity: 1;
-            transform: none;
-            filter: none;
-        }
+.about-v3-scanline::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 40%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.08), transparent);
+    transform: rotate(12deg);
+    animation: about-v3-sweep 6s linear infinite;
+}
 
-        .about-v2-node {
-            position: absolute;
-            top: 0.4rem;
-            left: var(--about-v2-rail-x);
-            width: 10px;
-            height: 10px;
-            margin-left: -4px;
-            border-radius: 50%;
-            background: var(--surface-2);
-            border: 1px solid var(--border-accent);
-            transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
-        }
+@keyframes about-v3-sweep {
+    0% { left: -30%; }
+    100% { left: 130%; }
+}
 
-        .about-v2-node.is-lit {
-            background: var(--accent);
-            border-color: var(--accent-soft);
-            transform: scale(1.15);
-            box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.16), 0 0 14px rgba(var(--accent-rgb), 0.7);
-        }
+/* ---- Mouse-follow spotlight ---- */
+.about-v3-spot {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--dur-fast) var(--ease);
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 30%), rgba(var(--accent-rgb), 0.12), transparent 65%);
+}
 
-        .about-v2-index {
-            display: inline-flex;
-            align-items: center;
-            margin-bottom: 0.5rem;
-            padding: 0.1rem 0.6rem;
-            border: 1px solid var(--border-accent);
-            border-radius: 999px;
-            background: rgba(var(--rust-rgb), 0.25);
-            color: var(--accent-soft);
-            font-family: 'Fira Code', ui-monospace, monospace;
-            font-size: 0.72rem;
-            font-weight: 500;
-            line-height: 1.6;
-            letter-spacing: 0.08em;
-            opacity: 0;
-            transition: opacity var(--dur-base) var(--ease) 0.25s;
-        }
+.about-v3-card.is-spot .about-v3-spot {
+    opacity: 1;
+}
 
-        .about-v2-block.is-visible .about-v2-index {
-            opacity: 1;
-        }
+@media (hover: none), (pointer: coarse) {
+    .about-v3-spot {
+        display: none;
+    }
+}
 
-        .about-v2-text {
-            margin: 0;
-            color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.8;
-            overflow-wrap: break-word;
-        }
+/* ---- Body content ---- */
+.about-v3-body {
+    position: relative;
+    z-index: 2;
+    padding: 1.6rem 1.75rem 1.75rem;
+}
 
-        /* Keyword highlight: gradient underline sweeps 0 -> 100% after its block appears */
-        .about-v2-mark {
-            --mk: var(--accent-soft);
-            --mk-rgb: var(--accent-soft-rgb);
-            padding: 0 0.12em;
-            margin: 0 -0.12em;
-            border-radius: 3px;
-            color: var(--mk);
-            font-weight: 600;
-            background-color: transparent;
-            background-image: linear-gradient(90deg, rgba(var(--rust-rgb), 0.9), var(--mk));
-            background-repeat: no-repeat;
-            background-position: 0 100%;
-            background-size: 0% 2px;
-            -webkit-box-decoration-break: clone;
-            box-decoration-break: clone;
-            transition: background-size var(--dur-slow) var(--ease) calc(0.45s + var(--k, 0) * 110ms), text-shadow var(--dur-fast) var(--ease);
-        }
+.about-v3-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.35rem;
+}
 
-        .about-v2-mark--soft { --mk: var(--accent-soft); --mk-rgb: var(--accent-soft-rgb); }
-        .about-v2-mark--teal { --mk: var(--teal-soft); --mk-rgb: var(--teal-rgb); }
-        .about-v2-mark--accent { --mk: var(--accent); --mk-rgb: var(--accent-rgb); }
+.about-v3-text {
+    margin: 0;
+    color: rgba(var(--text-rgb), 0.88);
+    font-size: 1.02rem;
+    line-height: 1.75;
+    overflow-wrap: break-word;
+}
 
-        .about-v2-block.is-visible .about-v2-mark {
-            background-size: 100% 2px;
-        }
+/* Keyword highlight: same underline-sweep concept, kept for continuity */
+.about-v3-mark {
+    --mk: var(--accent-soft);
+    --mk-rgb: var(--accent-soft-rgb);
+    padding: 0 0.12em;
+    margin: 0 -0.12em;
+    border-radius: 3px;
+    color: var(--mk);
+    font-weight: 600;
+    background-color: transparent;
+    background-image: linear-gradient(90deg, rgba(var(--rust-rgb), 0.9), var(--mk));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 2px;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation: about-v3-underline var(--dur-slow) var(--ease) forwards;
+    animation-delay: calc(0.3s + var(--k, 0) * 110ms);
+    transition: text-shadow var(--dur-fast) var(--ease);
+}
 
-        .about-v2-mark:hover {
-            text-shadow: 0 0 14px rgba(var(--mk-rgb), 0.6);
-        }
+@keyframes about-v3-underline {
+    to { background-size: 100% 2px; }
+}
 
-        /* Mobile: thinner rail, tighter padding, no horizontal scroll */
-        @media (max-width: 640px) {
-            .about-v2-card {
-                --about-v2-rail-x: -1.2rem;
-                padding: 1.1rem 1rem 1.25rem 2.1rem;
-                border-radius: 16px;
-            }
+.about-v3-mark--soft { --mk: var(--accent-soft); --mk-rgb: var(--accent-soft-rgb); }
+.about-v3-mark--teal { --mk: var(--teal-soft); --mk-rgb: var(--teal-rgb); }
+.about-v3-mark--accent { --mk: var(--accent); --mk-rgb: var(--accent-rgb); }
 
-            .about-v2-rail {
-                width: 1px;
-            }
+.about-v3-mark:hover {
+    text-shadow: 0 0 14px rgba(var(--mk-rgb), 0.6);
+}
 
-            .about-v2-node {
-                width: 8px;
-                height: 8px;
-                margin-left: -3.5px;
-            }
+/* ---- Mobile ---- */
+@media (max-width: 640px) {
+    .about-v3-header {
+        padding: 0.7rem 1rem;
+    }
 
-            .about-v2-blocks {
-                gap: 1.25rem;
-            }
+    .about-v3-body {
+        padding: 1.25rem 1.25rem 1.5rem;
+    }
 
-            .about-v2-text {
-                font-size: 0.95rem;
-                line-height: 1.75;
-            }
-        }
+    .about-v3-blocks {
+        gap: 1.1rem;
+    }
 
-        /* Reduced motion: everything visible immediately, no shimmer, spotlight or transitions */
-        @media (prefers-reduced-motion: reduce) {
-            .about-v2-card::after {
-                animation: none;
-                opacity: 0;
-            }
+    .about-v3-text {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
 
-            .about-v2-spot {
-                display: none;
-            }
+    .about-v3-bracket {
+        width: 14px;
+        height: 14px;
+    }
+}
 
-            .about-v2-block {
-                opacity: 1;
-                transform: none;
-                filter: none;
-                transition: none;
-            }
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+    .about-v3-spot,
+    .about-v3-scanline {
+        display: none;
+    }
 
-            .about-v2-index {
-                opacity: 1;
-                transition: none;
-            }
+    .about-v3-status::before {
+        animation: none;
+    }
 
-            .about-v2-mark {
-                background-size: 100% 2px;
-                transition: none;
-            }
-
-            .about-v2-rail-fill {
-                transform: scaleY(1);
-            }
-
-            .about-v2-node {
-                background: var(--accent);
-                border-color: var(--accent-soft);
-                transition: none;
-            }
-        }
-
+    .about-v3-mark {
+        background-size: 100% 2px;
+        animation: none;
+    }
+}
         /* ==========================================================================
            Terminal output lines (TerminalWidget). Tokens only.
            The typing effect is CSS-only: each line is revealed left-to-right in steps,
@@ -5907,11 +5870,13 @@
 
         .skl-v4-stack.is-stacked {
             gap: 4rem;
+            padding-bottom: 30vh;
         }
 
         .skl-v4-item {
             position: relative;
             min-width: 0;
+
         }
 
         .skl-v4-stack.is-stacked .skl-v4-item {
@@ -6348,3 +6313,7 @@
                 transition: none;
             }
         }
+.st-heading-icon {
+    color: var(--teal) !important;
+    -webkit-text-fill-color:var(--accent) !important;
+}
