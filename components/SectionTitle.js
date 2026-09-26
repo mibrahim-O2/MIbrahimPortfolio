@@ -40,12 +40,17 @@ export default function SectionTitle({ icon, subtitle, title, titleIcon, descrip
         viewport={VIEW}
         animate={reduce ? 'show' : undefined}
       >
-        {icon && <i className={icon} style={{ marginRight: '0.5rem' }}></i>}
-        {titleIcon && <span className="education-title-icon"><i className={titleIcon}></i></span>}
+        {icon && <i className={`${icon} st-heading-icon`} style={{ marginRight: '0.5rem' }}></i>}
+        {titleIcon && <span className="education-title-icon"><i className={`${titleIcon} st-heading-icon`}></i></span>}
         {words.map((word, index) => (
           <span key={`${word}-${index}`}>
             <span className="st-mask">
-              <motion.span className="st-word" variants={wordVariants}>{word}</motion.span>
+        <motion.span
+             className={`st-word ${index === 0 ? 'st-word-first' : 'st-word-rest'}`}
+             variants={wordVariants}
+            >
+          {word}
+        </motion.span>
             </span>
             {index < words.length - 1 ? ' ' : null}
           </span>
