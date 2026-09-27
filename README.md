@@ -66,3 +66,30 @@
 <p align="center">
   <img src="https://capsule-render.vercel.app/api?type=rect&color=0:1a0505,50:8b0000,100:1a0505&height=4" width="100%"/>
 </p>
+
+<div align="center">
+
+# Muhammad Ibrahim
+
+**Full-Stack Developer · AI Integration Engineer**
+
+Building AI systems, optimization tools, and full-stack web applications.
+
+<br/>
+
+<img src="https://github.com/mibrahim-O2.png" width="150" style="border-radius:50%"/>
+
+<br/><br/>
+
+<a href="https://github.com/mibrahim-O2"><img src="https://img.shields.io/badge/GitHub-mibrahim--O2-141413?style=flat-square&logo=github&logoColor=D97B4A&labelColor=141413"></a>
+<a href="https://linkedin.com/in/muhammad-ibrahim-o2"><img src="https://img.shields.io/badge/LinkedIn-Connect-141413?style=flat-square&logo=linkedin&logoColor=D97B4A&labelColor=141413"></a>
+<a href="mailto:mibrahimkhalid306@gmail.com"><img src="https://img.shields.io/badge/Email-mibrahimkhalid306@gmail.com-141413?style=flat-square&logo=gmail&logoColor=D97B4A&labelColor=141413"></a>
+<a href="https://x.com/MIbraheem_02"><img src="https://img.shields.io/badge/X-@MIbraheem__02-141413?style=flat-square&logo=x&logoColor=F0A070&labelColor=141413"></a>
+
+<br/>
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:141413,50:D97B4A,100:141413&height=120&section=footer" width="100%"/>
+  <br/>
+  <sub>Built with Next.js, React, and a lot of ❤️ debugging — Muhammad Ibrahim © 2026</sub>
+</div>
