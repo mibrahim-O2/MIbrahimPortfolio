@@ -47,7 +47,7 @@ export default function ContactSection() {
                 </div>
                 <div className="contact-info-content">
                   <h3>Email</h3>
-                  <a href="mailto:mibrahimkhalid306@gmail.com">mibrahimkhalid306@gmail.com</a>
+                  <a href="mailto:mibrahimkhalid306@gmail.com">contact@mibrahimdev.tech</a>
                 </div>
               </div>
 
