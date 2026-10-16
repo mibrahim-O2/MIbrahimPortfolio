@@ -87,7 +87,7 @@ export default function FooterSection() {
             <h3 className="footer-heading">Contact Info</h3>
             <div className="footer-links">
               <a href="mailto:mibrahimkhalid306@gmail.com" className="footer-link">
-                <i className="fas fa-envelope"></i> mibrahimkhalid306@gmail.com
+                <i className="fas fa-envelope"></i> contact@mibrahimdev.tech
               </a>
               <a href="tel:+923242991303" className="footer-link">
                 <i className="fas fa-phone"></i> +92 324 2991303
