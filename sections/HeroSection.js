@@ -100,7 +100,7 @@ export default function HeroSection() {
               >
                 <i className="fab fa-linkedin-in"></i>
               </a>
-              <a href="mailto:mibrahimkhalid306@gmail.com" className="social-link" aria-label="Email">
+              <a href="mailto:contact@mibrahimdev.tech" className="social-link" aria-label="Email">
                 <i className="fas fa-envelope"></i>
               </a>
               <a href="tel:+923242991303" className="social-link" aria-label="Phone">
