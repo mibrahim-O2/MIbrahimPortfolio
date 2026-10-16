@@ -25,7 +25,7 @@ export const personalInfo = {
     },
     {
       name: "Email",
-      url: "mailto:mibrahimkhalid306@gmail.com",
+      url: "contact@mibrahimdev.tech",
       icon: "fas fa-envelope"
     },
     {
