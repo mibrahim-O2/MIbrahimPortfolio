@@ -6,7 +6,7 @@ export const personalInfo = {
   title: "Full-Stack & AI Integration Engineer",
   statusPill: "Open to Work: Full-Stack and AI Engineering Roles",
   avatarUrl: "https://github.com/mibrahim-O2.png?size=400",
-  location: "Sanghar, Pakistan",
+  location: "Pakistan",
   email: "contact@mibrahimdev.tech",
   phone: "+92 324 2991303",
   gpa: "3.6 CGPA",
