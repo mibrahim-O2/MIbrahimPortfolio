@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { personalInfo } from '@/data/personal';
-import { projectsData } from '@/data/projects';
+import { publishedProjects as projectsData } from '@/data/projects';
 import { experienceData } from '@/data/experience';
 import { educationData } from '@/data/education';
 import { skillsData, softSkills } from '@/data/skills';
@@ -132,7 +132,12 @@ export default function FloatingChatbot() {
 
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">$1</a>');
+    // Links: only http(s), mailto and tel URLs become <a> tags; anything else stays plain text
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, label, href) =>
+      /^(https?:|mailto:|tel:)/i.test(href) && !/["'\s]/.test(href)
+        ? `<a href="${href}" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;">${label}</a>`
+        : label
+    );
     html = html.replace(/\n/g, '<br>');
     return html;
   };

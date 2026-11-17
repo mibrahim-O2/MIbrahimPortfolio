@@ -16,16 +16,20 @@ export default function ContactSection() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (submitted) setSubmitted(false);
   };
 
+  // This site has no backend, so the form does not send anything by itself. It opens the visitor's
+  // email app with a ready-to-send message addressed to personalInfo.email (data/personal.js).
   const handleSubmit = (e) => {
     e.preventDefault();
+    const subject = formData.subject.trim() || 'Portfolio enquiry';
+    const body = `${formData.message.trim()}\n\n${formData.name.trim()}\n${formData.email.trim()}`;
+    window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 5000);
   };
+
+  const phoneHref = `tel:${personalInfo.phone.replace(/[^+\d]/g, '')}`;
 
   return (
     <section id="contact" className="section">
@@ -47,7 +51,7 @@ export default function ContactSection() {
                 </div>
                 <div className="contact-info-content">
                   <h3>Email</h3>
-                  <a href="mailto:mibrahimkhalid306@gmail.com">contact@mibrahimdev.tech</a>
+                  <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
                 </div>
               </div>
 
@@ -57,7 +61,7 @@ export default function ContactSection() {
                 </div>
                 <div className="contact-info-content">
                   <h3>Phone</h3>
-                  <a href="tel:+923242991303">+92 324 2991303</a>
+                  <a href={phoneHref}>{personalInfo.phone}</a>
                 </div>
               </div>
 
@@ -77,8 +81,10 @@ export default function ContactSection() {
             <div className="contact-form-container">
               <h3 className="contact-form-title">Send Me a Message</h3>
               {submitted && (
-                <div className="form-success" style={{ display: 'block' }}>
-                  <i className="fas fa-check-circle"></i> Thank you for your message! I'll get back to you soon.
+                <div className="form-success" style={{ display: 'block' }} role="status">
+                  <i className="fas fa-check-circle" aria-hidden="true"></i> Your email app should now be open with your
+                  message ready. Press send there to deliver it. If nothing opened, email me directly at{' '}
+                  <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>.
                 </div>
               )}
               <form id="contact-form" onSubmit={handleSubmit}>
@@ -93,6 +99,8 @@ export default function ContactSection() {
                       placeholder="Muhammad Ali"
                       value={formData.name}
                       onChange={handleChange}
+                      maxLength={100}
+                      autoComplete="name"
                       required
                     />
                   </div>
@@ -106,6 +114,8 @@ export default function ContactSection() {
                       placeholder="ali@example.com"
                       value={formData.email}
                       onChange={handleChange}
+                      maxLength={200}
+                      autoComplete="email"
                       required
                     />
                   </div>
@@ -120,6 +130,7 @@ export default function ContactSection() {
                     placeholder="How can I help you?"
                     value={formData.subject}
                     onChange={handleChange}
+                    maxLength={150}
                     required
                   />
                 </div>
@@ -132,11 +143,12 @@ export default function ContactSection() {
                     placeholder="Your message here..."
                     value={formData.message}
                     onChange={handleChange}
+                    maxLength={1500}
                     required
                   ></textarea>
                 </div>
                 <button type="submit" className="submit-btn">
-                  <i className="fas fa-paper-plane"></i> Send Message
+                  <i className="fas fa-paper-plane" aria-hidden="true"></i> Send via Email
                 </button>
               </form>
             </div>

@@ -3,17 +3,17 @@ import FooterSection from '@/sections/FooterSection';
 import ScrollToTop from '@/components/ScrollToTop';
 import Link from 'next/link';
 import ProjectMedia from '@/components/ProjectCover';
-import { projectsData } from '@/data/projects';
+import { publishedProjects } from '@/data/projects';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
-  return projectsData.map((project) => ({
+  return publishedProjects.map((project) => ({
     id: project.id
   }));
 }
 
 export default function ProjectDetailPage({ params }) {
-  const project = projectsData.find((p) => p.id === params.id);
+  const project = publishedProjects.find((p) => p.id === params.id);
 
   if (!project) {
     notFound();

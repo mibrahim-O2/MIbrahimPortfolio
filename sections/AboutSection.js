@@ -2,6 +2,7 @@ import SectionTitle from '@/components/SectionTitle';
 import TerminalWidget from '@/components/TerminalWidget';
 import AboutBioCard from '@/components/AboutBioCard';
 import FocusAreas from '@/components/FocusAreas';
+import { personalInfo } from '@/data/personal';
 
 export default function AboutSection() {
   return (
@@ -21,8 +22,8 @@ export default function AboutSection() {
           <div className="about-image-container" data-aos="clip-up">
             <div className="about-image-wrapper">
               <img
-                src="https://github.com/mibrahim-O2.png?size=400"
-                alt="Muhammad Ibrahim"
+                src={personalInfo.avatarUrl}
+                alt={personalInfo.name}
                 className="about-image"
               />
             </div>

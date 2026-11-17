@@ -4,14 +4,14 @@ import { useState } from 'react';
 import SectionTitle from '@/components/SectionTitle';
 import ProjectCard from '@/components/ProjectCard';
 import Reveal from '@/components/motion/Reveal';
-import { projectsData, projectCategories } from '@/data/projects';
+import { publishedProjects, projectCategories } from '@/data/projects';
 
 export default function ProjectsSection() {
   const [activeCategory, setActiveCategory] = useState('all');
 
   const filteredProjects = activeCategory === 'all'
-    ? projectsData
-    : projectsData.filter((p) => p.categories.includes(activeCategory));
+    ? publishedProjects
+    : publishedProjects.filter((p) => p.categories.includes(activeCategory));
 
   return (
     <section id="projects" className="projects-section">

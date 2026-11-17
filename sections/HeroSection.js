@@ -4,6 +4,12 @@ import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { personalInfo } from '@/data/personal';
 
+// Icons shown under the hero buttons, in this order (all come from personalInfo.socialLinks)
+const HERO_SOCIALS = ['GitHub', 'LinkedIn', 'Email', 'Phone'];
+const heroSocials = HERO_SOCIALS
+  .map((name) => personalInfo.socialLinks.find((social) => social.name === name))
+  .filter((social) => social && social.url && social.icon);
+
 export default function HeroSection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
@@ -82,30 +88,20 @@ export default function HeroSection() {
             </div>
 
             <div className="social-links" data-aos="rise-blur" data-aos-delay="350">
-              <a
-                href="https://github.com/mibrahim-O2"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                aria-label="GitHub"
-              >
-                <i className="fab fa-github"></i>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/muhammad-ibrahim-o2"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="social-link"
-                aria-label="LinkedIn"
-              >
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-              <a href="mailto:contact@mibrahimdev.tech" className="social-link" aria-label="Email">
-                <i className="fas fa-envelope"></i>
-              </a>
-              <a href="tel:+923242991303" className="social-link" aria-label="Phone">
-                <i className="fas fa-phone"></i>
-              </a>
+              {heroSocials.map((social) => {
+                const external = social.url.startsWith('http');
+                return (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    className="social-link"
+                    aria-label={social.name}
+                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    <i className={social.icon}></i>
+                  </a>
+                );
+              })}
             </div>
           </div>
 

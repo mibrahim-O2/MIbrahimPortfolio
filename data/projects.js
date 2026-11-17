@@ -2,6 +2,9 @@
 // `tags` is the tech stack. Empty demoUrl / videoUrl / githubUrl / image / heroBanner mean "not available":
 // the UI hides that button and shows a generated cover instead of a missing image.
 // `status` is "Live", "Completed" or "In progress". `categories` must match the filter labels below exactly.
+// `featured: true` marks the projects highlighted on the homepage (see docs/ADD-PROJECT.md).
+// `published: false` hides a project everywhere (lists, detail page, sitemap) without deleting its content.
+// Full guide: docs/ADD-PROJECT.md and docs/UPDATE-PROJECT.md
 export const projectCategories = [
   { key: 'all', label: 'All Projects' },
   { key: "AI & Machine Learning", label: "AI & Machine Learning" },
@@ -44,6 +47,8 @@ export const projectsData = [
     videoUrl: "",
     badge: "Solo Project",
     status: "Live",
+    featured: true,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "Coding platforms usually keep practice, grading, and assessment separate. Students can memorize fixed question banks or trust AI-generated answers that were never validated, and assessments offer little proof that the work was genuinely the learner's own.",
     solution: "NeuroCode brings adaptive learning, execution-verified problems, and integrity-aware assessment into one workflow. AI-generated problems are validated by running reference solutions in a sandbox before students see them, submissions are graded against real test cases, and successful learners receive credentials that anyone can verify online.",
@@ -97,6 +102,8 @@ export const projectsData = [
     videoUrl: "https://youtu.be/s-M_aoWDOkM",
     badge: "Self-Learning Project",
     status: "Live",
+    featured: true,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1635253548172-d82ffe76449d?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "Hiring is usually fragmented across application tracking, CV review, testing, and final decisions. Candidates lack a clear path from finding a job to being evaluated, and recruiters spend hours screening CVs by hand instead of focusing on the best applicants.",
     solution: "VerdexAI puts the whole hiring lifecycle in one platform. Candidates apply with a PDF CV that is parsed and scored by AI against the job requirements, HR ranks applicants by score, and job-specific assessments are generated automatically. Selected candidates move through interview and onboarding stages, and role-based access keeps candidate, HR, and admin actions separate.",
@@ -150,6 +157,8 @@ export const projectsData = [
     videoUrl: "",
     badge: "Final Year Project",
     status: "In progress",
+    featured: true,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1611302457661-d24c21494f2a?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "Academic scheduling at IMCS was done entirely by hand: class timetables, paper schedules, events, and seminars. The department runs three BS programs with morning and evening shifts, around 14 rooms, labs, and halls, and about 50 teachers, many of whom teach across programs. Avoiding teacher, room, and cross-program clashes manually was slow and error-prone.",
     solution: "An automated scheduling system where a genetic algorithm and Google OR-Tools generate timetables that respect hard constraints such as teacher and room availability, while soft preferences are scored through a weighted fitness function. Academic data lives in PostgreSQL, exposed through a FastAPI backend and a Next.js interface, and the same platform is being extended to paper timetables, events, and seminars.",
@@ -196,6 +205,8 @@ export const projectsData = [
     videoUrl: "https://www.youtube.com/watch?v=mhN8FOQ0iA8",
     badge: "Course Project",
     status: "Completed",
+    featured: false,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1516387938699-a93567ec168e?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "Students with the same quiz score can need very different help. Fixed curricula ignore response time, confidence, and prior performance, so a student who guessed correctly and one who truly understood the topic get the same next step. This project turns those learning signals into individual study recommendations.",
     solution: "The app takes quiz inputs and evaluates them with either a rule-based engine or a decision tree classifier. It returns a recommendation, the next topic, a practice count, and a revision flag, explains the reasoning behind each result, and compares both methods in a Streamlit dashboard.",
@@ -245,6 +256,8 @@ export const projectsData = [
     videoUrl: "",
     badge: "Family Business Project",
     status: "Live",
+    featured: true,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1573731281021-d1cc573b3310?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "A dairy farm deals with customer accounts, supplier purchases, employee salaries, and livestock records every day. When these are scattered across manual records or disconnected tools, billing errors creep in, payments are missed, and the owner cannot see the true financial picture of the business.",
     solution: "V2 is a rewrite of my 2025 Flask system into a typed full-stack application. A single dashboard manages customer ledgers, supplier purchases, payroll, and livestock, backed by PostgreSQL through Drizzle ORM with server-side money handling. Access is protected by Firebase session-based authentication, and invoices can be generated and shared straight from a phone.",
@@ -292,6 +305,8 @@ export const projectsData = [
     videoUrl: "",
     badge: "Personal Project",
     status: "Completed",
+    featured: false,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1709534486708-fb8f94150d0a?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "Personal spending usually ends up scattered across notes, bank apps, and memory, and money lent to other people is tracked informally. Without one consistent record, it is hard to see where money goes, whether monthly goals are being met, or who still owes what.",
     solution: "Finlytics brings transaction entry, category analysis, monthly goals, account balances, and debtor tracking into a single private app. A React frontend talks to Supabase for data, authentication, and Row-Level Security, while scheduled Edge Functions send daily reminders and monthly and annual reports by email.",
@@ -343,6 +358,8 @@ export const projectsData = [
     videoUrl: "",
     badge: "Solo Project",
     status: "Completed",
+    featured: false,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1517055729445-fa7d27394b48?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "Industrial equipment needs continuous monitoring of conditions such as temperature and pressure, and without a unified live view, threshold breaches are noticed late. Hardware-based projects are also hard to demonstrate online, because a cloud server has no physical device plugged into it.",
     solution: "PulseGrid combines an Arduino sensor layer with a MERN web dashboard. A Hybrid Detection Engine checks whether a physical Arduino is connected over USB, and if none is found it switches to a mathematically generated simulator. Both sources feed the same real-time pipeline into MongoDB and the React dashboard, so the system works identically with or without hardware.",
@@ -390,6 +407,8 @@ export const projectsData = [
     videoUrl: "",
     badge: "Client Work",
     status: "Completed",
+    featured: false,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1523473827533-2a64d0d36748?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "The farm handled customer milk billing manually every month. Repeated calculations, paper records, and manual reconciliation of totals and dues made the process slow and left room for arithmetic errors, and monthly reporting took longer than it should have.",
     solution: "A Flask web app stores voucher data in SQLite and gives the admin a dashboard for customers and monthly summaries. It calculates total milk, bill amounts, and outstanding dues automatically, and generates printable bilingual bills that can be saved as images and shared straight from a phone.",
@@ -435,6 +454,8 @@ export const projectsData = [
     videoUrl: "",
     badge: "Self-Learning Project",
     status: "Completed",
+    featured: false,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "Students and organizers need a simple way to list upcoming events and collect registrations without a heavy authentication setup. Managing sign-ups through forms or messages makes it easy to lose track of who registered and to accept the same person twice.",
     solution: "A lightweight Flask application renders events and processes registrations, with SQLite storing event and participant data. Jinja2 templates and Bootstrap provide a consistent interface, while server-side validation and flash messages keep the registration flow clear.",
@@ -481,6 +502,8 @@ export const projectsData = [
     videoUrl: "",
     badge: "Self-Learning Project",
     status: "Completed",
+    featured: false,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1613274554329-70f997f5789f?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "Small restaurants need a simple way to show their menu and keep track of customer orders and table bookings without a full enterprise system. This project explores how that workflow can be built end to end with a lightweight stack, keeping menu, order, and reservation data in one database.",
     solution: "A Flask application serves the menu and forms, records orders with automatically calculated totals, and stores reservations in SQLite. Jinja2 templates and Bootstrap provide a simple management interface, and the database is initialized and seeded with menu items on first run.",
@@ -526,6 +549,8 @@ export const projectsData = [
     videoUrl: "",
     badge: "Self-Learning Project",
     status: "Completed",
+    featured: false,
+    published: true,
     heroBanner: "https://images.unsplash.com/photo-1488272690691-2636704d6000?w=1600&h=900&fit=crop&auto=format&q=70",
     problemStatement: "Long URLs are hard to share, remember, and paste cleanly into messages and documents. This project explores how a lightweight link-shortening service works, from validating input to redirecting visitors, using a simple web stack.",
     solution: "The app accepts a long URL through a web form, validates it, and generates a unique random short code. The code and original URL are stored in SQLite, and the app returns a shareable short link. Opening that link triggers a Flask route that looks up the code and redirects to the original destination.",
@@ -551,3 +576,10 @@ export const projectsData = [
     results: "Built as a self-learning project to practice Flask, SQLite, and request validation fundamentals."
   }
 ];
+
+// Projects visible on the site. Every page and component reads these lists, never projectsData directly.
+// A project is visible unless it has `published: false`.
+export const publishedProjects = projectsData.filter((project) => project.published !== false);
+
+// Published projects marked `featured: true`, in the same order as above.
+export const featuredProjects = publishedProjects.filter((project) => project.featured === true);

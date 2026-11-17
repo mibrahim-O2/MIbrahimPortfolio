@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { personalInfo } from '@/data/personal';
 import { skillsData } from '@/data/skills';
-import { projectsData } from '@/data/projects';
+import { publishedProjects as projectsData } from '@/data/projects';
 import { aboutParagraphs } from '@/data/about';
 
 const TERMINAL_VERSION = "1.0.1";

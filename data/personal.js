@@ -25,7 +25,7 @@ export const personalInfo = {
     },
     {
       name: "Email",
-      url: "contact@mibrahimdev.tech",
+      url: "mailto:contact@mibrahimdev.tech",
       icon: "fas fa-envelope"
     },
     {
@@ -44,16 +44,5 @@ export const personalInfo = {
       url: "https://x.com/MIbraheem_02",
       icon: "" // no Font Awesome glyph in the loaded 6.4.0; rendered by components/XIcon.js
     }
-  ],
-  navLinks: [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Education", href: "#education" },
-    { label: "Experience", href: "#experience" },
-    { label: "Projects", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Volunteer", href: "#volunteer" },
-    { label: "Certificates", href: "#certificates" },
-    { label: "Contact", href: "#contact" }
   ]
 };

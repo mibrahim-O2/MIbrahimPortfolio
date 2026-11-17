@@ -1,11 +1,14 @@
-'use client';
-
 import Navbar from '@/components/Navbar';
 import ContactSection from '@/sections/ContactSection';
 import FooterSection from '@/sections/FooterSection';
 import ScrollToTop from '@/components/ScrollToTop';
 import SectionTitle from '@/components/SectionTitle';
 import { personalInfo } from '@/data/personal';
+
+export const metadata = {
+  title: 'Contact | Muhammad Ibrahim',
+  description: 'Get in touch with Muhammad Ibrahim for full-stack and AI engineering roles, projects, and collaborations.'
+};
 
 export default function ContactPage() {
   return (
