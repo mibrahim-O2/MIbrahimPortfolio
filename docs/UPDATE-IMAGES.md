@@ -7,19 +7,18 @@ available on the site as **`/logos/UOSlogo.png`**. You always **drop `public`** 
 
 | Folder | Used for | Referenced from |
 |---|---|---|
-| `public/images/projects/` | Project screenshots (create it with your first upload) | `image`, `heroBanner` in `data/projects.js` |
+| `public/images/projects/` | Project screenshots (`finlexpurple.webp` is already there) | `image`, `heroBanner` in `data/projects.js` |
 | `public/logos/` | Organisation logos and campus photos | `data/experience.js`, `data/education.js`, `data/certificates.js`, `data/volunteer.js` |
 | `public/certificates/` | Certificate images | `image` in `data/certificates.js` |
-| `public/gallery/` | Gallery photos (`/gallery` page, homepage marquee) | Found automatically, see [Gallery](#gallery-photos) |
+| `public/gallery/` | Gallery photos (`/gallery` page, About "Beyond code" card) | Found automatically, see [Gallery](#gallery-photos) |
 | `public/og-image.jpg` | Link preview image (WhatsApp, LinkedIn, X) | `app/layout.js` |
 | `public/favicon.png` | Browser tab icon | `app/layout.js` |
-| `public/IntroVideo.mp4` | Hero intro video (to be removed in the redesign) | `sections/HeroSection.js` |
 
 ## Recommended formats and sizes
 
 | Image | Format | Size (px) | Target file size |
 |---|---|---|---|
-| Project screenshot | WebP | 1600×1000 (16:10), landscape | ≤ 300 KB |
+| Project screenshot | WebP | **1200×630** or 2400×1260 (the exact shape of every project card) | ≤ 300 KB |
 | Logo | PNG (transparent) or WebP | 200×200 to 400×400, square | ≤ 50 KB |
 | Campus / banner photo | WebP | 1200×600 | ≤ 250 KB |
 | Certificate | WebP | ~1600 wide | ≤ 300 KB |
@@ -27,8 +26,9 @@ available on the site as **`/logos/UOSlogo.png`**. You always **drop `public`** 
 | Profile portrait | WebP | 800×800 or 800×1000 | ≤ 150 KB |
 | Open Graph image | **JPG** (LinkedIn doesn't render WebP) | exactly 1200×630 | ≤ 300 KB |
 
-Large images make the site slow on mobile data. Several logos in `public/logos/` are currently 1–2 MB and
-will be compressed during the redesign.
+Large images make the site slow on mobile data. Images shown with `next/image` (project screenshots, logos,
+campus photos, gallery highlights) are automatically resized and converted to WebP/AVIF by Vercel, but
+uploading reasonably small files still keeps the repository light.
 
 **Converting on a phone:** use a free web tool such as <https://squoosh.app> (choose WebP, quality ~75,
 resize) and save the result before uploading.
@@ -72,16 +72,19 @@ The gallery reads `public/gallery/` **at build time**:
    (`gala`, `exhibition`, `trip`, `lab`; anything else goes to "Moments").
 3. Add the exact file name to the `galleryFileNames` list in `utils/galleryLoader.js` (alphabetical).
    This list is the fallback the page shows first, so keep it in sync with the folder.
-4. Optional: to show it in the highlights (About section and homepage marquee), add its name without the
-   extension to `highlightOrder` in `data/gallery.js`. Tall photos must also be added to `portraitPhotos`.
+4. Optional: to show it in the highlights (the first four appear in the About section's "Beyond code" card,
+   and highlights come first on `/gallery`), add its name without the extension to `highlightOrder` in
+   `data/gallery.js`. Tall photos must also be added to `portraitPhotos`.
 
 To remove a gallery photo, delete the file and remove it from `galleryFileNames` (and `highlightOrder` /
 `portraitPhotos` if listed).
 
 ## External images
 
-A full `https://…` URL also works in data files (several projects still use `images.unsplash.com` stock
-photos, and the avatar comes from GitHub). Local files are preferred: they are faster and never disappear.
+A full `https://…` URL also works in data files, but for project images only from hosts listed in
+`images.remotePatterns` in `next.config.js` (currently `images.unsplash.com`). The profile photo
+(`avatarUrl`) can be any URL; it currently comes from GitHub. Local files are preferred: they are faster and
+never disappear.
 
 ## Common mistakes
 

@@ -6,11 +6,10 @@ It contains two lists:
 
 | Export | Shown where | Displayed by |
 |---|---|---|
-| `skillCategories` | Technical skills: homepage Skills section and `/skills` | `components/SkillsStack.js` → `components/SkillChip.js` |
-| `softSkills` | Soft skills: `/skills` page only | `components/SoftSkills.js` |
+| `skillCategories` | Technology stack: homepage "Technology stack" section and `/skills` | `sections/SkillsSection.js` |
+| `softSkills` | "Working strengths" cards on the `/skills` page only | `app/skills/page.js` |
 
-(`skillsData` at the bottom is just another name for `skillCategories`, used by the terminal and chatbot.
-Don't remove it.)
+(`skillsData` at the bottom is just another name for `skillCategories`, kept for compatibility.)
 
 ---
 
@@ -35,7 +34,7 @@ Each category is a card:
 | `id` | Unique internal name for the card |
 | `title` | Card heading |
 | `icon` | Font Awesome icon next to the heading |
-| `live` | Optional. `live: true` shows a small pulsing "active" dot next to the title (used on "Business Process Automation") |
+| `live` | Optional. `live: true` shows a small green "active" indicator next to the title (used on "Business Process Automation") |
 | `items` | The skill chips |
 
 Each skill chip:
@@ -44,7 +43,7 @@ Each skill chip:
 |---|---|
 | `name` | Technology name, official spelling (`"PostgreSQL"`, `"scikit-learn"`) |
 | `icon` | Icon class: a **Devicon** class or a **Font Awesome** class (see below) |
-| `color` | The technology's brand colour as a hex code, used for the icon |
+| `color` | The technology's brand colour as a hex code, used for the icon and the chip's hover glow |
 
 ### Add a skill
 
@@ -73,7 +72,8 @@ Cards are shown in array order.
    e.g. `fa-solid fa-database`, `fa-solid fa-gears`.
 3. Rule used in this file: **a card never repeats an icon**.
 4. Brand colours: search "<technology> brand color hex", or use the colour from the official logo.
-   Very dark colours (e.g. `#150458`) can be hard to see on the dark background, so pick a lighter shade if needed.
+   Icons are brightened slightly so dark brand colours stay visible, but very dark colours (e.g. `#150458`) may
+   still look dim, so pick a lighter shade if needed.
 
 If an icon class is wrong, the chip just shows an empty tile. Check the Preview.
 
@@ -97,7 +97,7 @@ example.
 
 ## Related content
 
-- The "focus areas" cards in the About section are in `data/focusAreas.js`, see [UPDATE-PROFILE.md](./UPDATE-PROFILE.md).
+- The Technical Expertise cards are in `data/focusAreas.js`, see [UPDATE-PROFILE.md](./UPDATE-PROFILE.md).
 - Project technology tags are separate and live in each project's `tags` in `data/projects.js`.
 
 ## Common mistakes

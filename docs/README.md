@@ -20,9 +20,9 @@ then merge it into `main`.
 | Education | `data/education.js` | [ADD-EDUCATION.md](./ADD-EDUCATION.md) |
 | Certifications | `data/certificates.js` | [ADD-CERTIFICATION.md](./ADD-CERTIFICATION.md) |
 | Technical skills and soft skills | `data/skills.js` | [UPDATE-SKILLS.md](./UPDATE-SKILLS.md) |
-| Name, headline, email, phone, location, social links | `data/personal.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
+| Name, hero headline and intro, email, phone, location, social links, résumé link | `data/personal.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
 | About text | `data/about.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
-| Focus areas (expertise cards) | `data/focusAreas.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
+| Technical Expertise cards | `data/focusAreas.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
 | Volunteer work | `data/volunteer.js` | [PROJECT-STRUCTURE.md](./PROJECT-STRUCTURE.md) |
 | Gallery photos and categories | `public/gallery/`, `data/gallery.js`, `utils/galleryLoader.js` | [UPDATE-IMAGES.md](./UPDATE-IMAGES.md) |
 | Any image (screenshots, logos, certificates) | `public/…` | [UPDATE-IMAGES.md](./UPDATE-IMAGES.md) |
@@ -83,8 +83,12 @@ A good request names: **the guide**, **the exact content**, **what must not chan
 
 ---
 
-## Note about the redesign
+## Design rules
 
-The site is being redesigned in phases (design system, new homepage, polish). Data files keep the same
-shape throughout. When a phase changes how something is displayed, the matching guide is updated in the
-same pull request, so these docs always describe the code on `main`.
+Colours, fonts and shared styles are defined once in `styles/globals.css` (see
+[PROJECT-STRUCTURE.md](./PROJECT-STRUCTURE.md#design-system)). Copper `#D97B4A` is the only accent colour.
+When asking for visual changes, ask the agent to reuse the existing tokens and classes rather than adding new
+colours or fonts.
+
+When code changes how something is displayed, the matching guide is updated in the same pull request, so
+these docs always describe the code on `main`.

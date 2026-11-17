@@ -9,6 +9,7 @@ Current project ids, in display order:
 
 | id | Title | Featured |
 |---|---|---|
+| `finlexpurple` | FinLexPurple | ✅ (lead) |
 | `neurocode` | NeuroCode | ✅ |
 | `verdexai` | VerdexAI | ✅ |
 | `imcs-scheduler` | IMCS Scheduler | ✅ |
@@ -66,18 +67,28 @@ item**:
     demoUrl: "https://new-demo-url.vercel.app/",
     githubUrl: "https://github.com/mibrahim-O2/repo-name",
     videoUrl: "",
+    videoLabel: "Watch it run",   // optional button text for the video
+    links: [
+      { label: "PyPI", url: "https://pypi.org/project/name/", icon: "fab fa-python" },
+      { label: "Blog post", url: "", icon: "fas fa-pen-nib" }   // empty url = hidden placeholder
+    ],
 ```
 
 `""` hides a button. Always use full `https://` URLs.
 
+**Example: add the FinLexPurple terminal recording.** In the `finlexpurple` project, replace
+`videoUrl: "",` with `videoUrl: "https://…your-video-link…",`. The "Watch it run" button appears on the
+cards and the case study page. For the blog post, put its URL in the `Blog post` entry of `links`.
+
 ## Feature or unfeature
 
 ```js
-    featured: true,    // highlighted project
-    featured: false,   // normal project
+    featured: true,    // shown in the homepage Featured projects section
+    featured: false,   // archive only (/projects)
 ```
 
-Keep 3–4 featured projects in total.
+The first featured project in the file is the large lead card. 3 or 5 featured projects give the neatest
+layout (see [ADD-PROJECT.md](./ADD-PROJECT.md#featured-projects)).
 
 ## Hide (unpublish) a project without deleting it
 
@@ -85,8 +96,8 @@ Keep 3–4 featured projects in total.
     published: false,
 ```
 
-The project disappears from the cards, the terminal and chatbot, and the sitemap, and `/projects/<id>` shows the
-404 page. Set it back to `true` to restore it.
+The project disappears from the homepage, the archive and the sitemap, and `/projects/<id>` shows the 404
+page. Set it back to `true` to restore it.
 
 ## Remove a project permanently
 

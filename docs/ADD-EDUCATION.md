@@ -1,7 +1,7 @@
 # Add or Update Education
 
 **File to edit:** `data/education.js`
-**Displayed by:** `components/EducationTimeline.js` (homepage Education section and `/education`)
+**Displayed by:** `sections/EducationSection.js` (homepage "Education & certifications" section and `/education`)
 
 Each school, degree or program is one object in the `educationData` array, **newest first**.
 
@@ -37,16 +37,16 @@ Each school, degree or program is one object in the `educationData` array, **new
 |---|---|---|
 | `id` | Unique internal name | `"bscs"` |
 | `period` | Years shown on the card | `"2023 – 2027"` |
-| `status` | **Optional.** Shows a pulsing badge with this text. Remove the line when finished. | `"In progress"` |
+| `status` | **Optional.** Shows a status pill on the card and marks it as "Studying" in the About section's quick facts. Remove the line when finished. | `"In progress"` |
 | `degree` | Small label above the title | `"BSCS"`, `"FSc Pre-Engineering"` |
-| `short` | Short label. **Not displayed by the current timeline**, kept for compatibility. | `"BSCS"` |
+| `short` | Short label. **Not displayed**, kept for compatibility. | `"BSCS"` |
 | `title` | Main heading | `"Bachelor of Science in Computer Science"` |
 | `institutionName` | Institution under the title | `"IMCS, University of Sindh"` |
 | `chip` | Small location/board chip with a pin icon | `"Jamshoro, Sindh"`, `"BISE Nawabshah"` |
-| `campusImage` | Banner image at the top of the card | `"/logos/UOSimage.webp"` |
+| `campusImage` | Banner image at the top of the card (shown dimmed behind the logos) | `"/logos/UOSimage.webp"` |
 | `logos` | 1 or 2 logos shown left to right. Each needs `src` and `alt`. | UoS + IMCS logos |
 | `summary` | Paragraph describing the institution/program | |
-| `metas` | Small info tiles: `{ label, value }`. **A value like `"94%"` or `"82.6%"` animates as a counting number**; any other value is shown as text. | `{ label: "Result", value: "94%" }` |
+| `metas` | Label/value rows at the bottom of the card: `{ label, value }`. | `{ label: "Result", value: "94%" }` |
 
 ## Images
 
@@ -74,8 +74,7 @@ Delete its whole `{ … },` block and check that the array still ends with `];`.
 |---|---|
 | `logos: { src: … }` (object instead of list) | Page crashes. `logos` must be a list `[ … ]`, even with one logo. |
 | `metas` missing | Card crashes. Use `metas: []` if you have none. |
-| `"94 %"` (with a space) | Shown as plain text instead of counting up |
-| Wrong order | The timeline is displayed in array order, so keep newest first |
+| Wrong order | Cards are displayed in array order, so keep newest first |
 
 ## Prompt for an AI agent
 

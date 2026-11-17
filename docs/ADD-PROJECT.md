@@ -4,10 +4,10 @@
 
 Every project is one object inside the `projectsData` array. Adding an object automatically gives you:
 
-- a card in the Projects section on the homepage and on `/projects`
-- a detail page at `/projects/<id>` (case study)
+- a card in the project archive at `/projects` (with category filters)
+- a large card in the homepage **Featured projects** section, if `featured: true`
+- a case study page at `/projects/<id>`
 - an entry in `sitemap.xml`
-- an entry in the homepage terminal widget and chatbot answers
 
 ---
 
@@ -31,6 +31,7 @@ Every project is one object inside the `projectsData` array. Adding an object au
     title: "My New Project",
     subtitle: "One short sentence about what it does for the user.",
     description: "Two or three sentences shown on the project card. Say what it is, who it is for and what makes it interesting.",
+    highlight: "",
     image: "/images/projects/my-new-project.webp",
     tags: [
       "Next.js",
@@ -43,6 +44,7 @@ Every project is one object inside the `projectsData` array. Adding an object au
     demoUrl: "https://my-new-project.vercel.app/",
     githubUrl: "https://github.com/mibrahim-O2/my-new-project",
     videoUrl: "",
+    links: [],
     badge: "Solo Project",
     status: "Live",
     featured: false,
@@ -65,53 +67,76 @@ Every project is one object inside the `projectsData` array. Adding an object au
   },
 ```
 
+The first project in the file, **FinLexPurple** (`id: "finlexpurple"`), is a complete real example that uses
+every field, including the optional ones.
+
 ---
 
 ## Every field explained
 
-### Shown on the project card (homepage and `/projects`)
+### Shown on cards (homepage and `/projects`)
 
 | Field | Required | What it does | Example from this repo |
 |---|---|---|---|
-| `id` | **Yes** | Unique name used in the URL: `/projects/<id>`. Lowercase, words joined by `-`, no spaces. **Never reuse an id.** Changing it later breaks old links. | `"imcs-scheduler"` |
-| `title` | **Yes** | Project name on the card and detail page. | `"IMCS Scheduler"` |
-| `description` | **Yes** | The text on the card. 1–3 sentences. | NeuroCode's description |
-| `image` | No | Card image. A path in `public/` (starts with `/`) or a full `https://` URL. If empty or broken, a generated cover with an icon and the title is shown instead, so you never get a broken image. | `""` or `"/images/projects/neurocode.webp"` |
-| `tags` | **Yes** | Technology stack. The card shows the **first 6** and "+N more"; the detail page shows all. Put the most important first. | `["React", "FastAPI", …]` |
-| `categories` | **Yes** | Which filter buttons the project appears under. **Must match a `key` in `projectCategories` exactly** (same spelling and capitals). | `["AI & Machine Learning", "Web & Full-Stack"]` |
-| `status` | No | Small pill on the card. Use exactly `"Live"`, `"Completed"` or `"In progress"`. | `"Live"` |
-| `demoUrl` | No | Live site. Shows a **Demo** button. `""` hides it. | `"https://verdexai-official.vercel.app/"` |
-| `videoUrl` | No | Video walkthrough. On the card a **Video** button appears **only when there is no `demoUrl`**. The detail page always shows it. | `"https://youtu.be/s-M_aoWDOkM"` |
-| `githubUrl` | No | Repository. Shows a **GitHub** button. `""` hides it (e.g. private repo). | `"https://github.com/mibrahim-O2/PulseGrid"` |
-| `featured` | **Yes** | `true` = one of the highlighted projects. See [Featured projects](#featured-projects). | `true` |
-| `published` | **Yes** | `true` = visible. `false` = hidden everywhere (cards, detail page, sitemap) but the content stays in the file. | `true` |
+| `id` | **Yes** | Unique name used in the URL: `/projects/<id>`. Lowercase, words joined by `-`, no spaces. **Never reuse an id.** Changing it later breaks shared links. | `"imcs-scheduler"` |
+| `title` | **Yes** | Project name. | `"IMCS Scheduler"` |
+| `description` | **Yes** | Main text on featured cards. 1–3 sentences. | FinLexPurple's description |
+| `subtitle` | **Yes** | One line. Used on the compact archive cards and under the title on the case study page. | `"An open-source security agent for financial apps…"` |
+| `highlight` | No | One short line shown in a monospace font on featured cards and the case study page. Good for "Open source · v0.4.0 on PyPI"-style facts. `""` = hidden. | FinLexPurple's highlight |
+| `image` | No | Card image. A path in `public/` (starts with `/`) or a full `https://` URL. If empty or broken, a generated cover with an icon and the title is shown instead, so you never get a broken image. | `"/images/projects/finlexpurple.webp"` |
+| `tags` | **Yes** | Technology stack. Cards show the first few (8 on the lead card, 5 on featured cards, 4 in the archive) plus "+N"; the case study page shows all. Put the most important first. | `["Python", "Sigstore", …]` |
+| `categories` | **Yes** | Which archive filter buttons the project appears under. **Must match a `key` in `projectCategories` exactly.** | `["Security", "AI & Machine Learning"]` |
+| `badge` | No | Small label next to the card number, e.g. `"Solo Project"`, `"Client Project"`, `"Solo Project · Open Source"`. | |
+| `status` | No | Status pill. Use exactly `"Live"`, `"Completed"` or `"In progress"`. | `"Live"` |
+| `featured` | **Yes** | `true` = shown in the homepage Featured projects section. See [Featured projects](#featured-projects). | `true` |
+| `published` | **Yes** | `true` = visible. `false` = hidden everywhere (cards, case study page, sitemap), but the content stays in the file. | `true` |
 
-### Shown only on the detail page (`/projects/<id>`)
+### Buttons
 
-| Field | What it does |
+Buttons appear only for fields that have a URL. An empty `""` never shows a button.
+
+| Field | Button | Notes |
+|---|---|---|
+| (always) | **Case study** | Opens `/projects/<id>` |
+| `demoUrl` | **Live demo** | Leave `""` when there is no hosted demo |
+| `githubUrl` | **GitHub** | Leave `""` for private repositories |
+| `videoUrl` | **Watch video** | The text can be changed with `videoLabel`, e.g. `videoLabel: "Watch it run"` |
+| `links` | Extra buttons | A list of `{ label, url, icon }`, e.g. `{ label: "PyPI", url: "https://pypi.org/project/finlexpurple/", icon: "fab fa-python" }`. `icon` is a Font Awesome class (optional). An entry with `url: ""` is hidden, so you can keep placeholders. |
+
+Featured cards show **Case study + the first 2 external buttons** (the lead card shows all); the case study page
+shows all of them.
+
+**Placeholders:** to prepare a button for something that doesn't exist yet, keep its URL empty, e.g.
+`videoUrl: ""` with `videoLabel: "Watch it run"`, or `{ label: "Blog post", url: "", icon: "fas fa-pen-nib" }`.
+The button appears automatically once you paste in the URL.
+
+### Shown only on the case study page (`/projects/<id>`)
+
+| Field | Section on the page |
 |---|---|
-| `subtitle` | Line under the title on the detail page (and in chatbot answers). |
-| `heroBanner` | Large image at the top of the detail page. Can be the same file as `image`. Empty = generated cover. |
-| `badge` | Small label above the title, e.g. `"Solo Project"`, `"Team Project"`, `"Client Project"`. Empty shows "Project Showcase". |
-| `problemStatement` | "Problem Statement" paragraph. |
-| `solution` | "Proposed Solution" paragraph. |
-| `features` | "Key Features" list (one sentence each). |
-| `architectureDiagram` | "System Architecture Flow": one line, with `->` between layers. |
-| `challenges` | "Engineering Challenges" list: real problems and how you solved them. |
-| `lessonsLearned` | "Lessons Learned" list. |
-| `results` | "Results" paragraph (hidden when empty). **Only real facts, no invented numbers.** |
+| `heroBanner` | Large image under the title. Can be the same file as `image`. Empty = uses `image`, then the generated cover. |
+| `problemStatement` | "The problem" card |
+| `solution` | "The solution" card |
+| `features` | "Key features" numbered list (one item per feature) |
+| `architectureDiagram` | "Architecture": one line with `->` between steps; each step becomes a numbered box |
+| `challenges` | "Engineering challenges" list |
+| `lessonsLearned` | "Lessons learned" list |
+| `results` | "Results" paragraph. **Only real facts, no invented numbers.** |
+
+Any of these left empty (`""` or `[]`) is simply not shown.
 
 ---
 
 ## Categories (filter buttons)
 
-The filter buttons come from `projectCategories` at the top of `data/projects.js`:
+The filter buttons on `/projects` come from `projectCategories` at the top of `data/projects.js`:
 
 ```js
 export const projectCategories = [
   { key: 'all', label: 'All Projects' },
   { key: "AI & Machine Learning", label: "AI & Machine Learning" },
   { key: "Web & Full-Stack", label: "Web & Full-Stack" },
+  { key: "Security", label: "Security" },
   { key: "Optimization", label: "Optimization" },
   { key: "Freelance & Client", label: "Freelance & Client" },
   { key: "Personal", label: "Personal" }
@@ -119,54 +144,59 @@ export const projectCategories = [
 ```
 
 - A project can have several categories.
-- Every value in a project's `categories` must be **exactly** one of these keys. `"AI & ML"` would not match.
-- To add a new category, add a line `{ key: "Mobile Apps", label: "Mobile Apps" },` to this list. Keep `'all'` first.
+- Every value in a project's `categories` must be **exactly** one of these keys.
+- A category with no published projects is hidden automatically.
+- To add a category, add a line like `{ key: "Mobile Apps", label: "Mobile Apps" },`. Keep `'all'` first.
 
 ## Technology tags
 
-- Use the official spelling: `"Next.js"`, `"PostgreSQL"`, `"Tailwind CSS"`, `"scikit-learn"`.
-- Most important first, because only the first 6 appear on the card.
-- Tags are plain text. No icons are needed.
+Use official spelling (`"Next.js"`, `"PostgreSQL"`, `"Tailwind CSS"`). Most important first. Tags are plain text.
 
 ## Featured projects
 
-`featured: true` marks a project as one of the highlighted projects. The current featured projects are:
-**NeuroCode, VerdexAI, IMCS Scheduler, Bin Khalid Dairy Farm V2**.
+`featured: true` puts a project in the homepage **Featured projects** section:
 
-- The list is available to the code as `featuredProjects` (exported at the bottom of `data/projects.js`).
-  It keeps the same order as `projectsData`.
-- Keep **3 or 4** featured projects. Too many and none of them stand out.
-- The redesigned homepage (Phase 2) shows these as large featured cards. Until then all published
-  projects are shown in array order, so put featured projects first.
+- The **first** featured project (in array order) becomes the large lead card with the full-width screenshot.
+  Currently that is **FinLexPurple**, your top project.
+- The other featured projects appear in a two-column grid below it.
+- Current featured projects: FinLexPurple, NeuroCode, VerdexAI, IMCS Scheduler, Bin Khalid Dairy Farm V2.
+- An **odd** number of featured projects (lead + an even number in the grid) gives the neatest layout:
+  3 or 5 is ideal.
+- The first featured project is also shown in the hero's "Featured project" chip.
+
+To change which project leads, move its block to the top of `projectsData` (or above the other featured ones).
 
 ## Project ordering
 
-Order on the site = order of objects in `projectsData`. To move a project, cut its whole `{ … },` block and
+Order everywhere = order of objects in `projectsData`. To move a project, cut its whole `{ … },` block and
 paste it in the new position. Check the commas between blocks afterwards.
 
-## Detail pages
+## Case study pages
 
-You don't create detail pages by hand. `app/projects/[id]/page.js` builds one page per published project at
-build time, using the `id` as the URL. After deploying, open `https://<your-site>/projects/<id>` to check it.
+You don't create them by hand. `app/projects/[id]/page.js` builds one page per published project at build
+time, with "Previous / Next project" links at the bottom. After deploying, open `/projects/<id>` to check it.
 
 ## Screenshots
 
-1. Take or export a screenshot. A **16:10 landscape** image (e.g. **1600×1000**) looks best.
-2. Convert it to **WebP**, under ~300 KB if possible (see [UPDATE-IMAGES.md](./UPDATE-IMAGES.md)).
+1. Use a **1200×630** (or 2400×1260) landscape image. Every project card and case study uses this exact
+   shape, so nothing gets cropped. (It is also the standard link-preview size, so an Open Graph image like
+   FinLexPurple's works perfectly.)
+2. Save it as **WebP** (or PNG/JPG), ideally under ~300 KB (see [UPDATE-IMAGES.md](./UPDATE-IMAGES.md)).
+   The site automatically serves smaller, optimised versions to phones.
 3. Name it after the project id: `my-new-project.webp`.
-4. Upload it to **`public/images/projects/`** (create the folder the first time; GitHub's
-   "Add file → Upload files" lets you type the folder path).
-5. Reference it as `image: "/images/projects/my-new-project.webp"` (note: **no** `public` in the path).
+4. Upload it to **`public/images/projects/`**.
+5. Reference it as `image: "/images/projects/my-new-project.webp"` (no `public` in the path), and usually the
+   same for `heroBanner`.
 
-Several existing projects still use stock photos from `images.unsplash.com`. Replacing them with real
-screenshots is the single biggest improvement you can make.
+Several older projects still use stock photos from `images.unsplash.com`. Replacing them with real
+screenshots is the single biggest improvement you can make. Other remote image hosts must be added to
+`images.remotePatterns` in `next.config.js` before they work; local files never need that.
 
 ## Project icon (optional)
 
-When a project has no image, the generated cover shows an icon. Icons per project id are listed in
-`COVER_ICONS` in `components/ProjectCover.js`. A new project automatically gets a code icon (`fa-code`).
-To give it a specific Font Awesome icon, add a line there, e.g. `'my-new-project': 'fa-solid fa-robot',`.
-That is the only component change ever needed for a project.
+When a project has no image, the generated cover shows an icon from `COVER_ICONS` in
+`components/ProjectCover.js`. A new project automatically gets a code icon. To pick one, add a line there,
+e.g. `'my-new-project': 'fa-solid fa-robot',`. That is the only component change ever needed for a project.
 
 ---
 
@@ -175,12 +205,13 @@ That is the only component change ever needed for a project.
 | Mistake | Result | Fix |
 |---|---|---|
 | Missing comma between two project blocks | Build fails, nothing deploys | Every `}` before the next `{` needs `},` |
-| Duplicate `id` | The second project's detail page shows the wrong project | Make every id unique |
+| Duplicate `id` | Wrong case study page | Make every id unique |
 | `categories: ["Web"]` | Project never appears under a filter | Copy the exact key from `projectCategories` |
-| `image: "public/images/projects/x.webp"` | Broken image (falls back to cover) | Remove `public`: `/images/projects/x.webp` |
-| `Image.webp` on disk, `image.webp` in code | Works on your phone preview cache, breaks on Vercel | Match upper/lower case exactly |
-| Deleting a field you don't need | May break the detail page | Keep it as `""` or `[]` |
-| Invented metrics ("used by 10k users") | Damages credibility | Only real, verifiable facts |
+| `image: "public/images/projects/x.webp"` | Generated cover instead of the image | Remove `public`: `/images/projects/x.webp` |
+| `Image.webp` on disk, `image.webp` in code | Broken on Vercel | Match upper/lower case exactly |
+| Image from a new website (not Unsplash) | Fails to load | Upload it to `public/images/projects/` instead |
+| Deleting a field you don't need | May break the page | Keep it as `""` or `[]` |
+| Invented metrics | Damages credibility | Only real, verifiable facts |
 
 ## Prompt for an AI agent
 
@@ -188,14 +219,14 @@ That is the only component change ever needed for a project.
 Read docs/ADD-PROJECT.md and add a new project to data/projects.js using the existing structure.
 Place it after <project title>. Do not modify unrelated components.
 Details:
-- title: …
-- description: …
+- title / subtitle / description: …
+- highlight line (optional): …
 - tech: …
 - categories: …
-- demo: … / GitHub: … / video: …
+- demo: … / GitHub: … / video: … / extra links: …
 - status: Live | Completed | In progress
 - featured: yes/no
 - screenshot: public/images/projects/<id>.webp (already uploaded) or none
-- case study: problem, solution, features, challenges, lessons, results: …
+- case study: problem, solution, features, architecture, challenges, lessons, results: …
 Work on a new branch, run the build, and give me the Vercel Preview URL.
 ```

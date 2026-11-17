@@ -1,7 +1,7 @@
 # Add a Certification
 
 **File to edit:** `data/certificates.js`
-**Displayed by:** `components/CertificateWall.js` (homepage Certificates section and `/certificates`)
+**Displayed by:** `sections/EducationSection.js` (the certifications list in the homepage "Education & certifications" section, and `/certificates`)
 
 Each certificate is one object in the `certificatesData` array, **newest first**.
 
@@ -36,12 +36,12 @@ Each certificate is one object in the `certificatesData` array, **newest first**
 | `issuerVia` | Platform it was taken on, shown as a small "via" chip. `null` when none. | `"Coursera"` |
 | `date` | Date text as shown | `"Jul 2026"` |
 | `topics` | One-sentence summary of what it covers | |
-| `credentialUrl` | **Public verification link.** Shows a **"View Credential"** button. `""` = no button. | Coursera share link |
-| `credentialText` | Certificate number or ID shown in a small mono chip. `""` = hidden. | `"Certificate No. 2026050256619"` |
-| `image` | Image of the certificate. Shows a **"View Certificate"** button that opens it full-screen. `""` = no button. | `"/certificates/piaic-certificate.webp"` |
+| `credentialUrl` | **Public verification link.** Shows a **"View credential"** button. `""` = no button. | Coursera share link |
+| `credentialText` | Certificate number or verification note, shown in small mono text under the issuer. `""` = hidden. | `"Certificate No. 2026050256619"` |
+| `image` | Image of the certificate. Shows a **"View certificate"** button that opens it full-screen. `""` = no button. | `"/certificates/piaic-certificate.webp"` |
 | `logo` | Issuer logo | `"/logos/google-logo.jpg"` |
-| `viaLogo` | Platform logo (only shown when `issuerVia` is set) | `"/logos/coursera-logo.jpg"` |
-| `category` | `"AI/ML"` (highlighted chip) or `"Other"` | `"AI/ML"` |
+| `viaLogo` | Platform logo. **Not displayed** by the current design (kept for compatibility) | `"/logos/coursera-logo.jpg"` |
+| `category` | `"AI/ML"` or `"Other"`. **Not displayed** by the current design (kept for grouping later) | `"AI/ML"` |
 
 ## Verification links
 
@@ -72,7 +72,6 @@ Square, ~200×200, PNG/WebP/JPG, in `public/logos/`. Reuse existing ones when po
 | Mistake | Result |
 |---|---|
 | `issuerVia: ""` with a `viaLogo` | Prefer `null` and `viaLogo: ""` when there's no platform |
-| `category: "AI"` | Not highlighted. Use exactly `"AI/ML"` or `"Other"` |
 | Private/login-only verification link | Visitors can't verify it |
 | Image path missing the leading `/` | Broken image |
 

@@ -4,13 +4,12 @@ Your personal information is split across three data files:
 
 | File | Contains |
 |---|---|
-| `data/personal.js` | Name, title, greeting, availability, photo, email, phone, location, social links, hero typing lines |
-| `data/about.js` | The About section text (and its highlighted words) |
-| `data/focusAreas.js` | The four expertise cards under the About section |
+| `data/personal.js` | Name, title, hero headline and intro, availability, photo, email, phone, location, social links, résumé link |
+| `data/about.js` | The About section text (and its highlighted phrases) |
+| `data/focusAreas.js` | The Technical Expertise cards |
 
-Components read these files. **Never type your email, phone or links directly into a component.**
-They are all read from `data/personal.js`, so one edit updates the hero, contact section, footer,
-terminal and chatbot together.
+Components read these files. **Never type your email, phone or links directly into a component.** One edit
+in `data/personal.js` updates the hero, navigation menu, contact section and footer together.
 
 ---
 
@@ -21,64 +20,66 @@ export const personalInfo = {
   name: "Muhammad Ibrahim",
   greeting: "Welcome, I'm",
   title: "Full-Stack & AI Integration Engineer",
+  headline: "I build AI systems, optimization tools and full-stack web applications.",
+  headlineAccent: "AI systems",
+  intro: "I turn research-grade ideas into real, working software: …",
+  resumeUrl: "",
   statusPill: "Open to Work: Full-Stack and AI Engineering Roles",
   avatarUrl: "https://github.com/mibrahim-O2.png?size=400",
   location: "Pakistan",
   email: "contact@mibrahimdev.tech",
   phone: "+92 324 2991303",
   gpa: "3.6 CGPA",
-  typingSvgUrl: "https://readme-typing-svg.herokuapp.com?...",
   bio: ...,
   socialLinks: [ ... ]
 };
 ```
 
-| Field | Where it appears | How to change it |
+| Field | Where it appears | Notes |
 |---|---|---|
-| `name` | Hero title (the **last word** gets the copper gradient), About photo alt text, footer © line, terminal, chatbot | Plain text |
-| `greeting` | Small line above your name in the hero | e.g. `"Hi, I'm"` |
-| `title` | Hero subtitle, terminal, chatbot | Your professional headline |
-| `statusPill` | Availability badge at the top of the hero. **The text before the first `:` is coloured** (e.g. "Open to Work:"). | `"Open to Work: Remote AI Engineering Roles"`. Without a colon the whole text is plain. |
-| `avatarUrl` | About section photo, chatbot avatar | A full URL, or a local file such as `"/images/profile/portrait.webp"` (see [UPDATE-IMAGES.md](./UPDATE-IMAGES.md)) |
-| `location` | Contact section, footer, terminal, chatbot, map on `/contact` | e.g. `"Sindh, Pakistan"` |
-| `email` | Contact section, footer, the contact form's destination, `/contact` CV button, terminal, chatbot | Also update the `Email` social link below |
-| `phone` | Contact section, footer, terminal, chatbot | Write it readably, e.g. `"+92 324 2991303"`; links are built automatically. Also update the `Phone` social link below |
-| `gpa` | Currently not displayed | |
-| `typingSvgUrl` | The animated typing lines in the hero (an external image service) | See "Hero typing lines" below. This will be replaced by real text in the redesign. |
-| `bio` | Built automatically from `data/about.js`, **don't edit here** | |
+| `name` | Hero (above the headline), navbar logo (initials + name), footer, page titles | Plain text. The navbar logo uses the first letters of the first and last word. |
+| `title` | Hero (next to your name), About quick facts, footer tagline | Your professional title |
+| `headline` | The big animated hero heading (`<h1>`) | One sentence. About 8–14 words looks best. |
+| `headlineAccent` | The words inside `headline` that get the copper gradient | Must appear **word for word** in `headline` (any upper/lower case). `""` = no gradient. |
+| `intro` | Paragraph under the hero heading | 1–2 sentences |
+| `resumeUrl` | Shows a **Résumé** button in the hero when filled | Upload `public/resume.pdf` and set `resumeUrl: "/resume.pdf"`. `""` = no button. |
+| `statusPill` | Availability badge at the top of the hero, contact section, About quick facts. **The text before the first `:` is bold** (e.g. "Open to Work"). | `"Open to Work: Remote AI Engineering Roles"`. Use `""` to hide the badge. |
+| `avatarUrl` | Hero portrait card and About photo (desktop) | A full URL, or a local file such as `"/images/profile/portrait.webp"` (square, see [UPDATE-IMAGES.md](./UPDATE-IMAGES.md)) |
+| `location` | Hero card, contact section, footer, About quick facts | e.g. `"Sindh, Pakistan"` |
+| `email` | Contact section, contact form destination, footer, mobile menu | Also update the `Email` social link below |
+| `phone` | Contact section, footer | Write it readably, e.g. `"+92 324 2991303"`; links are built automatically. Also update the `Phone` social link below |
+| `greeting`, `gpa` | Currently not displayed | |
+| `bio` | Built automatically from `data/about.js`. **Don't edit it here.** | |
 
 ### Social links
 
 ```js
   socialLinks: [
-    { name: "GitHub",   url: "https://github.com/mibrahim-O2",              icon: "fab fa-github" },
+    { name: "GitHub",   url: "https://github.com/mibrahim-O2",                  icon: "fab fa-github" },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/muhammad-ibrahim-o2", icon: "fab fa-linkedin-in" },
-    { name: "Email",    url: "mailto:contact@mibrahimdev.tech",             icon: "fas fa-envelope" },
-    { name: "Phone",    url: "tel:+923242991303",                           icon: "fas fa-phone" },
-    { name: "YouTube",  url: "https://www.youtube.com/@mIbrahim_02",        icon: "fab fa-youtube" },
-    { name: "X",        url: "https://x.com/MIbraheem_02",                  icon: "" }
+    { name: "Email",    url: "mailto:contact@mibrahimdev.tech",                 icon: "fas fa-envelope" },
+    { name: "Phone",    url: "tel:+923242991303",                               icon: "fas fa-phone" },
+    { name: "YouTube",  url: "https://www.youtube.com/@mIbrahim_02",            icon: "fab fa-youtube" },
+    { name: "X",        url: "https://x.com/MIbraheem_02",                      icon: "" }
   ]
 ```
 
 - **Keep the `name` values exactly as they are.** Components pick links by name:
-  - Hero icons: `GitHub`, `LinkedIn`, `Email`, `Phone` (in that order), in `sections/HeroSection.js`
-  - Footer icons: `GitHub`, `LinkedIn`, `X`, `YouTube`, in `sections/FooterSection.js`
-  - Terminal `socials` command and chatbot: by name
+
+  | Where | Links shown (in this order) | List defined in |
+  |---|---|---|
+  | Hero icons | GitHub, LinkedIn, Email, Phone | `HERO_SOCIALS` in `sections/HeroSection.js` |
+  | Contact section | Email, LinkedIn, GitHub, Phone | `CHANNELS` in `sections/ContactSection.js` |
+  | Mobile menu | GitHub, LinkedIn, Email | `MENU_SOCIALS` in `components/Navbar.js` |
+  | Footer icons | GitHub, LinkedIn, X, YouTube | `FOOTER_SOCIALS` in `sections/FooterSection.js` |
+
 - `Email` URL must start with `mailto:`; `Phone` URL must start with `tel:` and contain no spaces.
 - `X` has an empty `icon` on purpose: Font Awesome 6.4 has no X logo, so `components/XIcon.js` draws it.
-- To remove a link from the site, delete its line. It disappears from the hero/footer automatically.
-- Adding a brand-new network (e.g. Instagram) to the data is safe, but it is only shown once its name is
-  added to the `HERO_SOCIALS` or `FOOTER_SOCIALS` list at the top of those two section files.
-
-### Hero typing lines
-
-The lines are inside `typingSvgUrl` after `lines=`, separated by `;`, with `+` instead of spaces:
-
-```
-...&lines=AI+is+not+the+future.+AI+is+the+present.;AI+Integration+%26+Automation;Building+Scalable+Systems;
-```
-
-`%26` means `&`. Edit only the part after `lines=`.
+- To remove a link from the site, delete its line. It disappears everywhere automatically.
+- A brand-new network (e.g. Instagram) can be added to the data safely, but it is only shown once its name
+  is added to one of the lists in the table above.
+- To hide your phone number publicly, delete the `Phone` social link **and** ask the agent to remove the phone
+  lines from `sections/ContactSection.js` (`CHANNELS`) and `sections/FooterSection.js`.
 
 ---
 
@@ -90,28 +91,25 @@ export const aboutParagraphs = [
     text: "I am a passionate AI engineer and researcher ...",
     highlights: ["AI engineer", "genetic algorithms", "Google OR-Tools", ...]
   },
-  {
-    text: "Alongside this, I build full-stack web applications ...",
-    highlights: ["full-stack web applications", "applied AI", ...]
-  }
+  ...
 ];
 ```
 
 - Each object is one paragraph.
-- `highlights` are phrases that get emphasised. **Every highlight must appear word-for-word (any case)
-  inside that same paragraph's `text`**, otherwise it is simply not highlighted.
-- This text is used by the About section, `/about`, the terminal `about` command and the chatbot.
+- `highlights` are phrases shown with a copper marker underline. **Every highlight must appear
+  word-for-word (any case) inside that paragraph's `text`**, otherwise it is simply not highlighted.
 
-## `data/focusAreas.js` (expertise cards)
+## `data/focusAreas.js` (Technical Expertise cards)
 
 ```js
   {
-    icon: "fa-solid fa-robot",
-    category: "LLM Application and AI Platform Engineering",
-    description: "LLM-powered learning platform with code analysis, chat, and assessment workflows.",
-    technologies: ["FastAPI", "OpenAI", "Google Gemini", ...],
-    evidence: "NueroCode-Official",
-    repoUrl: ""
+    icon: "fa-solid fa-shield-halved",
+    category: "Security Engineering and Verifiable Evidence",
+    description: "Security-testing agents where AI can plan the tests but only deterministic code verifies a finding…",
+    technologies: ["Python", "AI agents", "DSSE/in-toto", "Sigstore", ...],
+    evidence: "FinLexPurple",
+    projectId: "finlexpurple",
+    repoUrl: "https://github.com/FinLexPurple/finlexpurple"
   },
 ```
 
@@ -119,21 +117,26 @@ export const aboutParagraphs = [
 |---|---|
 | `icon` | Font Awesome icon |
 | `category` | Card title |
-| `description` | One sentence |
+| `description` | One or two sentences |
 | `technologies` | Chips on the card |
-| `evidence` | Shown as "Built in · <evidence>" (the proof project/repo name) |
-| `repoUrl` | Link to that repo, `""` for none |
+| `projectId` | Id of the project that proves this skill (from `data/projects.js`). The card shows **Proof: <project title>** and links to its case study. |
+| `evidence` | Fallback text ("Built in · …") shown only when `projectId` is empty or not found |
+| `repoUrl` | Kept for reference; not displayed |
+
+Card order = array order. On desktop the first two cards are wider.
 
 ---
 
-## Things that are **not** in data files yet
+## Text that lives in components
 
-Some text is still written directly in components. It will move into data files during the redesign:
+Section headings (eyebrow, title, lead) are written at the top of each file in `sections/`
+(the `<SectionHeader … />` line), plus:
 
-- Footer tagline ("Software Developer | Full Stack Engineer | …"): `sections/FooterSection.js`
-- Section headings and descriptions: each file in `sections/`
-- Mission/Vision cards: `app/about/page.js`
-- Résumé card text: `app/contact/page.js`
+- Contact heading "Let's build something that works.": `sections/ContactSection.js`
+- About "Beyond code" card text: `sections/AboutSection.js`
+- Footer tagline: `sections/FooterSection.js` (it uses `title` + a short sentence)
+
+Ask the agent to edit those lines directly; they are plain text.
 
 ## Prompt for an AI agent
 

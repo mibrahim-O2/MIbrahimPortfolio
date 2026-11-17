@@ -1,19 +1,20 @@
 # Project Structure
 
-Next.js 14 (App Router), React 18, plain JavaScript, plain CSS. No database, no backend services.
+Next.js 14 (App Router), React 18, plain JavaScript, plain CSS + CSS Modules, Framer Motion for animation.
+No database, no backend services.
 
 ```
-app/            Pages (one folder = one URL)
-sections/       Big page sections used on the homepage and on their own pages
-components/     Smaller building blocks used inside sections
+app/            Pages (one folder = one URL), shared layout and page transition
+sections/       Page sections used on the homepage and on their own pages (each with a .module.css)
+components/     Smaller building blocks (navbar, project card, UI pieces, animation helpers)
 data/           ALL editable content (you edit these)
-public/         Images, video, sounds, favicon (served as-is)
-styles/         globals.css (all styling)
-theme/          Colour and animation constants for JavaScript
+public/         Images and icons (served as-is)
+styles/         globals.css (design system) + legacy.css (gallery page and image viewer)
+theme/          Animation timings for JavaScript
 utils/          Small helpers
 docs/           This documentation
-next.config.js  Next.js settings and security headers
-package.json    Dependencies and scripts
+next.config.js  Next.js settings, image optimisation and security headers
+package.json    Dependencies: next, react, react-dom, framer-motion
 ```
 
 ---
@@ -22,21 +23,21 @@ package.json    Dependencies and scripts
 
 | File | URL | Purpose |
 |---|---|---|
-| `app/layout.js` | (every page) | HTML `<head>`, SEO metadata, fonts/icon stylesheets, site-wide background, cursor, scroll progress, smooth scroll |
+| `app/layout.js` | (every page) | Fonts (Inter + JetBrains Mono via `next/font`), SEO metadata, icon stylesheets, navbar, footer, scroll progress, back-to-top |
+| `app/template.js` | (every page) | Page transition (fade + rise) and "reduce motion" support for all animations |
 | `app/page.js` | `/` | Homepage: lists the sections in order (see [UPDATE-HOMEPAGE-SECTIONS.md](./UPDATE-HOMEPAGE-SECTIONS.md)) |
-| `app/about/page.js` | `/about` | About section + Mission/Vision cards |
-| `app/projects/page.js` | `/projects` | All projects with filters |
-| `app/projects/[id]/page.js` | `/projects/<id>` | Project detail (case study) page, one per published project |
+| `app/projects/page.js` | `/projects` | Project archive with category filters |
+| `app/projects/[id]/page.js` + `project.module.css` | `/projects/<id>` | Case study page, one per published project |
+| `app/about/page.js` | `/about` | About + Technical Expertise |
 | `app/experience/page.js` | `/experience` | Experience |
 | `app/education/page.js` | `/education` | Education |
-| `app/skills/page.js` | `/skills` | Technical + soft skills |
-| `app/certificates/page.js` | `/certificates` | Certificates |
+| `app/certificates/page.js` | `/certificates` | Certifications |
+| `app/skills/page.js` + `skills.module.css` | `/skills` | Technology stack + working strengths (soft skills) |
 | `app/volunteer/page.js` | `/volunteer` | Volunteer work |
-| `app/gallery/page.js` | `/gallery` | Photo gallery with categories and lightbox |
-| `app/contact/page.js` | `/contact` | Contact section + CV request + map |
+| `app/gallery/page.js` + `layout.js` | `/gallery` | Photo gallery with categories and lightbox |
+| `app/contact/page.js` | `/contact` | Contact |
 | `app/api/gallery/route.js` | `/api/gallery` | Lists the files in `public/gallery/` (generated at build time) |
-| `app/sitemap.js` | `/sitemap.xml` | Sitemap for search engines |
-| `app/robots.js` | `/robots.txt` | Search engine rules |
+| `app/sitemap.js`, `app/robots.js` | `/sitemap.xml`, `/robots.txt` | Search engines |
 
 ## `data/`: content (the only folder you normally edit)
 
@@ -44,79 +45,83 @@ package.json    Dependencies and scripts
 |---|---|---|
 | `projects.js` | Projects, categories, `publishedProjects`, `featuredProjects` | [ADD-PROJECT.md](./ADD-PROJECT.md) |
 | `experience.js` | Professional experience | [ADD-EXPERIENCE.md](./ADD-EXPERIENCE.md) |
-| `education.js` | Education timeline | [ADD-EDUCATION.md](./ADD-EDUCATION.md) |
+| `education.js` | Education | [ADD-EDUCATION.md](./ADD-EDUCATION.md) |
 | `certificates.js` | Certifications | [ADD-CERTIFICATION.md](./ADD-CERTIFICATION.md) |
-| `skills.js` | Technical skill categories + soft skills | [UPDATE-SKILLS.md](./UPDATE-SKILLS.md) |
-| `personal.js` | Name, headline, contact details, social links | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
+| `skills.js` | Technology stack + soft skills | [UPDATE-SKILLS.md](./UPDATE-SKILLS.md) |
+| `personal.js` | Name, headline, intro, contact details, social links | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
 | `about.js` | About paragraphs | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
-| `focusAreas.js` | Expertise cards | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
+| `focusAreas.js` | Technical Expertise cards | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
 | `volunteer.js` | Volunteer entries: `{ id, role, organization, period, years, logos, icon, description }` | Same pattern as experience |
 | `gallery.js` | Gallery categories, highlight order, portrait photos | [UPDATE-IMAGES.md](./UPDATE-IMAGES.md#gallery-photos) |
 
-## `sections/`: page sections
+## `sections/`
 
-| File | Shows | Reads data from |
-|---|---|---|
-| `HeroSection.js` | Intro: badge, name, title, typing lines, buttons, social icons, intro video | `personal.js` |
-| `AboutSection.js` | Photo, bio card, terminal widget, focus areas | `personal.js`, `about.js`, `focusAreas.js` |
-| `ExperienceSection.js` | Experience heading + stack | `experience.js` |
-| `EducationSection.js` | Education heading + timeline | `education.js` |
-| `ProjectsSection.js` | Category filters + project cards | `projects.js` |
-| `SkillsSection.js` | Technical skill cards | `skills.js` |
-| `VolunteerSection.js` | Volunteer cards | `volunteer.js` |
-| `CertificatesSection.js` | Certificate wall | `certificates.js` |
-| `GalleryMarqueeSection.js` | Scrolling strip of highlight photos | `gallery.js` |
-| `ContactSection.js` | Contact details + email form | `personal.js` |
-| `FooterSection.js` | Brand, social icons, quick links, contact info | `personal.js` |
+| File | Shows |
+|---|---|
+| `HeroSection.js` | Availability badge, name/title, animated headline, intro, buttons, social icons, portrait card with counts, featured-project chip, animated background |
+| `ProjectsSection.js` | Featured projects: first one as a large lead card, the rest in a grid, link to the archive |
+| `ExpertiseSection.js` | Focus-area cards, each linking to its proof project |
+| `ExperienceSection.js` | Timeline with a line that fills as you scroll |
+| `AboutSection.js` | Portrait (desktop), bio with highlights, quick facts, "Beyond code" card |
+| `SkillsSection.js` | Technology stack cards |
+| `EducationSection.js` | Education cards + certifications list (`show` prop: `both`, `education`, `certificates`) |
+| `ContactSection.js` | Contact channels + email form |
+| `VolunteerSection.js` | Volunteer cards (`/volunteer`) |
+| `FooterSection.js` | Email call-to-action, links, socials, © line |
 
-## `components/`: building blocks
+## `components/`
 
 | Component | Purpose |
 |---|---|
-| `Navbar.js` | Top navigation + mobile menu (`navItems` list) |
-| `SectionTitle.js` | Animated section heading (title, description, ghost text) |
-| `ProjectCard.js` | One project card |
-| `ProjectCover.js` | Project image with a generated fallback cover (`COVER_ICONS`) |
-| `ExperienceStack.js` | Stacked experience cards with duration chips |
-| `EducationTimeline.js` | Zig-zag education timeline |
-| `CertificateWall.js` | Certificate cards; `ImageLightbox.js` opens certificate images |
-| `SkillsStack.js`, `SkillChip.js` | Skill category cards and chips |
-| `SoftSkills.js` | Soft-skill cards on `/skills` |
-| `AboutBioCard.js` | About paragraphs with highlights |
-| `FocusAreas.js` | Expertise bento cards |
-| `VolunteerCards.js` | Volunteer cards |
-| `GalleryLightbox.js` | Full-screen gallery viewer |
-| `TerminalWidget.js` | Interactive terminal in the About section |
-| `FloatingChatbot.js` | Keyword-based chat assistant on the homepage |
-| `ScrollToTop.js` | Back-to-top button |
+| `Navbar.js` | Top navigation (`NAV_ITEMS`), animated active pill, hide-on-scroll, full-screen mobile menu |
+| `ProjectCard.js` | Project card in three variants: `lead`, `featured`, `compact` |
+| `ProjectCover.js` | Project image via `next/image`, with a generated cover fallback (`COVER_ICONS`) |
+| `ProjectArchive.js` | Filters + animated grid on `/projects` |
+| `PageIntro.js` | Header of standalone pages (back link, title, lead) |
+| `ui/SectionHeader.js` | Eyebrow + title + lead used by every section |
+| `motion/Reveal.js`, `motion/RevealGroup.js` | Scroll-in animations (Framer Motion) |
+| `ImageLightbox.js` | Full-screen image viewer (certificates) |
+| `GalleryLightbox.js` | Full-screen viewer for the gallery |
+| `ScrollProgress.js` | Thin copper reading-progress bar |
+| `ScrollToTop.js` | Back-to-top button (tablet/desktop) |
 | `XIcon.js` | X (Twitter) logo |
-| `AmbientBackground.js`, `NeuralBackground.js` | Site-wide animated background |
-| `CustomCursor.js`, `ScrollProgress.js`, `SmoothScroll.js`, `AOSInit.js` | Cursor, reading progress bar, smooth scrolling, scroll animations |
-| `motion/Reveal.js`, `motion/RevealGroup.js` | Reusable "appear on scroll" wrappers (Framer Motion) |
 
-Several of the effects above (custom cursor, background canvas, AOS, terminal, chatbot, intro video) are
-scheduled for removal or redesign in Phase 1–2 of the redesign. This table will be updated then.
+## Design system
 
-## Other folders
+All colours, fonts, spacing and shared classes are in **`styles/globals.css`**:
+
+- **Colour tokens** in `:root`: `--bg #0A0B0D`, `--surface #111317`, `--surface-2 #171A1F`,
+  `--accent #D97B4A` (copper, the signature colour), `--accent-hover #E8935F`, `--text #EDEEF0`,
+  `--text-muted #A1A7B0`, `--accent-2 #7FA3A6` (secondary, used sparingly), `--border rgba(255,255,255,0.08)`.
+- **Fonts:** Inter for text and headings, JetBrains Mono for labels and metadata (`.mono`, `.eyebrow`, `.tag`).
+- **Shared classes:** `container`, `section`, `card`, `btn btn-primary`, `btn btn-ghost`, `btn-sm`, `tag`,
+  `status`, `eyebrow`, `link`, `text-gradient`, `spotlight`.
+- Component-specific styles live in a `*.module.css` file next to each component.
+- Every animation respects the visitor's "reduce motion" setting.
+
+Never introduce a new accent colour; reuse the tokens.
+
+## Other files
 
 | Path | Purpose |
 |---|---|
-| `styles/globals.css` | All CSS: colour tokens in `:root` at the top, then one block per component |
-| `theme/colors.js` | Colour values for JavaScript (canvas drawing). Keep in sync with `:root` in `globals.css` |
+| `styles/legacy.css` | Older styles still used by the `/gallery` page and `ImageLightbox` |
 | `theme/motion.js` | Shared animation timings |
 | `utils/siteUrl.js` | Public site URL for metadata and sitemap |
+| `utils/projectLinks.js` | Builds a project's buttons (demo, GitHub, video, extra links) |
+| `utils/useSpotlight.js` | Mouse-follow glow on cards |
 | `utils/galleryLoader.js` | Gallery file list and captions |
-| `utils/sound.js` | Click sound (to be removed in Phase 1) |
 | `utils/highlight.js` | Highlights phrases in the About text |
-| `utils/usePrefersReducedMotion.js`, `utils/useFinePointer.js` | Detect reduced-motion setting / mouse vs touch |
-| `next.config.js` | Next.js settings + security headers |
+| `utils/usePrefersReducedMotion.js` | Detects the "reduce motion" setting |
+| `next.config.js` | Image optimisation (allowed remote hosts) + security headers |
 | `jsconfig.json` | Lets code import with `@/` (e.g. `@/data/projects`) |
 
 ## How data reaches the page
 
 ```
-data/projects.js ──► sections/ProjectsSection.js ──► components/ProjectCard.js ──► app/page.js (/) and app/projects/page.js
-                 └─► app/projects/[id]/page.js (detail pages)
+data/projects.js ──► sections/ProjectsSection.js ──► components/ProjectCard.js   (homepage, featured)
+                 └─► components/ProjectArchive.js ──► components/ProjectCard.js   (/projects)
+                 └─► app/projects/[id]/page.js                                    (case studies)
                  └─► app/sitemap.js
 ```
 

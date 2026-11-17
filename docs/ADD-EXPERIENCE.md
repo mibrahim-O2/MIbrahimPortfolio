@@ -1,7 +1,7 @@
 # Add or Update Professional Experience
 
 **File to edit:** `data/experience.js`
-**Displayed by:** `components/ExperienceStack.js` (homepage Experience section and `/experience`)
+**Displayed by:** `sections/ExperienceSection.js` (homepage Experience timeline and `/experience`)
 
 Each job, role or engagement is one object in the `experienceData` array.
 
@@ -37,7 +37,7 @@ Each job, role or engagement is one object in the `experienceData` array.
 | `role` | Your title | e.g. `"Software Developer and Researcher"` |
 | `start` / `end` | Dates in **`YYYY-MM-DD`** format | Used **only** to calculate the small duration chip ("5 mo", "1 yr 2 mo"). Use `null` for both if you only know years; the chip is then hidden. |
 | `period` | The date text people **see** | Write it however you like: `"10 Jun 2026 – 10 Nov 2026"`, `"2025 – 2026"`, `"Jan 2026 – Present"` |
-| `logo` | Logo image path in `public/` | e.g. `"/logos/IMCSLogo.png"`. Use `null` for no logo. |
+| `logo` | Logo image path in `public/` | e.g. `"/logos/IMCSLogo.png"`. Shown on a light tile. Use `null` for no logo. |
 | `icon` | Font Awesome class shown **when `logo` is `null`** | e.g. `"fa-solid fa-people-group"`. Use `null` when there is a logo. |
 | `points` | Bullet points | 2–4 short, specific sentences. Start with a verb: "Built…", "Led…", "Replaced…". |
 
