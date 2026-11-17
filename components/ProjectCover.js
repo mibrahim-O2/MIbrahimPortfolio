@@ -1,9 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
+import styles from './ProjectCover.module.css';
 
-// Fallback icon per project id; anything else (or a class missing in Font Awesome 6 free) uses fa-code.
+// Fallback icon per project id; anything else uses fa-code.
 const COVER_ICONS = {
+  finlexpurple: 'fa-solid fa-shield-halved',
   neurocode: 'fa-solid fa-brain',
   verdexai: 'fa-solid fa-user-tie',
   'imcs-scheduler': 'fa-solid fa-calendar-days',
@@ -17,30 +20,31 @@ const COVER_ICONS = {
   'url-shortener': 'fa-solid fa-link'
 };
 
-export function ProjectCover({ project, variant = 'card' }) {
+// Generated cover: shown when a project has no image or the image fails to load.
+export function ProjectCover({ project }) {
   const icon = COVER_ICONS[project.id] || 'fa-solid fa-code';
   return (
-    <div className={`project-cover project-cover--${variant}`} role="img" aria-label={`${project.title} cover`}>
+    <div className={styles.cover} role="img" aria-label={`${project.title} cover`}>
       <i className={icon} aria-hidden="true"></i>
-      <span className="project-cover-title">{project.title}</span>
+      <span>{project.title}</span>
     </div>
   );
 }
 
-// Shows the project's image; shows the generated cover when there is no image or the URL fails to load,
-// so a broken image is never visible.
-export default function ProjectMedia({ project, src, variant = 'card' }) {
+// Project image (optimised by next/image) that fills its parent, which must be position: relative.
+// `sizes` tells the browser which width to download.
+export default function ProjectMedia({ project, src, sizes = '(min-width: 960px) 50vw, 100vw', priority = false, className }) {
   const [failed, setFailed] = useState(false);
-
-  if (!src || failed) return <ProjectCover project={project} variant={variant} />;
+  if (!src || failed) return <ProjectCover project={project} />;
 
   return (
-    <img
+    <Image
       src={src}
-      alt={project.title}
-      className={variant === 'hero' ? 'project-hero-image' : 'project-image'}
-      loading="lazy"
-      decoding="async"
+      alt={`${project.title} screenshot`}
+      fill
+      sizes={sizes}
+      priority={priority}
+      className={className || styles.image}
       onError={() => setFailed(true)}
     />
   );

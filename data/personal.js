@@ -4,13 +4,18 @@ export const personalInfo = {
   name: "Muhammad Ibrahim",
   greeting: "Welcome, I'm",
   title: "Full-Stack & AI Integration Engineer",
+  // Hero: big headline (the words in headlineAccent get the copper gradient) and the paragraph under it
+  headline: "I build AI systems, optimization tools and full-stack web applications.",
+  headlineAccent: "AI systems",
+  intro: "I turn research-grade ideas into real, working software: from genetic-algorithm schedulers and LLM-powered learning platforms to security tooling that proves its findings.",
+  // Résumé PDF (e.g. "/resume.pdf" after uploading public/resume.pdf). Empty = no résumé button.
+  resumeUrl: "",
   statusPill: "Open to Work: Full-Stack and AI Engineering Roles",
   avatarUrl: "https://github.com/mibrahim-O2.png?size=400",
   location: "Pakistan",
   email: "contact@mibrahimdev.tech",
   phone: "+92 324 2991303",
   gpa: "3.6 CGPA",
-  typingSvgUrl:"https://readme-typing-svg.herokuapp.com?color=%23E5B450&size=32&center=false&vCenter=true&width=760&weight=800&lines=AI+is+not+the+future.+AI+is+the+present.;AI+Integration+%26+Automation;Building+Scalable+Systems;",
   bio: aboutParagraphs.map((paragraph) => paragraph.text),
   socialLinks: [
     {

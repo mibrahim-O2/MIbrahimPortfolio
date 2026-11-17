@@ -1,311 +1,214 @@
-import Navbar from '@/components/Navbar';
-import FooterSection from '@/sections/FooterSection';
-import ScrollToTop from '@/components/ScrollToTop';
 import Link from 'next/link';
-import ProjectMedia from '@/components/ProjectCover';
-import { publishedProjects } from '@/data/projects';
 import { notFound } from 'next/navigation';
+import ProjectMedia from '@/components/ProjectCover';
+import Reveal from '@/components/motion/Reveal';
+import { publishedProjects } from '@/data/projects';
+import { projectLinks } from '@/utils/projectLinks';
+import styles from './project.module.css';
 
-export async function generateStaticParams() {
-  return publishedProjects.map((project) => ({
-    id: project.id
-  }));
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return publishedProjects.map((project) => ({ id: project.id }));
+}
+
+export function generateMetadata({ params }) {
+  const project = publishedProjects.find((p) => p.id === params.id);
+  if (!project) return {};
+  const title = `${project.title} | Case Study | Muhammad Ibrahim`;
+  const local = project.image && project.image.startsWith('/') ? project.image : null;
+  return {
+    title,
+    description: project.subtitle || project.description,
+    openGraph: { title, description: project.subtitle || project.description, ...(local ? { images: [local] } : {}) }
+  };
+}
+
+function Block({ title, children }) {
+  return (
+    <Reveal as="section" className={styles.block}>
+      <h2 className={styles.blockTitle}>{title}</h2>
+      {children}
+    </Reveal>
+  );
 }
 
 export default function ProjectDetailPage({ params }) {
-  const project = publishedProjects.find((p) => p.id === params.id);
-
-  if (!project) {
-    notFound();
-  }
+  const index = publishedProjects.findIndex((p) => p.id === params.id);
+  if (index === -1) notFound();
+  const project = publishedProjects[index];
+  const prev = publishedProjects[(index - 1 + publishedProjects.length) % publishedProjects.length];
+  const next = publishedProjects[(index + 1) % publishedProjects.length];
+  const links = projectLinks(project);
+  const steps = (project.architectureDiagram || '').split('->').map((step) => step.trim()).filter(Boolean);
+  const features = project.features || [];
+  const challenges = project.challenges || [];
+  const lessons = project.lessonsLearned || [];
 
   return (
-    <main className="main-content" style={{ minHeight: '100vh' }}>
-      <Navbar />
-
-      <div style={{ paddingTop: '120px', paddingBottom: '4rem' }}>
-        <div className="container">
-          <Link
-            href="/projects"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              color: 'var(--accent)',
-              fontWeight: 600,
-              marginBottom: '2rem',
-              textDecoration: 'none'
-            }}
-          >
-            <i className="fas fa-arrow-left"></i> Back to All Projects
+    <article className={styles.page}>
+      <header className={`container page-top ${styles.header}`}>
+        <Reveal className={styles.headerInner}>
+          <Link href="/projects" className={styles.back}>
+            <i className="fas fa-arrow-left" aria-hidden="true"></i> All projects
           </Link>
-
-          {/* Hero Banner Card */}
-          <div
-            style={{
-              background: 'var(--surface)',
-              borderRadius: '24px',
-              border: '1px solid var(--border)',
-              overflow: 'hidden',
-              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)',
-              marginBottom: '3rem'
-            }}
-          >
-            <div style={{ position: 'relative', width: '100%', height: 'clamp(220px, 30vw, 420px)', overflow: 'hidden' }}>
-              <ProjectMedia project={project} src={project.heroBanner} variant="hero" />
-            </div>
-
-            <div style={{ padding: '2.5rem' }}>
-              <span
-                style={{
-                  background: 'rgba(var(--accent-rgb), 0.15)',
-                  color: 'var(--accent)',
-                  padding: '0.35rem 1rem',
-                  borderRadius: '20px',
-                  fontSize: '0.85rem',
-                  fontWeight: 600,
-                  display: 'inline-block',
-                  marginBottom: '1rem'
-                }}
-              >
-                {project.badge || 'Project Showcase'}
+          <div className={styles.labels}>
+            {project.badge && <span className="eyebrow">{project.badge}</span>}
+            {project.status && (
+              <span className="status" data-status={project.status}>
+                {project.status}
               </span>
-              {project.status && (
-                <span
-                  style={{
-                    background: 'rgba(var(--rust-rgb), 0.3)',
-                    color: project.status === 'Live' ? 'var(--teal-soft)' : project.status === 'In progress' ? 'var(--accent)' : 'var(--accent-soft)',
-                    border: '1px solid var(--border-accent)',
-                    padding: '0.35rem 1rem',
-                    borderRadius: '20px',
-                    fontSize: '0.85rem',
-                    fontWeight: 600,
-                    display: 'inline-block',
-                    marginBottom: '1rem',
-                    marginLeft: '0.6rem'
-                  }}
-                >
-                  {project.status}
-                </span>
-              )}
-              <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--text)', marginBottom: '0.75rem' }}>
-                {project.title}
-              </h1>
-              <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '1.5rem', lineHeight: 1.6 }}>
-                {project.subtitle}
-              </p>
-
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '2rem' }}>
-                {(project.tags || []).map((tag, idx) => (
-                  <span
-                    key={idx}
-                    style={{
-                      background: 'var(--surface-2)',
-                      color: 'var(--text)',
-                      padding: '0.4rem 0.85rem',
-                      borderRadius: '8px',
-                      fontSize: '0.85rem',
-                      fontWeight: 500
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                {project.demoUrl && (
-                  <a
-                    href={project.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-primary"
-                  >
-                    <i className="fas fa-external-link-alt" style={{ marginRight: '0.5rem' }}></i> Live Demo
-                  </a>
-                )}
-                {project.videoUrl && (
-                  <a
-                    href={project.videoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-outline"
-                  >
-                    <i className="fas fa-play" style={{ marginRight: '0.5rem' }}></i> Watch Video
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-outline"
-                  >
-                    <i className="fab fa-github" style={{ marginRight: '0.5rem' }}></i> Source Code
-                  </a>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Details Content Grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
-            {/* Problem & Solution Card */}
-            <div
-              style={{
-                background: 'var(--surface)',
-                padding: '2rem',
-                borderRadius: '16px',
-                border: '1px solid var(--border)'
-              }}
-            >
-              {project.problemStatement && (
-                <>
-                  <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text)', marginBottom: '1rem' }}>
-                    <i className="fas fa-exclamation-triangle" style={{ color: 'var(--accent)', marginRight: '0.5rem' }}></i>
-                    Problem Statement
-                  </h3>
-                  <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: project.solution ? '2rem' : 0 }}>
-                    {project.problemStatement}
-                  </p>
-                </>
-              )}
-
-              {project.solution && (
-                <>
-                  <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text)', marginBottom: '1rem' }}>
-                    <i className="fas fa-lightbulb" style={{ color: 'var(--teal)', marginRight: '0.5rem' }}></i>
-                    Proposed Solution
-                  </h3>
-                  <p style={{ color: 'var(--text-muted)', lineHeight: 1.7 }}>
-                    {project.solution}
-                  </p>
-                </>
-              )}
-            </div>
-
-            {/* Key Features Card */}
-            {(project.features || []).length > 0 && (
-            <div
-              style={{
-                background: 'var(--surface)',
-                padding: '2rem',
-                borderRadius: '16px',
-                border: '1px solid var(--border)'
-              }}
-            >
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text)', marginBottom: '1.5rem' }}>
-                <i className="fas fa-star" style={{ color: 'var(--accent-soft)', marginRight: '0.5rem' }}></i>
-                Key Features
-              </h3>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                {project.features.map((feat, idx) => (
-                  <li
-                    key={idx}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: '0.75rem',
-                      marginBottom: '1rem',
-                      color: 'var(--text)',
-                      lineHeight: 1.6
-                    }}
-                  >
-                    <i className="fas fa-check-circle" style={{ color: 'var(--accent)', marginTop: '0.25rem' }}></i>
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
             )}
           </div>
-
-          {/* Architecture & Challenges */}
-          {(project.architectureDiagram || (project.challenges || []).length > 0 || (project.lessonsLearned || []).length > 0) && (
-            <div
-              style={{
-                background: 'var(--surface)',
-                padding: '2rem',
-                borderRadius: '16px',
-                border: '1px solid var(--border)',
-                marginTop: '2rem'
-              }}
-            >
-              {project.architectureDiagram && (
-                <>
-                  <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text)', marginBottom: '1rem' }}>
-                    <i className="fas fa-sitemap" style={{ color: 'var(--accent)', marginRight: '0.5rem' }}></i>
-                    System Architecture Flow
-                  </h3>
-                  <div
-                    style={{
-                      background: 'var(--bg)',
-                      padding: '1.25rem 1.5rem',
-                      borderRadius: '12px',
-                      fontFamily: 'monospace',
-                      color: 'var(--text)',
-                      marginBottom: '2rem',
-                      borderLeft: '4px solid var(--accent)',
-                      overflowWrap: 'anywhere'
-                    }}
-                  >
-                    {project.architectureDiagram}
-                  </div>
-                </>
-              )}
-
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                {(project.challenges || []).length > 0 && (
-                  <div>
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text)', marginBottom: '0.5rem' }}>
-                      Engineering Challenges
-                    </h4>
-                    <ul style={{ color: 'var(--text-muted)', lineHeight: 1.6, paddingLeft: '1.1rem', margin: 0 }}>
-                      {project.challenges.map((item, idx) => (
-                        <li key={idx} style={{ marginBottom: '0.6rem' }}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {(project.lessonsLearned || []).length > 0 && (
-                  <div>
-                    <h4 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text)', marginBottom: '0.5rem' }}>
-                      Lessons Learned
-                    </h4>
-                    <ul style={{ color: 'var(--text-muted)', lineHeight: 1.6, paddingLeft: '1.1rem', margin: 0 }}>
-                      {project.lessonsLearned.map((item, idx) => (
-                        <li key={idx} style={{ marginBottom: '0.6rem' }}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+          <h1 className={styles.title}>{project.title}</h1>
+          {project.subtitle && <p className={styles.subtitle}>{project.subtitle}</p>}
+          {project.highlight && <p className={styles.highlight}>{project.highlight}</p>}
+          {links.length > 0 && (
+            <div className={styles.links}>
+              {links.map((link, i) => (
+                <a
+                  key={link.label}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`btn ${i === 0 ? 'btn-primary' : 'btn-ghost'}`}
+                >
+                  <i className={link.icon} aria-hidden="true"></i> {link.label}
+                </a>
+              ))}
             </div>
           )}
+        </Reveal>
+      </header>
 
-          {/* Results */}
-          {project.results && (
-            <div
-              style={{
-                background: 'var(--surface)',
-                padding: '2rem',
-                borderRadius: '16px',
-                border: '1px solid var(--border)',
-                marginTop: '2rem'
-              }}
-            >
-              <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text)', marginBottom: '1rem' }}>
-                <i className="fas fa-chart-line" style={{ color: 'var(--teal)', marginRight: '0.5rem' }}></i>
-                Results
-              </h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: 1.7, margin: 0, overflowWrap: 'anywhere' }}>{project.results}</p>
-            </div>
-          )}
-        </div>
+      <div className="container">
+        <Reveal className={styles.hero}>
+          <ProjectMedia project={project} src={project.heroBanner || project.image} sizes="(min-width: 1200px) 1180px, 100vw" priority />
+        </Reveal>
       </div>
 
-      <FooterSection />
-      <ScrollToTop />
-    </main>
+      <div className={`container ${styles.body}`}>
+        <div className={styles.main}>
+          {(project.problemStatement || project.solution) && (
+            <div className={styles.overview}>
+              {project.problemStatement && (
+                <Reveal className={`card ${styles.overviewCard}`}>
+                  <span className={styles.overviewLabel}>The problem</span>
+                  <p>{project.problemStatement}</p>
+                </Reveal>
+              )}
+              {project.solution && (
+                <Reveal delay={0.08} className={`card ${styles.overviewCard} ${styles.solution}`}>
+                  <span className={styles.overviewLabel}>The solution</span>
+                  <p>{project.solution}</p>
+                </Reveal>
+              )}
+            </div>
+          )}
+
+          {features.length > 0 && (
+            <Block title="Key features">
+              <ol className={styles.features}>
+                {features.map((feature, i) => (
+                  <li key={feature}>
+                    <span className={styles.featureNum}>{String(i + 1).padStart(2, '0')}</span>
+                    <p>{feature}</p>
+                  </li>
+                ))}
+              </ol>
+            </Block>
+          )}
+
+          {steps.length > 0 && (
+            <Block title="Architecture">
+              <ol className={styles.flow}>
+                {steps.map((step, i) => (
+                  <li key={step} className={styles.step}>
+                    <span className={styles.stepNum}>{i + 1}</span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </Block>
+          )}
+
+          {challenges.length > 0 && (
+            <Block title="Engineering challenges">
+              <ul className={styles.list}>
+                {challenges.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </Block>
+          )}
+
+          {lessons.length > 0 && (
+            <Block title="Lessons learned">
+              <ul className={styles.list}>
+                {lessons.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </Block>
+          )}
+
+          {project.results && (
+            <Block title="Results">
+              <p className={styles.results}>{project.results}</p>
+            </Block>
+          )}
+        </div>
+
+        <aside className={styles.aside}>
+          <div className={`card ${styles.sideCard}`}>
+            <h2 className={styles.sideTitle}>Tech stack</h2>
+            <ul className={styles.tags}>
+              {(project.tags || []).map((tag) => (
+                <li key={tag} className="tag">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+            {project.categories && project.categories.length > 0 && (
+              <>
+                <h2 className={styles.sideTitle}>Area</h2>
+                <p className={styles.sideText}>{project.categories.join(' · ')}</p>
+              </>
+            )}
+            {links.length > 0 && (
+              <>
+                <h2 className={styles.sideTitle}>Links</h2>
+                <ul className={styles.sideLinks}>
+                  {links.map((link) => (
+                    <li key={link.label}>
+                      <a href={link.url} target="_blank" rel="noopener noreferrer" className="link">
+                        <i className={link.icon} aria-hidden="true"></i> {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </aside>
+      </div>
+
+      {publishedProjects.length > 1 && (
+        <nav className={`container ${styles.pager}`} aria-label="More projects">
+          <Link href={`/projects/${prev.id}`} className={`card ${styles.pagerLink}`}>
+            <span className={styles.pagerLabel}>
+              <i className="fas fa-arrow-left" aria-hidden="true"></i> Previous
+            </span>
+            <span className={styles.pagerTitle}>{prev.title}</span>
+          </Link>
+          <Link href={`/projects/${next.id}`} className={`card ${styles.pagerLink} ${styles.pagerNext}`}>
+            <span className={styles.pagerLabel}>
+              Next <i className="fas fa-arrow-right" aria-hidden="true"></i>
+            </span>
+            <span className={styles.pagerTitle}>{next.title}</span>
+          </Link>
+        </nav>
+      )}
+    </article>
   );
 }

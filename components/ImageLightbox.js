@@ -59,7 +59,7 @@ export default function ImageLightbox({ src, alt, label, closeLabel = 'Close', c
       role="dialog"
       aria-modal="true"
       aria-label={label}
-      data-lenis-prevent
+     
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

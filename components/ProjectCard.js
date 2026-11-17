@@ -1,88 +1,86 @@
+'use client';
+
 import Link from 'next/link';
 import ProjectMedia from '@/components/ProjectCover';
+import useSpotlight from '@/utils/useSpotlight';
+import { projectLinks } from '@/utils/projectLinks';
+import styles from './ProjectCard.module.css';
 
-const MAX_TAGS = 6;
-
-// Status pill colors come from the existing tokens
-const STATUS_STYLES = {
-  Live: { color: 'var(--teal-soft)' },
-  Completed: { color: 'var(--accent-soft)' },
-  'In progress': { color: 'var(--accent)' }
+const TAG_LIMIT = { lead: 8, featured: 5, compact: 4 };
+const SIZES = {
+  lead: '(min-width: 960px) 640px, 100vw',
+  featured: '(min-width: 760px) 560px, 100vw',
+  compact: '(min-width: 1100px) 380px, (min-width: 700px) 50vw, 100vw'
 };
 
-// Buttons: Details always; Demo only with a demoUrl; Video only when there is no demo but a videoUrl;
-// GitHub only with a githubUrl. Never render a button with an empty link.
-function buildLinks(project) {
-  const links = [];
-  if (project.demoUrl) links.push({ label: 'Demo', url: project.demoUrl, icon: 'fas fa-external-link-alt' });
-  else if (project.videoUrl) links.push({ label: 'Video', url: project.videoUrl, icon: 'fas fa-play' });
-  if (project.githubUrl) links.push({ label: 'GitHub', url: project.githubUrl, icon: 'fab fa-github' });
-  return links;
-}
-
-export default function ProjectCard({ project }) {
-  const links = buildLinks(project);
+// One project card. variant: "lead" (large, first featured project), "featured" (homepage grid),
+// "compact" (project archive). All content comes from data/projects.js.
+export default function ProjectCard({ project, variant = 'featured', index, priority = false }) {
+  const onPointerMove = useSpotlight();
+  const links = projectLinks(project);
   const tags = project.tags || [];
-  const visibleTags = tags.slice(0, MAX_TAGS);
-  const hiddenCount = tags.length - visibleTags.length;
+  const limit = TAG_LIMIT[variant] || 5;
+  const shown = tags.slice(0, limit);
+  const extra = tags.length - shown.length;
+  const href = `/projects/${project.id}`;
+  const visibleLinks = variant === 'lead' ? links : links.slice(0, 2);
 
   return (
-    <div className="project-card" data-category={(project.categories || []).join(' ')}>
-      <div className="project-image-container">
-        <ProjectMedia project={project} src={project.image} variant="card" />
-        {project.status && (
-          <span
-            className="project-tag"
-            style={{
-              position: 'absolute',
-              top: '0.6rem',
-              left: '0.6rem',
-              zIndex: 2,
-              background: 'rgba(var(--surface-rgb), 0.9)',
-              border: '1px solid var(--border-accent)',
-              ...(STATUS_STYLES[project.status] || {})
-            }}
-          >
-            {project.status}
-          </span>
-        )}
-      </div>
-      <div className="project-content">
-        <h3 className="project-title">{project.title}</h3>
-        <p className="project-description">{project.description}</p>
-        <div className="project-tags">
-          {visibleTags.map((tag, idx) => (
-            <span key={idx} className="project-tag">
-              {tag}
-            </span>
-          ))}
-          {hiddenCount > 0 && (
-            <span className="project-tag" title="See the full list on the details page">
-              +{hiddenCount} more
+    <article className={`card spotlight ${styles.card} ${styles[variant]}`} onPointerMove={onPointerMove}>
+      <Link href={href} className={styles.media} tabIndex={-1} aria-hidden="true">
+        <ProjectMedia project={project} src={project.image} sizes={SIZES[variant]} priority={priority} className={styles.image} />
+      </Link>
+
+      <div className={styles.body}>
+        <div className={styles.meta}>
+          {typeof index === 'number' && <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>}
+          {project.badge && <span className={styles.badge}>{project.badge}</span>}
+          {project.status && (
+            <span className={`status ${styles.status}`} data-status={project.status}>
+              {project.status}
             </span>
           )}
         </div>
-        <div className="project-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', alignItems: 'center' }}>
-          <Link
-            href={`/projects/${project.id}`}
-            className="project-link"
-            style={{ background: 'var(--gradient-button)', color: 'var(--text)', border: 'none' }}
-          >
-            <i className="fas fa-info-circle"></i> Details
+
+        <h3 className={styles.title}>
+          <Link href={href} className={styles.titleLink}>
+            {project.title}
           </Link>
-          {links.map((link) => (
+        </h3>
+
+        <p className={styles.description}>{variant === 'compact' ? project.subtitle || project.description : project.description}</p>
+
+        {variant !== 'compact' && project.highlight && <p className={styles.highlight}>{project.highlight}</p>}
+
+        <ul className={styles.tags} aria-label="Technologies">
+          {shown.map((tag) => (
+            <li key={tag} className="tag">
+              {tag}
+            </li>
+          ))}
+          {extra > 0 && <li className={`tag ${styles.more}`}>+{extra}</li>}
+        </ul>
+
+        <div className={styles.actions}>
+          <Link href={href} className={`btn btn-sm ${variant === 'compact' ? 'btn-ghost' : 'btn-primary'}`}>
+            Case study <i className="fas fa-arrow-right btn-arrow" aria-hidden="true"></i>
+          </Link>
+          {visibleLinks.map((link) => (
             <a
               key={link.label}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="project-link"
+              className={`btn btn-ghost btn-sm ${variant === 'compact' ? styles.iconOnly : ''}`}
+              aria-label={`${link.label} (opens in a new tab)`}
+              title={link.label}
             >
-              <i className={link.icon}></i> {link.label}
+              <i className={link.icon} aria-hidden="true"></i>
+              {variant !== 'compact' && <span>{link.label}</span>}
             </a>
           ))}
         </div>
       </div>
-    </div>
+    </article>
   );
 }

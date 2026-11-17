@@ -15,16 +15,10 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
-    unoptimized: true,
+    // Images are resized and converted to modern formats by Vercel (next/image)
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'readme-typing-svg.herokuapp.com',
-      },
+      { protocol: 'https', hostname: 'images.unsplash.com' }
     ],
   },
   async headers() {

@@ -1,40 +1,28 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import styles from './ScrollToTop.module.css';
 
+// Small "back to top" button, shown after scrolling down one screen.
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 300) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setVisible(window.scrollY > window.innerHeight);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  if (!visible) return null;
 
   return (
     <button
-      id="scrollToTopBtn"
-      onClick={scrollToTop}
-      aria-label="Scroll to Top"
-      style={{ display: 'flex' }}
+      type="button"
+      className={`${styles.button} ${visible ? styles.visible : ''}`}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      aria-label="Back to top"
+      tabIndex={visible ? 0 : -1}
     >
-      <i className="fas fa-chevron-up"></i>
+      <i className="fas fa-arrow-up" aria-hidden="true"></i>
     </button>
   );
 }

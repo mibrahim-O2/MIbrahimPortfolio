@@ -7,16 +7,16 @@ import usePrefersReducedMotion from '@/utils/usePrefersReducedMotion';
 import { RevealGroupContext } from '@/components/motion/RevealGroupContext';
 
 const HIDDEN = {
-  up: { opacity: 0, y: 28, filter: 'blur(6px)' },
+  up: { opacity: 0, y: 24 },
   left: { opacity: 0, x: -40 },
   right: { opacity: 0, x: 40 },
   scale: { opacity: 0, scale: 0.92 },
   fade: { opacity: 0 },
-  rise: { opacity: 0, y: 50 }
+  rise: { opacity: 0, y: 40 }
 };
 
 const SHOWN = {
-  up: { opacity: 1, y: 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }, // no lingering filter (keeps backdrop-filter children working)
+  up: { opacity: 1, y: 0 },
   left: { opacity: 1, x: 0 },
   right: { opacity: 1, x: 0 },
   scale: { opacity: 1, scale: 1 },

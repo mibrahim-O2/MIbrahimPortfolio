@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Navbar from '@/components/Navbar';
 import GalleryLightbox from '@/components/GalleryLightbox';
-import FooterSection from '@/sections/FooterSection';
-import ScrollToTop from '@/components/ScrollToTop';
 import { fallbackGalleryItems } from '@/utils/galleryLoader';
 import { galleryCategories } from '@/data/gallery';
 
@@ -94,8 +91,7 @@ export default function GalleryPage() {
   };
 
   return (
-    <main className="gallery-main-wrapper" style={{ minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
-      <Navbar />
+    <div className="gallery-main-wrapper" style={{ minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
 
       {/* Hero Section */}
       <section className="gallery-hero-section" style={{ position: 'relative', paddingTop: '130px', paddingBottom: '4rem', overflow: 'hidden' }}>
@@ -462,8 +458,6 @@ export default function GalleryPage() {
         />
       )}
 
-      <FooterSection />
-      <ScrollToTop />
-    </main>
+    </div>
   );
 }

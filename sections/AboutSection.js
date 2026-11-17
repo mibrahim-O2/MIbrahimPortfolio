@@ -1,46 +1,86 @@
-import SectionTitle from '@/components/SectionTitle';
-import TerminalWidget from '@/components/TerminalWidget';
-import AboutBioCard from '@/components/AboutBioCard';
-import FocusAreas from '@/components/FocusAreas';
+import Image from 'next/image';
+import Link from 'next/link';
+import SectionHeader from '@/components/ui/SectionHeader';
+import Reveal from '@/components/motion/Reveal';
 import { personalInfo } from '@/data/personal';
+import { aboutParagraphs } from '@/data/about';
+import { educationData } from '@/data/education';
+import { highlightItems } from '@/utils/galleryLoader';
+import { splitByHighlights } from '@/utils/highlight';
+import styles from './AboutSection.module.css';
 
-export default function AboutSection() {
+// About: portrait, bio from data/about.js (highlights emphasised), quick facts and a "beyond code" strip.
+export default function AboutSection({ headingLevel = 'h2' }) {
+  const current = educationData.find((entry) => entry.status) || educationData[0];
+  const pill = personalInfo.statusPill || '';
+  const facts = [
+    { label: 'Based in', value: personalInfo.location },
+    current && { label: current.status ? 'Studying' : 'Education', value: `${current.title}, ${current.institutionName}` },
+    { label: 'Focus', value: personalInfo.title },
+    pill && { label: 'Availability', value: pill.includes(':') ? pill.slice(pill.indexOf(':') + 1).trim() : pill }
+  ].filter(Boolean);
+  const photos = highlightItems.filter((item) => !item.isVideo).slice(0, 4);
+
   return (
     <section id="about" className="section">
-      <div className="about-bg-orb about-bg-orb-1"></div>
-      <div className="about-bg-orb about-bg-orb-2"></div>
-      <div className="about-bg-orb about-bg-orb-3"></div>
-
       <div className="container">
-        <SectionTitle
-          title="About Me"
-          description="Here's a brief introduction about myself, my core profile, and specialized skill domains."
-          ghost="ABOUT"
-        />
+        <SectionHeader as={headingLevel} eyebrow="About me" title="Research-grade ideas, turned into working software" />
 
-        <div className="about-grid">
-          <div className="about-image-container" data-aos="clip-up">
-            <div className="about-image-wrapper">
-              <img
-                src={personalInfo.avatarUrl}
-                alt={personalInfo.name}
-                className="about-image"
-              />
+        <div className={styles.layout}>
+          <Reveal className={styles.portraitWrap}>
+            <div className={styles.portrait}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={personalInfo.avatarUrl} alt={personalInfo.name} width="400" height="400" loading="lazy" />
+            </div>
+          </Reveal>
+
+          <div className={styles.text}>
+            {aboutParagraphs.map((paragraph) => (
+              <Reveal as="p" key={paragraph.text.slice(0, 24)} className={styles.paragraph}>
+                {splitByHighlights(paragraph.text, paragraph.highlights).map((segment, index) =>
+                  segment.match ? (
+                    <mark key={index} className={styles.mark}>
+                      {segment.text}
+                    </mark>
+                  ) : (
+                    <span key={index}>{segment.text}</span>
+                  )
+                )}
+              </Reveal>
+            ))}
+
+            <Reveal as="dl" className={styles.facts}>
+              {facts.map((fact) => (
+                <div key={fact.label} className={styles.fact}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </Reveal>
+          </div>
+        </div>
+
+        <Reveal className={`card ${styles.beyond}`}>
+          <div className={styles.beyondText}>
+            <span className="eyebrow">Beyond code</span>
+            <p>Volunteering at university events, exhibitions and the ICT lab, plus moments from the journey so far.</p>
+            <div className={styles.beyondLinks}>
+              <Link href="/volunteer" className="btn btn-ghost btn-sm">
+                Volunteer work <i className="fas fa-arrow-right btn-arrow" aria-hidden="true"></i>
+              </Link>
+              <Link href="/gallery" className="btn btn-ghost btn-sm">
+                Gallery <i className="fas fa-arrow-right btn-arrow" aria-hidden="true"></i>
+              </Link>
             </div>
           </div>
-
-          <div className="about-content" data-aos="rise-blur" data-aos-delay="70">
-            <AboutBioCard />
-          </div>
-        </div>
-
-        {/* Interactive AI Core Terminal */}
-        <div data-aos="pop-scale">
-          <TerminalWidget />
-        </div>
-
-        {/* Focus areas (bento cards) */}
-        <FocusAreas />
+          <Link href="/gallery" className={styles.photos} aria-label="Open the gallery">
+            {photos.map((photo, index) => (
+              <span key={photo.id} className={styles.photo} style={{ '--i': index }}>
+                <Image src={photo.src} alt={photo.title} fill sizes="160px" />
+              </span>
+            ))}
+          </Link>
+        </Reveal>
       </div>
     </section>
   );

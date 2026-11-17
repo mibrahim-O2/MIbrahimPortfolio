@@ -1,0 +1,36 @@
+.intro {
+  padding-bottom: clamp(1rem, 3vw, 2rem);
+}
+
+.inner {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+  max-width: 48rem;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  transition: color var(--dur-fast), gap var(--dur-fast) var(--ease);
+}
+
+.back:hover {
+  color: var(--accent);
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: var(--fs-display);
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.lead {
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+}

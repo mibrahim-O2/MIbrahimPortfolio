@@ -72,5 +72,5 @@ export function orderGalleryFiles(files) {
 
 export const fallbackGalleryItems = orderGalleryFiles(galleryFileNames).map((file) => buildGalleryItem(file));
 
-// Highlight items only, in display order (About deck + home marquee)
+// Highlight items only, in display order (About "Beyond code" card)
 export const highlightItems = fallbackGalleryItems.slice(0, highlightOrder.length);

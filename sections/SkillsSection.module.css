@@ -1,0 +1,95 @@
+.grid {
+  display: grid;
+  gap: clamp(0.9rem, 1.6vw, 1.25rem);
+}
+
+.card {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding: clamp(1.15rem, 2.5vw, 1.5rem);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.title i {
+  color: var(--accent);
+  font-size: 0.95rem;
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: #4ADE80;
+}
+
+.live span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: blink 1.8s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem 0.35rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.025);
+  font-size: 0.85rem;
+  color: var(--text);
+  transition: border-color var(--dur-fast), transform var(--dur-fast) var(--ease), background-color var(--dur-fast);
+}
+
+.chip i {
+  font-size: 1rem;
+  color: var(--brand);
+  /* very dark brand colours stay readable on the dark surface */
+  filter: brightness(1.25) saturate(1.1);
+}
+
+@media (hover: hover) {
+  .chip:hover {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--brand) 55%, transparent);
+    background: color-mix(in srgb, var(--brand) 10%, transparent);
+  }
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

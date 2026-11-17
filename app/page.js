@@ -1,40 +1,25 @@
-'use client';
-
-import Navbar from '@/components/Navbar';
 import HeroSection from '@/sections/HeroSection';
-import AboutSection from '@/sections/AboutSection';
-import ExperienceSection from '@/sections/ExperienceSection';
-import EducationSection from '@/sections/EducationSection';
 import ProjectsSection from '@/sections/ProjectsSection';
+import ExpertiseSection from '@/sections/ExpertiseSection';
+import ExperienceSection from '@/sections/ExperienceSection';
+import AboutSection from '@/sections/AboutSection';
 import SkillsSection from '@/sections/SkillsSection';
-import VolunteerSection from '@/sections/VolunteerSection';
-import CertificatesSection from '@/sections/CertificatesSection';
-import GalleryMarqueeSection from '@/sections/GalleryMarqueeSection';
+import EducationSection from '@/sections/EducationSection';
 import ContactSection from '@/sections/ContactSection';
-import FooterSection from '@/sections/FooterSection';
-import ScrollToTop from '@/components/ScrollToTop';
-import FloatingChatbot from '@/components/FloatingChatbot';
 
+// Homepage. The order of the lines below is the order of the sections on the page.
+// The navigation bar and footer come from app/layout.js. See docs/UPDATE-HOMEPAGE-SECTIONS.md.
 export default function Home() {
   return (
-    <main className="main-content">
-      <Navbar />
-
+    <>
       <HeroSection />
-      <AboutSection />
-      <ExperienceSection />
-      <EducationSection />
       <ProjectsSection />
+      <ExpertiseSection />
+      <ExperienceSection />
+      <AboutSection />
       <SkillsSection />
-      <VolunteerSection />
-      <CertificatesSection />
-      <GalleryMarqueeSection />
+      <EducationSection />
       <ContactSection />
-
-      <FooterSection />
-
-      <ScrollToTop />
-      <FloatingChatbot />
-    </main>
+    </>
   );
 }

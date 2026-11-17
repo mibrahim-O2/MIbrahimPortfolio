@@ -1,0 +1,132 @@
+.grid {
+  display: grid;
+  gap: clamp(0.9rem, 1.6vw, 1.25rem);
+}
+
+.cell {
+  display: grid;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  overflow: hidden;
+  transition: border-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    border-color: var(--border-accent);
+    transform: translateY(-3px);
+  }
+
+  .card:hover .icon {
+    transform: rotate(-8deg) scale(1.06);
+    background: rgba(var(--accent-rgb), 0.2);
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid var(--border-accent);
+  background: rgba(var(--accent-rgb), 0.1);
+  color: var(--accent);
+  font-size: 1.1rem;
+  transition: transform var(--dur) var(--ease), background-color var(--dur);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.title {
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.proof {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  font-size: var(--fs-sm);
+}
+
+.proofLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.proofTitle {
+  font-weight: 600;
+}
+
+.proof i {
+  margin-left: auto;
+  color: var(--accent);
+  font-size: 0.8rem;
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+a.proof:hover .proofTitle {
+  color: var(--accent-hover);
+}
+
+a.proof:hover i {
+  transform: translateX(4px);
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .wide:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .cell {
+    grid-column: span 2;
+  }
+
+  .wide,
+  .wide:first-child {
+    grid-column: span 3;
+  }
+}

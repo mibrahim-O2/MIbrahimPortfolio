@@ -1,7 +1,4 @@
-import Navbar from '@/components/Navbar';
 import VolunteerSection from '@/sections/VolunteerSection';
-import FooterSection from '@/sections/FooterSection';
-import ScrollToTop from '@/components/ScrollToTop';
 
 export const metadata = {
   title: 'Volunteer Experience | Muhammad Ibrahim',
@@ -10,13 +7,8 @@ export const metadata = {
 
 export default function VolunteerPage() {
   return (
-    <main className="main-content" style={{ paddingTop: '80px' }}>
-      <Navbar />
-
-      <VolunteerSection />
-
-      <FooterSection />
-      <ScrollToTop />
-    </main>
+    <div className="subpage">
+      <VolunteerSection headingLevel="h1" />
+    </div>
   );
 }
