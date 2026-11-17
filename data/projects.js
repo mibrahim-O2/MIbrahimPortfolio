@@ -4,17 +4,70 @@
 // `status` is "Live", "Completed" or "In progress". `categories` must match the filter labels below exactly.
 // `featured: true` marks the projects highlighted on the homepage (see docs/ADD-PROJECT.md).
 // `published: false` hides a project everywhere (lists, detail page, sitemap) without deleting its content.
+// Optional: `highlight` (one short line shown on featured cards and the detail page), `videoLabel` (text of the
+// video button, default "Watch video") and `links` (extra buttons: [{ label, url, icon }]; entries with an
+// empty url are hidden, so they can be used as placeholders).
 // Full guide: docs/ADD-PROJECT.md and docs/UPDATE-PROJECT.md
 export const projectCategories = [
   { key: 'all', label: 'All Projects' },
   { key: "AI & Machine Learning", label: "AI & Machine Learning" },
   { key: "Web & Full-Stack", label: "Web & Full-Stack" },
+  { key: "Security", label: "Security" },
   { key: "Optimization", label: "Optimization" },
   { key: "Freelance & Client", label: "Freelance & Client" },
   { key: "Personal", label: "Personal" }
 ];
 
 export const projectsData = [
+  {
+    id: "finlexpurple",
+    title: "FinLexPurple",
+    subtitle: "An open-source security agent for financial apps that proves its findings instead of guessing.",
+    description: "An open-source, Python-based security-testing agent for payment and fintech applications. It can use AI to plan its tests, but a finding is only marked \"verified\" when deterministic code reproduces the effect, and every verified result ships as a signed evidence bundle anyone can re-check offline.",
+    highlight: "Open source (Apache-2.0) · v0.4.0 on PyPI · actively developed toward 1.0",
+    image: "/images/projects/finlexpurple.webp",
+    tags: [
+      "Python",
+      "AI Agents",
+      "Security Testing",
+      "DSSE / in-toto",
+      "Sigstore",
+      "PyPI Trusted Publishing",
+      "GitHub Actions",
+      "Typed Python"
+    ],
+    categories: [
+      "Security",
+      "AI & Machine Learning"
+    ],
+    demoUrl: "",
+    githubUrl: "https://github.com/FinLexPurple/finlexpurple",
+    videoUrl: "", // TODO: link the terminal recording here; the "Watch it run" button appears once this is filled
+    videoLabel: "Watch it run",
+    links: [
+      { label: "Website", url: "https://finlexpurple.com", icon: "fas fa-globe" },
+      { label: "PyPI", url: "https://pypi.org/project/finlexpurple/", icon: "fab fa-python" },
+      { label: "Blog post", url: "", icon: "fas fa-pen-nib" } // TODO: add the blog post URL once it is live
+    ],
+    badge: "Solo Project · Open Source",
+    status: "Live",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/finlexpurple.webp",
+    problemStatement: "Security tools that rely on AI can report findings based on model confidence alone. For payment and fintech applications, a finding that cannot be reproduced and independently re-checked is hard to trust and hard to act on.",
+    solution: "FinLexPurple lets AI propose and plan tests, but only deterministic code can mark a finding as verified. Every verified result is packaged as a signed evidence bundle that anyone can re-check offline with a single command.",
+    features: [
+      "AI proposes, code decides: one function is the only path to a \"verified\" result, and it never consults an AI model. The safety rule is built into the architecture, not the documentation.",
+      "Signed, re-checkable evidence: results are packaged in industry signing formats (DSSE/in-toto, Sigstore), a one-command offline check confirms them, and golden test vectors in CI keep older results verifiable across releases.",
+      "Single-registry architecture: all 14 vulnerability classes are defined as records in one registry. Adding a class is a single record; the rest of the system reads from it.",
+      "Release engineering: about 20,500 lines of typed Python and 888 tests, run in CI on Linux, macOS and Windows. Releases publish to PyPI through Trusted Publishing with build attestations and a manually approved production step.",
+      "Safety enforced in code: every run requires authorization, sensitive actions need approval, the riskiest categories can never be switched on by configuration, and outbound network access is blocked by default."
+    ],
+    architectureDiagram: "AI planner proposes tests -> Deterministic verifier (the only path to \"verified\", never calls a model) -> Signed evidence bundle (DSSE/in-toto, Sigstore) -> One-command offline verification",
+    challenges: [],
+    lessonsLearned: [],
+    results: "Designed and built as the sole developer, from first commit to a public v0.4.0 release on PyPI, with an automated, attested release pipeline and a live product website."
+  },
   {
     id: "neurocode",
     title: "NeuroCode",
