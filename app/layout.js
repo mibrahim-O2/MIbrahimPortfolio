@@ -11,8 +11,8 @@ import ScrollToTop from '@/components/ScrollToTop';
 const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], display: 'swap', weight: ['400', '500'], variable: '--font-jetbrains' });
 
-const TITLE = 'Muhammad Ibrahim | Full-Stack Developer & AI Engineer';
-const DESCRIPTION = 'Portfolio of Muhammad Ibrahim, a Full-Stack Developer and AI Engineer building AI systems, optimization tools, and full-stack web applications.';
+const TITLE = 'Muhammad Ibrahim | Agentic AI & Automation Engineer';
+const DESCRIPTION = 'Portfolio of Muhammad Ibrahim, an agentic AI and automation engineer building AI agents, business automation and full-stack products with human approval and verifiable results.';
 // 1200x630 JPEG: LinkedIn and some other crawlers do not render WebP
 const OG_IMAGE = { url: '/og-image.jpg', width: 1200, height: 630, alt: 'Muhammad Ibrahim' };
 
@@ -22,6 +22,10 @@ export const metadata = {
   description: DESCRIPTION,
   keywords: [
     'Muhammad Ibrahim',
+    'Agentic AI',
+    'AI Agents',
+    'AI Automation',
+    'Model Context Protocol',
     'Full-Stack Developer',
     'AI Engineer',
     'Machine Learning',

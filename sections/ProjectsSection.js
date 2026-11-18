@@ -17,7 +17,7 @@ export default function ProjectsSection() {
         <SectionHeader
           eyebrow="Selected work"
           title="Featured projects"
-          lead="Systems I designed and built end to end, from AI and optimization engines to production web apps."
+          lead="Systems I designed and built end to end, from AI agents and security tooling to client stores and business software."
           action={
             <Link href="/projects" className="btn btn-ghost">
               All projects <i className="fas fa-arrow-right btn-arrow" aria-hidden="true"></i>

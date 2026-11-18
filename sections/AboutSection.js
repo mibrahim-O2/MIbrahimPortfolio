@@ -24,7 +24,7 @@ export default function AboutSection({ headingLevel = 'h2' }) {
   return (
     <section id="about" className="section">
       <div className="container">
-        <SectionHeader as={headingLevel} eyebrow="About me" title="Research-grade ideas, turned into working software" />
+        <SectionHeader as={headingLevel} eyebrow="About me" title="Autonomous software, with accountability built in" />
 
         <div className={styles.layout}>
           <Reveal className={styles.portraitWrap}>

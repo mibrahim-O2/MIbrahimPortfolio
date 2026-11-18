@@ -3,7 +3,7 @@ import ProjectArchive from '@/components/ProjectArchive';
 
 export const metadata = {
   title: 'Projects | Muhammad Ibrahim',
-  description: 'All projects by Muhammad Ibrahim: AI and security tooling, optimization engines and full-stack web applications.'
+  description: 'All projects by Muhammad Ibrahim: AI agents, business automation, security tooling and full-stack web applications.'
 };
 
 export default function ProjectsPage() {

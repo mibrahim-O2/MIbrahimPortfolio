@@ -3,14 +3,14 @@ import { aboutParagraphs } from '@/data/about';
 export const personalInfo = {
   name: "Muhammad Ibrahim",
   greeting: "Welcome, I'm",
-  title: "Full-Stack & AI Integration Engineer",
+  title: "Agentic AI & Automation Engineer",
   // Hero: big headline (the words in headlineAccent get the copper gradient) and the paragraph under it
-  headline: "I build AI systems, optimization tools and full-stack web applications.",
-  headlineAccent: "AI systems",
-  intro: "I turn research-grade ideas into real, working software: from genetic-algorithm schedulers and LLM-powered learning platforms to security tooling that proves its findings.",
+  headline: "I build AI agents and automation that businesses can actually trust.",
+  headlineAccent: "AI agents",
+  intro: "Voice agents that book appointments, multi-agent systems that run business operations, a security agent that proves its findings: I design autonomous software where every risky action is approved, verified or audited.",
   // Résumé PDF (e.g. "/resume.pdf" after uploading public/resume.pdf). Empty = no résumé button.
   resumeUrl: "",
-  statusPill: "Open to Work: Full-Stack and AI Engineering Roles",
+  statusPill: "Open to Work: Agentic AI, Automation and Full-Stack Roles",
   avatarUrl: "https://github.com/mibrahim-O2.png?size=400",
   location: "Pakistan",
   email: "contact@mibrahimdev.tech",

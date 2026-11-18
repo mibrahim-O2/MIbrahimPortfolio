@@ -43,7 +43,7 @@ export default function FooterSection() {
         <div className={styles.grid}>
           <div className={styles.brand}>
             <p className={styles.name}>{personalInfo.name}</p>
-            <p className={styles.tagline}>{personalInfo.title}. Building AI systems, optimization tools and full-stack web applications.</p>
+            <p className={styles.tagline}>{personalInfo.title}. Building AI agents, business automation and full-stack products.</p>
             <ul className={styles.socials}>
               {footerSocials.map((social) => (
                 <li key={social.name}>
