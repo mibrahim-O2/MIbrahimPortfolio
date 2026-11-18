@@ -175,6 +175,32 @@
   .lead .actions { grid-area: actions; margin-top: 0; padding-top: 0; }
 }
 
+/* ---- Wide: a featured card that spans both grid columns (image left, text right) ---- */
+@media (min-width: 760px) {
+  .wide {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* Keep the screenshot's full 1200x630 shape (no cropping), centred next to the text */
+  .wide .media {
+    align-self: center;
+    margin: clamp(1rem, 2vw, 1.5rem);
+    margin-right: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+
+  .wide .body {
+    justify-content: center;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .wide .actions {
+    margin-top: 0.5rem;
+  }
+}
+
 /* ---- Compact: archive grid ---- */
 .compact .title {
   font-size: 1.15rem;

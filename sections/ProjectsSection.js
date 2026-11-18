@@ -32,11 +32,15 @@ export default function ProjectsSection() {
         )}
 
         <div className={styles.grid}>
-          {rest.map((project, i) => (
-            <Reveal key={project.id} delay={(i % 2) * 0.08} className={styles.cell}>
-              <ProjectCard project={project} variant="featured" index={i + 1} />
-            </Reveal>
-          ))}
+          {rest.map((project, i) => {
+            // A card left alone in the last row of the two-column grid becomes a wide, horizontal card
+            const wide = rest.length % 2 === 1 && i === rest.length - 1;
+            return (
+              <Reveal key={project.id} delay={(i % 2) * 0.08} className={`${styles.cell} ${wide ? styles.wideCell : ''}`}>
+                <ProjectCard project={project} variant="featured" index={i + 1} wide={wide} />
+              </Reveal>
+            );
+          })}
         </div>
 
         {others > 0 && (
