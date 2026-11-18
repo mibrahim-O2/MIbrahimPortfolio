@@ -1,0 +1,38 @@
+.button {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: rgba(var(--surface-rgb), 0.85);
+  color: var(--text);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.button:hover {
+  border-color: var(--border-accent);
+  color: var(--accent);
+}
+
+/* Phones: hidden so it never covers text (the navbar reappears on scroll-up; the footer has "Back to top") */
+@media (max-width: 759px) {
+  .button {
+    display: none;
+  }
+}

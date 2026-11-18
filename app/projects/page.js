@@ -1,22 +1,23 @@
-import Navbar from '@/components/Navbar';
-import ProjectsSection from '@/sections/ProjectsSection';
-import FooterSection from '@/sections/FooterSection';
-import ScrollToTop from '@/components/ScrollToTop';
+import PageIntro from '@/components/PageIntro';
+import ProjectArchive from '@/components/ProjectArchive';
 
 export const metadata = {
-  title: 'Projects Showcase | Muhammad Ibrahim',
-  description: 'Explore AI/ML models, RAG engines, full-stack Next.js web applications, and software engineering projects by Muhammad Ibrahim.'
+  title: 'Projects | Muhammad Ibrahim',
+  description: 'All projects by Muhammad Ibrahim: AI agents, business automation, security tooling and full-stack web applications.',
+  alternates: { canonical: '/projects' }
 };
 
 export default function ProjectsPage() {
   return (
-    <main className="main-content" style={{ paddingTop: '80px' }}>
-      <Navbar />
-
-      <ProjectsSection />
-
-      <FooterSection />
-      <ScrollToTop />
-    </main>
+    <>
+      <PageIntro
+        eyebrow="Project archive"
+        title="Projects"
+        lead="Everything I've built, from security tooling and AI platforms to client software and small experiments. Filter by area, or open a case study."
+      />
+      <section className="container" style={{ paddingBottom: 'var(--space-section)' }}>
+        <ProjectArchive />
+      </section>
+    </>
   );
 }

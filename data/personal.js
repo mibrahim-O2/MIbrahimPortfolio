@@ -3,14 +3,19 @@ import { aboutParagraphs } from '@/data/about';
 export const personalInfo = {
   name: "Muhammad Ibrahim",
   greeting: "Welcome, I'm",
-  title: "Full-Stack & AI Integration Engineer",
-  statusPill: "Open to Work: Full-Stack and AI Engineering Roles",
+  title: "Agentic AI & Automation Engineer",
+  // Hero: big headline (the words in headlineAccent get the copper gradient) and the paragraph under it
+  headline: "I build AI agents and automation that businesses can actually trust.",
+  headlineAccent: "AI agents",
+  intro: "Voice agents that book appointments, multi-agent systems that run business operations, a security agent that proves its findings: I design autonomous software where every risky action is approved, verified or audited.",
+  // Résumé PDF (e.g. "/resume.pdf" after uploading public/resume.pdf). Empty = no résumé button.
+  resumeUrl: "",
+  statusPill: "Open to Work: Agentic AI, Automation and Full-Stack Roles",
   avatarUrl: "https://github.com/mibrahim-O2.png?size=400",
   location: "Pakistan",
   email: "contact@mibrahimdev.tech",
   phone: "+92 324 2991303",
   gpa: "3.6 CGPA",
-  typingSvgUrl:"https://readme-typing-svg.herokuapp.com?color=%23E5B450&size=32&center=false&vCenter=true&width=760&weight=800&lines=AI+is+not+the+future.+AI+is+the+present.;AI+Integration+%26+Automation;Building+Scalable+Systems;",
   bio: aboutParagraphs.map((paragraph) => paragraph.text),
   socialLinks: [
     {
@@ -25,7 +30,7 @@ export const personalInfo = {
     },
     {
       name: "Email",
-      url: "contact@mibrahimdev.tech",
+      url: "mailto:contact@mibrahimdev.tech",
       icon: "fas fa-envelope"
     },
     {
@@ -44,16 +49,5 @@ export const personalInfo = {
       url: "https://x.com/MIbraheem_02",
       icon: "" // no Font Awesome glyph in the loaded 6.4.0; rendered by components/XIcon.js
     }
-  ],
-  navLinks: [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Education", href: "#education" },
-    { label: "Experience", href: "#experience" },
-    { label: "Projects", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Volunteer", href: "#volunteer" },
-    { label: "Certificates", href: "#certificates" },
-    { label: "Contact", href: "#contact" }
   ]
 };

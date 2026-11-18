@@ -1,0 +1,29 @@
+.image {
+  object-fit: cover;
+}
+
+.cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.9rem;
+  padding: 1.5rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(var(--accent-rgb), 0.22), transparent 55%),
+    radial-gradient(circle at 80% 90%, rgba(var(--accent-2-rgb), 0.14), transparent 50%),
+    var(--surface-2);
+}
+
+.cover i {
+  font-size: 2.2rem;
+  color: var(--accent);
+}
+
+.cover span {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}

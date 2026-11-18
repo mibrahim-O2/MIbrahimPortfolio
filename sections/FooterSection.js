@@ -1,109 +1,104 @@
+import Link from 'next/link';
 import { personalInfo } from '@/data/personal';
 import XIcon from '@/components/XIcon';
-import Reveal from '@/components/motion/Reveal';
-import RevealGroup from '@/components/motion/RevealGroup';
+import styles from './FooterSection.module.css';
 
-// No negative bottom margin: the footer sits at the very end of the page and must still trigger
-const FOOTER_VIEW = { once: true, amount: 0.1 };
+// Social icons in the footer, in this order (URLs and icons come from personalInfo.socialLinks)
+const FOOTER_SOCIALS = ['GitHub', 'LinkedIn', 'X', 'YouTube'];
+const footerSocials = FOOTER_SOCIALS
+  .map((name) => personalInfo.socialLinks.find((social) => social.name === name))
+  .filter((social) => social && social.url);
 
-const xUrl = personalInfo.socialLinks.find((social) => social.name === 'X')?.url;
+// Quick links. Homepage sections use "/#id" so they work from every page.
+const QUICK_LINKS = [
+  { label: 'Projects', href: '/#projects' },
+  { label: 'Expertise', href: '/#expertise' },
+  { label: 'Experience', href: '/#experience' },
+  { label: 'About', href: '/#about' },
+  { label: 'Contact', href: '/#contact' }
+];
+
+const MORE_LINKS = [
+  { label: 'All projects', href: '/projects' },
+  { label: 'Certifications', href: '/certificates' },
+  { label: 'Volunteer', href: '/volunteer' },
+  { label: 'Gallery', href: '/gallery' }
+];
+
+const phoneHref = `tel:${personalInfo.phone.replace(/[^+\d]/g, '')}`;
 
 export default function FooterSection() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="footer">
+    <footer className={styles.footer}>
       <div className="container">
-        <RevealGroup className="footer-content" stagger={0.12} viewport={FOOTER_VIEW}>
-          <Reveal variant="rise">
-            <div className="footer-brand">
-              Muhammad<span className="text-gradient">Ibrahim</span>
-            </div>
-            <p className="footer-description">
-              Software Developer | Full Stack Engineer | Problem Solver | Passionate about creating elegant
-              solutions to complex problems
-            </p>
-            <div className="footer-social">
-              <a
-                href="https://github.com/mibrahim-O2"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-social-link"
-              >
-                <i className="fab fa-github"></i>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/muhammad-ibrahim-o2"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-social-link"
-              >
-                <i className="fab fa-linkedin-in"></i>
-              </a>
-              <a
-                href={xUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-social-link"
-                aria-label="X (Twitter)"
-                title="X"
-              >
-                <XIcon />
-              </a>
-              <a
-                href="https://www.youtube.com/@mIbrahim_02"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer-social-link"
-              >
-                <i className="fab fa-youtube"></i>
-              </a>
-            </div>
-          </Reveal>
+        <div className={styles.cta}>
+          <p className={styles.ctaText}>Have something in mind?</p>
+          <a href={`mailto:${personalInfo.email}`} className={styles.ctaMail}>
+            {personalInfo.email} <i className="fas fa-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
 
-          <Reveal variant="rise">
-            <h3 className="footer-heading">Quick Links</h3>
-            <div className="footer-links">
-              <a href="#home" className="footer-link">
-                <i className="fas fa-chevron-right"></i> Home
-              </a>
-              <a href="#about" className="footer-link">
-                <i className="fas fa-chevron-right"></i> About
-              </a>
-              <a href="#education" className="footer-link">
-                <i className="fas fa-chevron-right"></i> Education
-              </a>
-              <a href="#experience" className="footer-link">
-                <i className="fas fa-chevron-right"></i> Experience
-              </a>
-              <a href="#projects" className="footer-link">
-                <i className="fas fa-chevron-right"></i> Projects
-              </a>
-              <a href="#contact" className="footer-link">
-                <i className="fas fa-chevron-right"></i> Contact
-              </a>
-            </div>
-          </Reveal>
+        <div className={styles.grid}>
+          <div className={styles.brand}>
+            <p className={styles.name}>{personalInfo.name}</p>
+            <p className={styles.tagline}>{personalInfo.title}. Building AI agents, business automation and full-stack products.</p>
+            <ul className={styles.socials}>
+              {footerSocials.map((social) => (
+                <li key={social.name}>
+                  <a href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} title={social.name}>
+                    {social.name === 'X' ? <XIcon /> : <i className={social.icon} aria-hidden="true"></i>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          <Reveal variant="rise">
-            <h3 className="footer-heading">Contact Info</h3>
-            <div className="footer-links">
-              <a href="mailto:mibrahimkhalid306@gmail.com" className="footer-link">
-                <i className="fas fa-envelope"></i> contact@mibrahimdev.tech
-              </a>
-              <a href="tel:+923242991303" className="footer-link">
-                <i className="fas fa-phone"></i> +92 324 2991303
-              </a>
-              <a href="#" className="footer-link">
-                <i className="fas fa-map-marker-alt"></i> {personalInfo.location}
-              </a>
-            </div>
-          </Reveal>
-        </RevealGroup>
+          <nav aria-label="Footer">
+            <p className={styles.heading}>Navigate</p>
+            <ul className={styles.links}>
+              {QUICK_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-        <Reveal variant="fade" className="footer-bottom" viewport={FOOTER_VIEW}>
-          <p className="footer-copyright">
-            &copy; <span>{new Date().getFullYear()}</span> Muhammad Ibrahim. All Rights Reserved.
+          <div>
+            <p className={styles.heading}>More</p>
+            <ul className={styles.links}>
+              {MORE_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className={styles.heading}>Contact</p>
+            <ul className={styles.links}>
+              <li>
+                <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
+              </li>
+              <li>
+                <a href={phoneHref}>{personalInfo.phone}</a>
+              </li>
+              <li className={styles.muted}>{personalInfo.location}</li>
+            </ul>
+          </div>
+        </div>
+
+        <div className={styles.bottom}>
+          <p>
+            &copy; {year} {personalInfo.name}. All rights reserved.
           </p>
-        </Reveal>
+          <a href="#main" className={styles.top}>
+            Back to top <i className="fas fa-arrow-up" aria-hidden="true"></i>
+          </a>
+        </div>
       </div>
     </footer>
   );

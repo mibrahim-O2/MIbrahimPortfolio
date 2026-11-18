@@ -2,230 +2,274 @@
 // `tags` is the tech stack. Empty demoUrl / videoUrl / githubUrl / image / heroBanner mean "not available":
 // the UI hides that button and shows a generated cover instead of a missing image.
 // `status` is "Live", "Completed" or "In progress". `categories` must match the filter labels below exactly.
+// `featured: true` marks the projects highlighted on the homepage (see docs/ADD-PROJECT.md).
+// `published: false` hides a project everywhere (lists, detail page, sitemap) without deleting its content.
+// Optional: `highlight` (one short line shown on featured cards and the detail page), `videoLabel` (text of the
+// video button, default "Watch video") and `links` (extra buttons: [{ label, url, icon }]; entries with an
+// empty url are hidden, so they can be used as placeholders).
+// Full guide: docs/ADD-PROJECT.md and docs/UPDATE-PROJECT.md
 export const projectCategories = [
   { key: 'all', label: 'All Projects' },
   { key: "AI & Machine Learning", label: "AI & Machine Learning" },
+  { key: "AI Agents", label: "AI Agents" },
   { key: "Web & Full-Stack", label: "Web & Full-Stack" },
+  { key: "Security", label: "Security" },
   { key: "Optimization", label: "Optimization" },
   { key: "Freelance & Client", label: "Freelance & Client" },
+  { key: "Course Projects", label: "Course Projects" },
   { key: "Personal", label: "Personal" }
 ];
 
 export const projectsData = [
   {
-    id: "neurocode",
-    title: "NeuroCode",
-    subtitle: "Adaptive coding practice with verified execution and verifiable credentials.",
-    description: "A solo-built, AI-powered coding education platform with adaptive roadmaps, execution-verified practice, proctored assessments, and publicly verifiable credentials.",
-    image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1200&h=760&fit=crop&auto=format&q=70",
-    tags: [
-      "React",
-      "Vite",
-      "Tailwind CSS",
-      "FastAPI",
-      "Python",
-      "Supabase (PostgreSQL)",
-      "Firebase Auth",
-      "Socket.io",
-      "ChromaDB",
-      "Google Gemini",
-      "OpenAI",
-      "Tree-sitter",
-      "Piston",
-      "Monaco Editor",
-      "Docker"
-    ],
-    categories: [
-      "AI & Machine Learning",
-      "Web & Full-Stack"
-    ],
-    demoUrl: "https://neurocode-official.netlify.app/",
-    githubUrl: "https://github.com/mibrahim-O2/NueroCode-Official",
-    videoUrl: "",
-    badge: "Solo Project",
-    status: "Live",
-    heroBanner: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=1600&h=900&fit=crop&auto=format&q=70",
-    problemStatement: "Coding platforms usually keep practice, grading, and assessment separate. Students can memorize fixed question banks or trust AI-generated answers that were never validated, and assessments offer little proof that the work was genuinely the learner's own.",
-    solution: "NeuroCode brings adaptive learning, execution-verified problems, and integrity-aware assessment into one workflow. AI-generated problems are validated by running reference solutions in a sandbox before students see them, submissions are graded against real test cases, and successful learners receive credentials that anyone can verify online.",
-    features: [
-      "Adaptive roadmap that reorders learning topics based on the learner's weak areas.",
-      "AI-generated coding problems, validated by executing reference solutions in a Piston sandbox before being saved.",
-      "Submission grading with real test cases and Tree-sitter structural code analysis.",
-      "Proctored assessments with server-scored integrity signals: tab switching, large pastes, camera checks, and typing rhythm.",
-      "Credential issuance with a public verification page, QR code, and PDF export.",
-      "Learner dashboard, profile, leaderboard, and mock interviews, plus an educator and admin panel."
-    ],
-    architectureDiagram: "Frontend (React + Vite + Monaco Editor) -> FastAPI routes -> Services (roadmap, problem generation, grading, proctoring, credentials) -> AI providers (Gemini, OpenAI) and Piston sandbox for verification -> Supabase PostgreSQL and ChromaDB for data and embeddings -> Firebase Auth for identity -> Credential and verification pages",
-    challenges: [
-      "AI-generated problem quality was a risk, so every generated reference solution is executed in a sandbox before the task is saved.",
-      "The Piston runtime container could start with no language runtimes loaded, which was fixed by recreating the container and documenting the setup steps.",
-      "Phase-wise testing exposed an assessment navigation bug that caused a blank screen and camera permission edge cases, which were fixed and re-tested."
-    ],
-    lessonsLearned: [
-      "Owning a large system alone, from architecture and database design to AI integration, testing, and deployment.",
-      "Designing a learning loop where generation, validation, and grading all happen before a student sees a problem.",
-      "Balancing AI assistance with safe learning constraints, keeping feedback hint-based instead of leaking full answers."
-    ],
-    results: "Built end to end as a solo project across different development phases, with phase-wise testing reports, a setup and deployment guide, and a user guide."
-  },
-  {
-    id: "verdexai",
-    title: "VerdexAI",
-    subtitle: "From CV screening to onboarding, in one AI-assisted hiring workflow.",
-    description: "An AI-powered recruitment platform that scores CVs, generates job-specific assessments, and manages hiring from application to onboarding, with separate flows for candidates, HR, and admins.",
-    image: "https://images.unsplash.com/photo-1635253548172-d82ffe76449d?w=1200&h=760&fit=crop&auto=format&q=70",
-    tags: [
-      "Next.js",
-      "React",
-      "Tailwind CSS",
-      "Node.js",
-      "Express",
-      "MongoDB (Mongoose)",
-      "Firebase Authentication",
-      "OpenAI GPT-4o-mini",
-      "pdf-parse",
-      "Resend",
-      "Vercel",
-      "Railway"
-    ],
-    categories: [
-      "AI & Machine Learning",
-      "Web & Full-Stack"
-    ],
-    demoUrl: "https://verdexai-official.vercel.app/",
-    githubUrl: "https://github.com/mibrahim-O2/verdexai-official",
-    videoUrl: "https://youtu.be/s-M_aoWDOkM",
-    badge: "Self-Learning Project",
-    status: "Live",
-    heroBanner: "https://images.unsplash.com/photo-1635253548172-d82ffe76449d?w=1600&h=900&fit=crop&auto=format&q=70",
-    problemStatement: "Hiring is usually fragmented across application tracking, CV review, testing, and final decisions. Candidates lack a clear path from finding a job to being evaluated, and recruiters spend hours screening CVs by hand instead of focusing on the best applicants.",
-    solution: "VerdexAI puts the whole hiring lifecycle in one platform. Candidates apply with a PDF CV that is parsed and scored by AI against the job requirements, HR ranks applicants by score, and job-specific assessments are generated automatically. Selected candidates move through interview and onboarding stages, and role-based access keeps candidate, HR, and admin actions separate.",
-    features: [
-      "PDF CV upload with AI parsing and scoring against each job's requirements.",
-      "HR job management: create, open, and close postings, with applicants ranked by AI score.",
-      "AI-generated, job-specific MCQ assessments with scoring and answer review, plus a fallback question set if generation fails.",
-      "Interview scheduling and hiring pipeline stages driven by application status, with email notifications through Resend.",
-      "Onboarding tracker with progress steps for finalized hires.",
-      "Role-based access for candidates, HR, and admins, enforced with Firebase token verification and role middleware."
-    ],
-    architectureDiagram: "Frontend (Next.js on Vercel) -> Express API (Railway) -> Firebase token verification and role middleware -> Business modules (jobs, applications, assessments, pipeline, admin) -> MongoDB models -> AI services (pdf-parse and OpenAI GPT-4o-mini for CV scoring and assessments) -> Resend email notifications",
-    challenges: [
-      "AI output and PDF extraction can fail unpredictably, so failures are caught in the application flow and a fallback question set is used when assessment generation fails.",
-      "Three user types share one system, so every request is authenticated with Firebase tokens and checked by role middleware to keep candidate, HR, and admin actions separate.",
-      "A hiring process has many stages, so applications move through explicit status transitions and onboarding steps instead of free-form updates."
-    ],
-    lessonsLearned: [
-      "Building and deploying a complete product alone, from database design to frontend and hosting.",
-      "Wrapping AI calls in resilient services that handle file input and model output variability.",
-      "Separating user journeys and enforcing access rules consistently across frontend and backend."
-    ],
-    results: "Deployed with the frontend on Vercel and the backend on Railway, with a demo walkthrough video on YouTube: https://youtu.be/s-M_aoWDOkM"
-  },
-  {
-    id: "imcs-scheduler",
-    title: "IMCS Scheduler",
-    subtitle: "From manual scheduling to automated timetables, papers, and events at IMCS.",
-    description: "A unified academic management system for IMCS that automates timetable generation with genetic algorithms and Google OR-Tools, with paper timetables, event and seminar management in development.",
-    image: "https://images.unsplash.com/photo-1611302457661-d24c21494f2a?w=1200&h=760&fit=crop&auto=format&q=70",
+    id: "finlexpurple",
+    title: "FinLexPurple",
+    subtitle: "An open-source security agent for financial apps that proves its findings instead of guessing.",
+    description: "I designed and built FinLexPurple, an open-source, Python-based security-testing agent for payment and fintech applications. It can use AI to plan its tests, but a finding is only marked \"verified\" when deterministic code reproduces the effect, and every verified result ships as a signed evidence bundle anyone can re-check offline. As the sole developer, I took it from first commit to a public v0.4.0 release on PyPI, with an automated, attested release pipeline and a live product website.",
+    highlight: "Open source (Apache-2.0) · v0.4.0 on PyPI · actively developed toward 1.0",
+    image: "/images/projects/finlexpurple.webp",
     tags: [
       "Python",
-      "FastAPI",
-      "Google OR-Tools",
-      "Genetic Algorithm",
-      "SQLAlchemy",
-      "Alembic",
-      "PostgreSQL",
-      "Pydantic",
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS"
+      "AI Agents",
+      "Security Testing",
+      "DSSE / in-toto",
+      "Sigstore",
+      "PyPI Trusted Publishing",
+      "GitHub Actions",
+      "Typed Python"
     ],
     categories: [
-      "Optimization",
-      "Web & Full-Stack"
-    ],
-    demoUrl: "",
-    githubUrl: "https://github.com/mibrahim-O2/IMCS-Scheduler",
-    videoUrl: "",
-    badge: "Final Year Project",
-    status: "In progress",
-    heroBanner: "https://images.unsplash.com/photo-1611302457661-d24c21494f2a?w=1600&h=900&fit=crop&auto=format&q=70",
-    problemStatement: "Academic scheduling at IMCS was done entirely by hand: class timetables, paper schedules, events, and seminars. The department runs three BS programs with morning and evening shifts, around 14 rooms, labs, and halls, and about 50 teachers, many of whom teach across programs. Avoiding teacher, room, and cross-program clashes manually was slow and error-prone.",
-    solution: "An automated scheduling system where a genetic algorithm and Google OR-Tools generate timetables that respect hard constraints such as teacher and room availability, while soft preferences are scored through a weighted fitness function. Academic data lives in PostgreSQL, exposed through a FastAPI backend and a Next.js interface, and the same platform is being extended to paper timetables, events, and seminars.",
-    features: [
-      "Automated timetable generation using a genetic algorithm (chromosome, hard and soft constraint fitness, operators, constructive seeding) together with Google OR-Tools for constraint-based scheduling.",
-      "Domain data model for programs, divisions, course schemes (per program and admission year), classrooms, teachers, courses, and timetables.",
-      "Database seed and rematerialization utilities for loading real academic data.",
-      "Next.js interface with dashboard, schemes, and timetables sections on top of a versioned FastAPI API.",
-      "In development: paper timetable generation.",
-      "In development: event and seminar management, and a performance matrix for evaluating schedules."
-    ],
-    architectureDiagram: "Frontend (Next.js: dashboard, schemes, timetables) -> API (FastAPI, versioned router) -> Database (SQLAlchemy models, PostgreSQL) -> Scheduling layer (genetic algorithm engine and Google OR-Tools solver) -> Generated schedules saved back to the database and shown in the interface",
-    challenges: [
-      "Teacher initials collide across timetable sheets and refer to different people, so teachers are resolved by full name, using the original scanned timetables as the source of truth.",
-      "Many teachers teach across both CS and AI, so cross-program clashes are enforced as hard constraints.",
-      "Scheme documents arrive in inconsistent PDF and Word formats, so the design uses extraction with an admin review step instead of blind automatic parsing (in development)."
-    ],
-    lessonsLearned: [
-      "Choosing between metaheuristic search and exact constraint solving depending on the shape of the scheduling problem.",
-      "Validating the scheduling logic on a small problem first, then scaling it to real department data.",
-      "Real institutional data is messy, so original documents must be the source of truth over any digitized copy."
-    ],
-    results: "Data scope: about 14 rooms, labs, and halls and about 50 teachers across 3 programs, taken from real 2026 timetables. No performance metrics yet."
-  },
-  {
-    id: "ai-tutor-plr",
-    title: "AI Tutor for Personalized Learning Recommendations",
-    subtitle: "Personalized study recommendations with explainable AI.",
-    description: "A Streamlit AI tutor that recommends study actions from quiz data using a rule-based engine and a decision tree, with explanations and performance dashboards.",
-    image: "https://images.unsplash.com/photo-1516387938699-a93567ec168e?w=1200&h=760&fit=crop&auto=format&q=70",
-    tags: [
-      "Python",
-      "Streamlit",
-      "scikit-learn",
-      "pandas",
-      "NumPy",
-      "Plotly"
-    ],
-    categories: [
+      "Security",
       "AI & Machine Learning"
     ],
     demoUrl: "",
-    githubUrl: "https://github.com/mibrahim-O2/AI_Tutor_PLR_AbstractMinds",
-    videoUrl: "https://www.youtube.com/watch?v=mhN8FOQ0iA8",
-    badge: "Course Project",
-    status: "Completed",
-    heroBanner: "https://images.unsplash.com/photo-1516387938699-a93567ec168e?w=1600&h=900&fit=crop&auto=format&q=70",
-    problemStatement: "Students with the same quiz score can need very different help. Fixed curricula ignore response time, confidence, and prior performance, so a student who guessed correctly and one who truly understood the topic get the same next step. This project turns those learning signals into individual study recommendations.",
-    solution: "The app takes quiz inputs and evaluates them with either a rule-based engine or a decision tree classifier. It returns a recommendation, the next topic, a practice count, and a revision flag, explains the reasoning behind each result, and compares both methods in a Streamlit dashboard.",
+    githubUrl: "https://github.com/FinLexPurple/finlexpurple",
+    videoUrl: "", // TODO: link the terminal recording here; the "Watch it run" button appears once this is filled
+    videoLabel: "Watch it run",
+    links: [
+      { label: "Website", url: "https://www.finlexpurple.com", icon: "fas fa-globe" },
+      { label: "PyPI", url: "https://pypi.org/project/finlexpurple", icon: "fab fa-python" },
+      { label: "Blog post", url: "", icon: "fas fa-pen-nib" } // TODO: add the blog post URL only once it is live
+    ],
+    badge: "Solo Project · Open Source",
+    status: "Live",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/finlexpurple.webp",
+    problemStatement: "Security tools that rely on AI can report findings based on model confidence alone. For payment and fintech applications, a finding that cannot be reproduced and independently re-checked is hard to trust and hard to act on.",
+    solution: "FinLexPurple lets AI propose and plan tests, but only deterministic code can mark a finding as verified. Every verified result is packaged as a signed evidence bundle that anyone can re-check offline with a single command.",
     features: [
-      "Rule-based recommendation engine using score thresholds, response time, confidence, and previous score.",
-      "Decision tree training and prediction pipeline for personalized recommendations.",
-      "Explainability output showing the reasoning steps and the decision tree's split path.",
-      "Interactive Plotly dashboards for topic performance, recommendation distribution, score trends, and student-versus-dataset comparison.",
-      "Evaluation module comparing the rule-based engine and the decision tree using standard classification metrics.",
-      "Synthetic dataset generator for model training and experimentation."
+      "AI proposes, code decides: one function is the only path to a \"verified\" result, and it never consults an AI model. The safety rule is built into the architecture, not the documentation.",
+      "Signed, re-checkable evidence: results are packaged in industry signing formats (DSSE/in-toto, Sigstore), a one-command offline check confirms them, and golden test vectors in CI keep older results verifiable across releases.",
+      "Single-registry architecture: all 14 vulnerability classes are defined as records in one registry. Adding a class is a single record; the rest of the system reads from it.",
+      "Release engineering: about 20,500 lines of typed Python and 888 tests, run in CI on Linux, macOS and Windows. Releases publish to PyPI through Trusted Publishing with build attestations and a manually approved production step.",
+      "Safety enforced in code: every run requires authorization, sensitive actions need approval, the riskiest categories can never be switched on by configuration, and outbound network access is blocked by default."
     ],
-    architectureDiagram: "Streamlit app (app.py) -> Input validation and shared thresholds (utils/helpers.py) -> Dataset (data/student_scores.csv) -> Recommendation engine (run_rules, train_model, run_model) -> Recommendation, explanation, charts, and evaluation -> Saved model (models/decision_tree.pkl)",
-    challenges: [
-      "Rules, helpers, and the dataset generator could drift apart, so score and time thresholds are centralized in one helper module.",
-      "Overfitting on a small synthetic dataset was reduced with noisy label generation and a maximum tree depth of 4.",
-      "Prediction reliability was improved by saving the trained model, auto-training it if missing, and keeping the feature order fixed between training and prediction."
+    architectureDiagram: "AI planner proposes tests -> Deterministic verifier (the only path to \"verified\", never calls a model) -> Signed evidence bundle (DSSE/in-toto, Sigstore) -> One-command offline verification",
+    challenges: [],
+    lessonsLearned: [],
+    results: "Designed and built as the sole developer, from first commit to a public v0.4.0 release on PyPI, with an automated, attested release pipeline and a live product website."
+  },
+  {
+    id: "ai-voice-agent-for-business",
+    title: "AI Voice Agent for Business",
+    subtitle: "Answers inbound calls, qualifies leads and books appointments, with a person approving every sensitive action.",
+    description: "A Python voice agent built on the OpenAI Agents SDK that answers inbound calls in Realtime speech-to-speech or text mode, answers questions from a local knowledge base with sources, scores leads and offers appointment slots. CRM and calendar actions run through an MCP server, and every action that changes a record pauses until a person approves it.",
+    highlight: "OpenAI Agents SDK · MCP server with 10 tools · 158 offline tests · demo data only",
+    image: "/images/projects/ai-voice-agent-for-business.webp",
+    tags: [
+      "Python",
+      "OpenAI Agents SDK",
+      "OpenAI Realtime API",
+      "Model Context Protocol (MCP)",
+      "RAG",
+      "Pydantic",
+      "NumPy",
+      "pytest",
+      "GitHub Actions"
     ],
-    lessonsLearned: [
-      "Designing transparent AI that can be explained to a non-technical user instead of a black-box prediction.",
-      "Balancing rule-based logic with machine learning so the system stays interpretable and testable.",
-      "Leading a three-person team, dividing work across the recommendation engine, UI, and documentation."
+    categories: [
+      "AI Agents",
+      "AI & Machine Learning"
     ],
-    results: "On the project's synthetic dataset: the decision tree reached about 85% accuracy (F1 about 0.84) compared with about 80% accuracy (F1 about 0.79) for the rule-based engine."
+    demoUrl: "", // TODO: add the live demo URL here; the "Live demo" button appears once this is filled
+    demoLabel: "Live demo",
+    githubUrl: "https://github.com/mibrahim-O2/ai-voice-agent-for-business",
+    videoUrl: "",
+    links: [],
+    badge: "Solo Project",
+    status: "In progress",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/ai-voice-agent-for-business.webp",
+    problemStatement: "Small service businesses miss calls and enquiries when nobody is free to answer, but letting an AI create customer records, book technicians or cancel appointments on its own is risky.",
+    solution: "The agent handles the conversation and answers from the company's own knowledge base, or says it does not know. Read-only lookups run immediately, while every tool that changes data pauses the run until a person approves or rejects it. An approved call runs with exactly the arguments that were shown, and the gate fails closed on errors, timeouts and unknown tools.",
+    features: [
+      "Two modes from the same instructions: Realtime speech-to-speech voice and a text chat mode. The greeting says it is an AI assistant.",
+      "RAG over a local knowledge base (offline TF-IDF embeddings, or OpenAI text-embedding-3-small) that answers with sources or says \"I don't know\".",
+      "MCP server with 10 CRM and calendar tools over stdio or streamable HTTP, each tagged read-only, sensitive or destructive.",
+      "Human-in-the-loop gate: creating, updating, qualifying, noting, booking and cancelling all wait for a person, and every decision is logged.",
+      "Deterministic lead scoring from 0 to 100 using budget, timeline, service fit and contact details, with every point explained and hot, warm and cold tiers.",
+      "Guardrails that treat caller text as untrusted data, plus structured, redacted JSONL session logs of every turn, tool call and decision."
+    ],
+    architectureDiagram: "Caller (voice or text) -> AI agent (OpenAI Agents SDK, Realtime or text mode) -> search_knowledge (local RAG index) and read-only MCP tools -> sensitive MCP tools -> human approval gate -> demo CRM and calendar store -> redacted session logs",
+    challenges: [],
+    lessonsLearned: [],
+    results: "The foundation, MCP server, RAG layer and agent with approvals are complete, with 158 tests that run offline in CI on Python 3.11 to 3.13. All business data in the repository is fictional demo data."
+  },
+  {
+    id: "sn-noor-herbal-store",
+    title: "SN Noor Herbal Store",
+    subtitle: "A production e-commerce store and admin for a Pakistani herbal hair care brand.",
+    description: "An e-commerce website for SN Noor's herbal hair oil, herbal shampoo and Hair Care Kit, built as my 8th-semester BSCS E-commerce class project and shipped to the client as a freelance project, live at snnoor.com. Shoppers browse the catalog, check out with cash on delivery and track their orders, while the owner runs products, stock, orders, promotions, policy pages and settings from a role-based admin.",
+    highlight: "Freelance project shipped to the client · BSCS 8th semester E-commerce class project · Live at snnoor.com",
+    image: "/images/projects/sn-noor-herbal-store.webp",
+    tags: [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS 4",
+      "React Router",
+      "Hono",
+      "Cloudflare Workers",
+      "Cloudflare D1",
+      "Zod",
+      "Vitest",
+      "Cloudflare Turnstile"
+    ],
+    categories: [
+      "Freelance & Client",
+      "Course Projects",
+      "Web & Full-Stack"
+    ],
+    demoUrl: "https://snnoor.com",
+    demoLabel: "Live website",
+    githubUrl: "https://github.com/mibrahim-O2/sn-noor-herbal-store",
+    githubPrivate: true,
+    videoUrl: "",
+    links: [],
+    badge: "Freelance · 8th Semester",
+    status: "Live",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/sn-noor-herbal-store.webp",
+    problemStatement: "The brand needed its own online store for customers across Pakistan, most of whom shop on their phones and pay cash on delivery, and a way for the owner to manage products, orders and store content without a developer.",
+    solution: "One Cloudflare Worker serves the React storefront and a Hono API from the same origin, with data in Cloudflare D1. Every price, discount and total is calculated on the server by a single pricing function, and the owner runs the store from a role-based admin.",
+    features: [
+      "Storefront with home, shop (category filter, search and sort), product and Hair Care Kit pages with ingredients, usage and FAQ, cart, checkout and order tracking.",
+      "Server-side pricing engine for sale prices, the kit's own price and saving, a \"Switch to the Care Kit\" suggestion in the cart, coupons and promotions. Prices sent by the browser are ignored.",
+      "Cash on delivery checkout with Pakistani mobile number validation, idempotent order creation and atomic stock updates. Online payment sits behind a provider interface with a signed demo gateway for testing.",
+      "Admin with owner and staff roles: sales dashboard with charts, order workflow with printable slips, products, prices, stock, FAQ, coupons, promotions, policy pages and settings.",
+      "Transactional emails for order confirmation, owner alerts, status updates and low stock, with an email log and resend.",
+      "Security: zod validation, PBKDF2 password hashing, hashed session tokens, CSRF checks, rate limits, Cloudflare Turnstile, a Content Security Policy and an audit log of admin changes."
+    ],
+    architectureDiagram: "React storefront and admin (Vite, Tailwind CSS) -> Hono API on one Cloudflare Worker (same origin) -> zod validation, sessions and rate limits -> pricing engine and order service -> Cloudflare D1 -> email and payment providers",
+    challenges: [],
+    lessonsLearned: [],
+    results: "Built in four phases and deployed to snnoor.com, with an API test suite that runs inside the Workers runtime against a real local D1 database, and a written manual for the shop owner. The repository is private because it is client work."
+  },
+  {
+    id: "autonomous-ai-business-operations-agent",
+    title: "Autonomous AI Business Operations Agent",
+    subtitle: "A multi-agent platform that plans business tasks, runs them through controlled tools and holds risky actions for a person.",
+    description: "A Python multi-agent platform that takes a business task, plans it, delegates steps to specialist agents for research, sales operations, communications, scheduling and finance, executes them through an MCP tool gateway and reports a verified result. Every step is checkpointed and traced, and high-risk actions such as refunds wait in an Approval Center for a person with the right role.",
+    highlight: "v1.0.0 · 16-tool MCP server · 156 tests · runs offline, hosted models optional",
+    image: "/images/projects/autonomous-ai-business-operations-agent.webp",
+    tags: [
+      "Python",
+      "FastAPI",
+      "Model Context Protocol (MCP)",
+      "Pydantic",
+      "SQLite",
+      "Hybrid RAG (BM25 + vector)",
+      "Anthropic and OpenAI adapters",
+      "Docker",
+      "GitHub Actions",
+      "GitHub Pages"
+    ],
+    categories: [
+      "AI Agents",
+      "AI & Machine Learning"
+    ],
+    demoUrl: "https://mibrahim-o2.github.io/autonomous-ai-business-operations-agent/",
+    demoLabel: "Live demo",
+    githubUrl: "https://github.com/mibrahim-O2/autonomous-ai-business-operations-agent",
+    videoUrl: "",
+    links: [],
+    badge: "Solo Project",
+    status: "Live",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/autonomous-ai-business-operations-agent.webp",
+    problemStatement: "Tasks such as invoice collections, refunds, lead intake and inbox triage span several business systems. Letting an AI act across them is risky without planning, permission controls, recovery from failures and an audit trail.",
+    solution: "An orchestrator moves every run through analyse, plan, execute, verify and report, checkpointing after each transition. Specialist agents can only call tools through one gateway that validates arguments, applies a per-tenant approval policy, enforces timeouts and writes an audit record, so a held action has not executed until a person approves it.",
+    features: [
+      "Planner plus five specialist agents with least-privilege tool allow-lists, validated plans and replanning around failed steps.",
+      "A real MCP server with 16 tools, 3 resource templates and 2 prompts over CRM, email, calendar and billing. Every tool declares a risk level.",
+      "Human in the loop: a per-tenant policy decides whether a call runs, waits for approval or is refused. Approval runs it once with exactly the arguments shown, and decisions are role-checked and audited.",
+      "Durable run state in SQLite with pause, resume and cancel, recovery after restarts, and idempotency keys so side effects happen exactly once.",
+      "Agentic RAG with hybrid BM25 and vector search and citations. The research agent extracts policy values and fails closed when nothing grounded is found.",
+      "Tenant-scoped API keys and roles, a hash-chained audit log, prompt-injection defences, retries with backoff and circuit breakers.",
+      "A twelve-screen dashboard (Approval Center, execution history, observability, evaluation) with a read-only demo on GitHub Pages."
+    ],
+    architectureDiagram: "CLI or API -> Orchestrator -> Planner -> Specialist agents -> LLM provider (offline scripted or hosted) -> Tool gateway (allow-list, validation, approval policy, audit) -> Local and MCP tools -> Approval Center -> Verifier and reporter -> Memory, tracing and SQLite checkpoints",
+    challenges: [],
+    lessonsLearned: [],
+    results: "Delivered as version 1.0.0 with 156 tests, ten end-to-end evaluation scenarios, a hardened Docker image and a read-only live demo. Everything runs offline without an API key; the hosted model adapters are tested against stand-in clients, not yet against live APIs."
+  },
+  {
+    id: "lead-generation-agent-inbound",
+    title: "Lead Generation Agent (Inbound)",
+    subtitle: "Reads new enquiries, scores them and drafts a reply that a person approves before anything is sent.",
+    description: "An inbound lead agent built with the OpenAI Agents SDK for a fictional solar company. It extracts what each enquiry says, works out what is missing, scores the lead from a rule book applied in code, routes it to a draft reply, human handover, nurture or spam, and saves the draft for a person to approve. It never sends anything itself.",
+    highlight: "OpenAI Agents SDK · scoring and guardrails in code · 216 tests · demo dashboard on GitHub Pages",
+    image: "/images/projects/lead-generation-agent-inbound.webp",
+    tags: [
+      "Python",
+      "OpenAI Agents SDK",
+      "FastAPI",
+      "Pydantic",
+      "YAML rule book",
+      "React",
+      "TypeScript",
+      "Vite",
+      "Google Sheets (optional)"
+    ],
+    categories: [
+      "AI Agents",
+      "AI & Machine Learning"
+    ],
+    demoUrl: "https://mibrahim-o2.github.io/lead-generation-agent-inbound/",
+    demoLabel: "Live demo",
+    githubUrl: "https://github.com/mibrahim-O2/lead-generation-agent-inbound",
+    videoUrl: "",
+    links: [],
+    badge: "Solo Project",
+    status: "Live",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/lead-generation-agent-inbound.webp",
+    problemStatement: "Enquiries from web forms and messages arrive incomplete and vary in quality, and they need a quick, careful reply. An AI that replies on its own can promise prices, savings or dates the business cannot honour.",
+    solution: "The agent chooses its own tools and steps, but the hard rules are enforced in code: the score comes from the rule book, routing to nurture is decided from the facts, complaints always go to a person, and every draft is checked before it is saved. There is no tool that sends anything; drafts wait for human approval.",
+    features: [
+      "Extracts intent, property type, monthly bill, location, timeline and product interest, then works out in code what is still missing.",
+      "Scores leads from 1 to 10 using five signals in a YAML rule book. The score always comes from the rubric, never from the model.",
+      "Routes each lead to a draft reply, human handover, nurture or spam. Complaints, anger and legal threats are detected in code and always handed to a person.",
+      "Checks every draft: no prices, savings or dates, the customer's language (English, Roman Urdu or Urdu), at most three questions, and never asking for details already on file.",
+      "Duplicate check, prompt-injection screening and hard limits on leads, tool calls and tokens per run.",
+      "Local FastAPI server and a React and TypeScript dashboard whose approve, reject and hand over buttons only record a decision, plus an optional Google Sheets mirror."
+    ],
+    architectureDiagram: "Enquiry (web form, webhook, CSV or Google Sheet) -> Runner with limits and duplicate check -> Agent (OpenAI Agents SDK) -> Tools and guardrails in code (scoring rubric, routing, draft checks) -> Local storage -> FastAPI server -> React dashboard where a person approves",
+    challenges: [],
+    lessonsLearned: [],
+    results: "Ships with 20 evaluation cases that run on a mock model in CI or on a real model on demand, 216 tests, and a demo dashboard on GitHub Pages using fictional data. Other model providers can be selected by configuration; only OpenAI has been run with a real key."
   },
   {
     id: "bin-khalid-dairy-v2",
     title: "Bin Khalid Dairy Farm V2",
     subtitle: "Dairy operations, billing, and finances in one secure dashboard.",
     description: "A full-stack management system for a family dairy farm covering customers, suppliers, employees, livestock, billing, and printable invoices, rebuilt as an advanced V2 from an earlier Flask version.",
-    image: "https://images.unsplash.com/photo-1573731281021-d1cc573b3310?w=1200&h=760&fit=crop&auto=format&q=70",
+    image: "/images/projects/bin-khalid-dairy-v2.webp",
     tags: [
       "Next.js 15",
       "React 19",
@@ -241,11 +285,14 @@ export const projectsData = [
       "Web & Full-Stack"
     ],
     demoUrl: "https://bin-khalid-dairy.vercel.app/",
+    demoLabel: "Live website",
     githubUrl: "https://github.com/mibrahim-O2/Bin-Khalid-Dairy-Farm-V2",
     videoUrl: "",
     badge: "Family Business Project",
     status: "Live",
-    heroBanner: "https://images.unsplash.com/photo-1573731281021-d1cc573b3310?w=1600&h=900&fit=crop&auto=format&q=70",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/bin-khalid-dairy-v2.webp",
     problemStatement: "A dairy farm deals with customer accounts, supplier purchases, employee salaries, and livestock records every day. When these are scattered across manual records or disconnected tools, billing errors creep in, payments are missed, and the owner cannot see the true financial picture of the business.",
     solution: "V2 is a rewrite of my 2025 Flask system into a typed full-stack application. A single dashboard manages customer ledgers, supplier purchases, payroll, and livestock, backed by PostgreSQL through Drizzle ORM with server-side money handling. Access is protected by Firebase session-based authentication, and invoices can be generated and shared straight from a phone.",
     features: [
@@ -274,7 +321,7 @@ export const projectsData = [
     title: "Finlytics",
     subtitle: "One private place for spending, goals, balances, and debts.",
     description: "A private, single-user personal finance app for tracking income, expenses, monthly goals, account balances, and money owed, with automated email reminders and reports.",
-    image: "https://images.unsplash.com/photo-1709534486708-fb8f94150d0a?w=1200&h=760&fit=crop&auto=format&q=70",
+    image: "/images/projects/finlytics-tracker.webp",
     tags: [
       "React",
       "Vite",
@@ -288,11 +335,14 @@ export const projectsData = [
       "Personal"
     ],
     demoUrl: "https://finlytics-tracker.netlify.app/",
+    demoLabel: "Live website",
     githubUrl: "https://github.com/mibrahim-O2/finlytics-tracker",
     videoUrl: "",
     badge: "Personal Project",
     status: "Completed",
-    heroBanner: "https://images.unsplash.com/photo-1709534486708-fb8f94150d0a?w=1600&h=900&fit=crop&auto=format&q=70",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/finlytics-tracker.webp",
     problemStatement: "Personal spending usually ends up scattered across notes, bank apps, and memory, and money lent to other people is tracked informally. Without one consistent record, it is hard to see where money goes, whether monthly goals are being met, or who still owes what.",
     solution: "Finlytics brings transaction entry, category analysis, monthly goals, account balances, and debtor tracking into a single private app. A React frontend talks to Supabase for data, authentication, and Row-Level Security, while scheduled Edge Functions send daily reminders and monthly and annual reports by email.",
     features: [
@@ -317,11 +367,233 @@ export const projectsData = [
     results: "Built for my own daily finance tracking, with six database migrations and two scheduled Edge Functions for reminders and reports."
   },
   {
+    id: "neurocode",
+    title: "NeuroCode",
+    subtitle: "Adaptive coding practice with verified execution and verifiable credentials.",
+    description: "A solo-built, AI-powered coding education platform with adaptive roadmaps, execution-verified practice, proctored assessments, and publicly verifiable credentials.",
+    image: "/images/projects/neurocode.webp",
+    tags: [
+      "React",
+      "Vite",
+      "Tailwind CSS",
+      "FastAPI",
+      "Python",
+      "Supabase (PostgreSQL)",
+      "Firebase Auth",
+      "Socket.io",
+      "ChromaDB",
+      "Google Gemini",
+      "OpenAI",
+      "Tree-sitter",
+      "Piston",
+      "Monaco Editor",
+      "Docker"
+    ],
+    categories: [
+      "AI & Machine Learning",
+      "Web & Full-Stack"
+    ],
+    demoUrl: "https://neurocode-official.netlify.app/",
+    demoLabel: "Live website",
+    githubUrl: "https://github.com/mibrahim-O2/NueroCode-Official",
+    videoUrl: "https://youtu.be/S7R6AE9nWps",
+    videoLabel: "Watch walkthrough",
+    badge: "Solo Project",
+    status: "Live",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/neurocode.webp",
+    problemStatement: "Coding platforms usually keep practice, grading, and assessment separate. Students can memorize fixed question banks or trust AI-generated answers that were never validated, and assessments offer little proof that the work was genuinely the learner's own.",
+    solution: "NeuroCode brings adaptive learning, execution-verified problems, and integrity-aware assessment into one workflow. AI-generated problems are validated by running reference solutions in a sandbox before students see them, submissions are graded against real test cases, and successful learners receive credentials that anyone can verify online.",
+    features: [
+      "Adaptive roadmap that reorders learning topics based on the learner's weak areas.",
+      "AI-generated coding problems, validated by executing reference solutions in a Piston sandbox before being saved.",
+      "Submission grading with real test cases and Tree-sitter structural code analysis.",
+      "Proctored assessments with server-scored integrity signals: tab switching, large pastes, camera checks, and typing rhythm.",
+      "Credential issuance with a public verification page, QR code, and PDF export.",
+      "Learner dashboard, profile, leaderboard, and mock interviews, plus an educator and admin panel."
+    ],
+    architectureDiagram: "Frontend (React + Vite + Monaco Editor) -> FastAPI routes -> Services (roadmap, problem generation, grading, proctoring, credentials) -> AI providers (Gemini, OpenAI) and Piston sandbox for verification -> Supabase PostgreSQL and ChromaDB for data and embeddings -> Firebase Auth for identity -> Credential and verification pages",
+    challenges: [
+      "AI-generated problem quality was a risk, so every generated reference solution is executed in a sandbox before the task is saved.",
+      "The Piston runtime container could start with no language runtimes loaded, which was fixed by recreating the container and documenting the setup steps.",
+      "Phase-wise testing exposed an assessment navigation bug that caused a blank screen and camera permission edge cases, which were fixed and re-tested."
+    ],
+    lessonsLearned: [
+      "Owning a large system alone, from architecture and database design to AI integration, testing, and deployment.",
+      "Designing a learning loop where generation, validation, and grading all happen before a student sees a problem.",
+      "Balancing AI assistance with safe learning constraints, keeping feedback hint-based instead of leaking full answers."
+    ],
+    results: "Built end to end as a solo project across different development phases, with phase-wise testing reports, a setup and deployment guide, and a user guide."
+  },
+  {
+    id: "verdexai",
+    title: "VerdexAI",
+    subtitle: "From CV screening to onboarding, in one AI-assisted hiring workflow.",
+    description: "An AI-powered recruitment platform that scores CVs, generates job-specific assessments, and manages hiring from application to onboarding, with separate flows for candidates, HR, and admins.",
+    image: "/images/projects/verdexai.webp",
+    tags: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Node.js",
+      "Express",
+      "MongoDB (Mongoose)",
+      "Firebase Authentication",
+      "OpenAI GPT-4o-mini",
+      "pdf-parse",
+      "Resend",
+      "Vercel",
+      "Railway"
+    ],
+    categories: [
+      "AI & Machine Learning",
+      "Web & Full-Stack"
+    ],
+    demoUrl: "https://verdexai-official.vercel.app/",
+    demoLabel: "Live website",
+    githubUrl: "https://github.com/mibrahim-O2/verdexai-official",
+    videoUrl: "https://youtu.be/s-M_aoWDOkM",
+    videoLabel: "Watch demo",
+    badge: "Self-Learning Project",
+    status: "Live",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/verdexai.webp",
+    problemStatement: "Hiring is usually fragmented across application tracking, CV review, testing, and final decisions. Candidates lack a clear path from finding a job to being evaluated, and recruiters spend hours screening CVs by hand instead of focusing on the best applicants.",
+    solution: "VerdexAI puts the whole hiring lifecycle in one platform. Candidates apply with a PDF CV that is parsed and scored by AI against the job requirements, HR ranks applicants by score, and job-specific assessments are generated automatically. Selected candidates move through interview and onboarding stages, and role-based access keeps candidate, HR, and admin actions separate.",
+    features: [
+      "PDF CV upload with AI parsing and scoring against each job's requirements.",
+      "HR job management: create, open, and close postings, with applicants ranked by AI score.",
+      "AI-generated, job-specific MCQ assessments with scoring and answer review, plus a fallback question set if generation fails.",
+      "Interview scheduling and hiring pipeline stages driven by application status, with email notifications through Resend.",
+      "Onboarding tracker with progress steps for finalized hires.",
+      "Role-based access for candidates, HR, and admins, enforced with Firebase token verification and role middleware."
+    ],
+    architectureDiagram: "Frontend (Next.js on Vercel) -> Express API (Railway) -> Firebase token verification and role middleware -> Business modules (jobs, applications, assessments, pipeline, admin) -> MongoDB models -> AI services (pdf-parse and OpenAI GPT-4o-mini for CV scoring and assessments) -> Resend email notifications",
+    challenges: [
+      "AI output and PDF extraction can fail unpredictably, so failures are caught in the application flow and a fallback question set is used when assessment generation fails.",
+      "Three user types share one system, so every request is authenticated with Firebase tokens and checked by role middleware to keep candidate, HR, and admin actions separate.",
+      "A hiring process has many stages, so applications move through explicit status transitions and onboarding steps instead of free-form updates."
+    ],
+    lessonsLearned: [
+      "Building and deploying a complete product alone, from database design to frontend and hosting.",
+      "Wrapping AI calls in resilient services that handle file input and model output variability.",
+      "Separating user journeys and enforcing access rules consistently across frontend and backend."
+    ],
+    results: "Deployed with the frontend on Vercel and the backend on Railway, with a demo walkthrough video on YouTube: https://youtu.be/s-M_aoWDOkM"
+  },
+  {
+    id: "ai-tutor-plr",
+    title: "AI Tutor for Personalized Learning Recommendations",
+    subtitle: "Personalized study recommendations with explainable AI.",
+    highlight: "BSCS 7th semester · Artificial Intelligence Lab course project · Project Lead, team of three",
+    description: "A Streamlit AI tutor that turns a student's quiz score, response time, confidence and previous score into a study recommendation, using both a rule-based engine and a decision tree, with explanations and performance dashboards. Built as the 7th-semester BSCS Artificial Intelligence Lab project, where I led a team of three.",
+    image: "/images/projects/ai-tutor-plr.webp",
+    tags: [
+      "Python",
+      "Streamlit",
+      "scikit-learn",
+      "pandas",
+      "NumPy",
+      "Plotly"
+    ],
+    categories: [
+      "AI & Machine Learning",
+      "Course Projects"
+    ],
+    demoUrl: "",
+    githubUrl: "https://github.com/mibrahim-O2/AI_Tutor_PLR_AbstractMinds",
+    videoUrl: "https://www.youtube.com/watch?v=mhN8FOQ0iA8",
+    badge: "BSCS 7th Semester",
+    status: "Completed",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/ai-tutor-plr.webp",
+    problemStatement: "Students with the same quiz score can need very different help. Fixed curricula ignore response time, confidence, and prior performance, so a student who guessed correctly and one who truly understood the topic get the same next step. This project turns those learning signals into individual study recommendations.",
+    solution: "The app takes quiz inputs and evaluates them with either a rule-based engine or a decision tree classifier. It returns a recommendation, the next topic, a practice count, and a revision flag, explains the reasoning behind each result, and compares both methods in a Streamlit dashboard.",
+    features: [
+      "Rule-based recommendation engine using score thresholds, response time, confidence, and previous score.",
+      "Decision tree training and prediction pipeline for personalized recommendations.",
+      "Explainability output showing the reasoning steps and the decision tree's split path.",
+      "Interactive Plotly dashboards for topic performance, recommendation distribution, score trends, and student-versus-dataset comparison.",
+      "Evaluation module comparing the rule-based engine and the decision tree using standard classification metrics.",
+      "Synthetic dataset generator for model training and experimentation."
+    ],
+    architectureDiagram: "Streamlit app (app.py) -> Input validation and shared thresholds (utils/helpers.py) -> Dataset (data/student_scores.csv) -> Recommendation engine (run_rules, train_model, run_model) -> Recommendation, explanation, charts, and evaluation -> Saved model (models/decision_tree.pkl)",
+    challenges: [
+      "Rules, helpers, and the dataset generator could drift apart, so score and time thresholds are centralized in one helper module.",
+      "Overfitting on a small synthetic dataset was reduced with noisy label generation and a maximum tree depth of 4.",
+      "Prediction reliability was improved by saving the trained model, auto-training it if missing, and keeping the feature order fixed between training and prediction."
+    ],
+    lessonsLearned: [
+      "Designing transparent AI that can be explained to a non-technical user instead of a black-box prediction.",
+      "Balancing rule-based logic with machine learning so the system stays interpretable and testable.",
+      "Leading a three-person team, dividing work across the recommendation engine, UI, and documentation."
+    ],
+    results: "Completed as the Artificial Intelligence Lab course project at IMCS, University of Sindh, with a written report covering the PEAS framework, methodology, results and limitations. The app compares both methods side by side on accuracy, precision, recall, F1 score and a confusion matrix.",
+  },
+  {
+    id: "imcs-scheduler",
+    title: "IMCS Scheduler",
+    subtitle: "From manual scheduling to automated timetables, papers, and events at IMCS.",
+    description: "A unified academic management system for IMCS that automates timetable generation with genetic algorithms and Google OR-Tools, with paper timetables, event and seminar management in development.",
+    image: "",
+    tags: [
+      "Python",
+      "FastAPI",
+      "Google OR-Tools",
+      "Genetic Algorithm",
+      "SQLAlchemy",
+      "Alembic",
+      "PostgreSQL",
+      "Pydantic",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS"
+    ],
+    categories: [
+      "Optimization",
+      "Web & Full-Stack"
+    ],
+    demoUrl: "",
+    githubUrl: "https://github.com/mibrahim-O2/IMCS-Scheduler",
+    videoUrl: "",
+    badge: "Final Year Project",
+    status: "In progress",
+    featured: false,
+    published: true,
+    heroBanner: "",
+    problemStatement: "Academic scheduling at IMCS was done entirely by hand: class timetables, paper schedules, events, and seminars. The department runs three BS programs with morning and evening shifts, around 14 rooms, labs, and halls, and about 50 teachers, many of whom teach across programs. Avoiding teacher, room, and cross-program clashes manually was slow and error-prone.",
+    solution: "An automated scheduling system where a genetic algorithm and Google OR-Tools generate timetables that respect hard constraints such as teacher and room availability, while soft preferences are scored through a weighted fitness function. Academic data lives in PostgreSQL, exposed through a FastAPI backend and a Next.js interface, and the same platform is being extended to paper timetables, events, and seminars.",
+    features: [
+      "Automated timetable generation using a genetic algorithm (chromosome, hard and soft constraint fitness, operators, constructive seeding) together with Google OR-Tools for constraint-based scheduling.",
+      "Domain data model for programs, divisions, course schemes (per program and admission year), classrooms, teachers, courses, and timetables.",
+      "Database seed and rematerialization utilities for loading real academic data.",
+      "Next.js interface with dashboard, schemes, and timetables sections on top of a versioned FastAPI API.",
+      "In development: paper timetable generation.",
+      "In development: event and seminar management, and a performance matrix for evaluating schedules."
+    ],
+    architectureDiagram: "Frontend (Next.js: dashboard, schemes, timetables) -> API (FastAPI, versioned router) -> Database (SQLAlchemy models, PostgreSQL) -> Scheduling layer (genetic algorithm engine and Google OR-Tools solver) -> Generated schedules saved back to the database and shown in the interface",
+    challenges: [
+      "Teacher initials collide across timetable sheets and refer to different people, so teachers are resolved by full name, using the original scanned timetables as the source of truth.",
+      "Many teachers teach across both CS and AI, so cross-program clashes are enforced as hard constraints.",
+      "Scheme documents arrive in inconsistent PDF and Word formats, so the design uses extraction with an admin review step instead of blind automatic parsing (in development)."
+    ],
+    lessonsLearned: [
+      "Choosing between metaheuristic search and exact constraint solving depending on the shape of the scheduling problem.",
+      "Validating the scheduling logic on a small problem first, then scaling it to real department data.",
+      "Real institutional data is messy, so original documents must be the source of truth over any digitized copy."
+    ],
+    results: "Data scope: about 14 rooms, labs, and halls and about 50 teachers across 3 programs, taken from real 2026 timetables. No performance metrics yet."
+  },
+  {
     id: "pulsegrid",
     title: "PulseGrid",
     subtitle: "Real-time industrial telemetry that runs with hardware or without it.",
     description: "A hybrid industrial IoT dashboard that monitors machine temperature and pressure from an Arduino in real time, and falls back to a built-in data simulator when no hardware is connected.",
-    image: "https://images.unsplash.com/photo-1517055729445-fa7d27394b48?w=1200&h=760&fit=crop&auto=format&q=70",
+    image: "",
     tags: [
       "Arduino",
       "Node.js",
@@ -343,7 +615,9 @@ export const projectsData = [
     videoUrl: "",
     badge: "Solo Project",
     status: "Completed",
-    heroBanner: "https://images.unsplash.com/photo-1517055729445-fa7d27394b48?w=1600&h=900&fit=crop&auto=format&q=70",
+    featured: false,
+    published: true,
+    heroBanner: "",
     problemStatement: "Industrial equipment needs continuous monitoring of conditions such as temperature and pressure, and without a unified live view, threshold breaches are noticed late. Hardware-based projects are also hard to demonstrate online, because a cloud server has no physical device plugged into it.",
     solution: "PulseGrid combines an Arduino sensor layer with a MERN web dashboard. A Hybrid Detection Engine checks whether a physical Arduino is connected over USB, and if none is found it switches to a mathematically generated simulator. Both sources feed the same real-time pipeline into MongoDB and the React dashboard, so the system works identically with or without hardware.",
     features: [
@@ -372,7 +646,7 @@ export const projectsData = [
     title: "Bin Khalid Dairy Farm V1",
     subtitle: "From manual monthly billing to automated dairy invoices.",
     description: "A Flask billing app for a family dairy farm that tracks milk vouchers, calculates monthly bills automatically, and produces printable bilingual Urdu and English invoices shareable as images.",
-    image: "https://images.unsplash.com/photo-1523473827533-2a64d0d36748?w=1200&h=760&fit=crop&auto=format&q=70",
+    image: "",
     tags: [
       "Python",
       "Flask",
@@ -390,7 +664,9 @@ export const projectsData = [
     videoUrl: "",
     badge: "Client Work",
     status: "Completed",
-    heroBanner: "https://images.unsplash.com/photo-1523473827533-2a64d0d36748?w=1600&h=900&fit=crop&auto=format&q=70",
+    featured: false,
+    published: true,
+    heroBanner: "",
     problemStatement: "The farm handled customer milk billing manually every month. Repeated calculations, paper records, and manual reconciliation of totals and dues made the process slow and left room for arithmetic errors, and monthly reporting took longer than it should have.",
     solution: "A Flask web app stores voucher data in SQLite and gives the admin a dashboard for customers and monthly summaries. It calculates total milk, bill amounts, and outstanding dues automatically, and generates printable bilingual bills that can be saved as images and shared straight from a phone.",
     features: [
@@ -419,7 +695,7 @@ export const projectsData = [
     title: "EventHub",
     subtitle: "Discover events and manage registrations in one place.",
     description: "A Flask and SQLite event registration app for browsing upcoming events, registering with duplicate-email protection, and cancelling sign-ups.",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=760&fit=crop&auto=format&q=70",
+    image: "",
     tags: [
       "Python",
       "Flask",
@@ -435,7 +711,9 @@ export const projectsData = [
     videoUrl: "",
     badge: "Self-Learning Project",
     status: "Completed",
-    heroBanner: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&h=900&fit=crop&auto=format&q=70",
+    featured: false,
+    published: true,
+    heroBanner: "",
     problemStatement: "Students and organizers need a simple way to list upcoming events and collect registrations without a heavy authentication setup. Managing sign-ups through forms or messages makes it easy to lose track of who registered and to accept the same person twice.",
     solution: "A lightweight Flask application renders events and processes registrations, with SQLite storing event and participant data. Jinja2 templates and Bootstrap provide a consistent interface, while server-side validation and flash messages keep the registration flow clear.",
     features: [
@@ -464,7 +742,7 @@ export const projectsData = [
     title: "Restaurant Management System",
     subtitle: "Menu, orders, and reservations in one simple system.",
     description: "A Flask and SQLite restaurant app for browsing the menu, placing orders with automatic totals, and managing table reservations.",
-    image: "https://images.unsplash.com/photo-1613274554329-70f997f5789f?w=1200&h=760&fit=crop&auto=format&q=70",
+    image: "",
     tags: [
       "Python",
       "Flask",
@@ -481,7 +759,9 @@ export const projectsData = [
     videoUrl: "",
     badge: "Self-Learning Project",
     status: "Completed",
-    heroBanner: "https://images.unsplash.com/photo-1613274554329-70f997f5789f?w=1600&h=900&fit=crop&auto=format&q=70",
+    featured: false,
+    published: true,
+    heroBanner: "",
     problemStatement: "Small restaurants need a simple way to show their menu and keep track of customer orders and table bookings without a full enterprise system. This project explores how that workflow can be built end to end with a lightweight stack, keeping menu, order, and reservation data in one database.",
     solution: "A Flask application serves the menu and forms, records orders with automatically calculated totals, and stores reservations in SQLite. Jinja2 templates and Bootstrap provide a simple management interface, and the database is initialized and seeded with menu items on first run.",
     features: [
@@ -510,7 +790,7 @@ export const projectsData = [
     title: "URL Shortener",
     subtitle: "Short, shareable links for long URLs.",
     description: "A Flask web app that turns long URLs into short codes, stores them in SQLite, and redirects visitors to the original link.",
-    image: "https://images.unsplash.com/photo-1488272690691-2636704d6000?w=1200&h=760&fit=crop&auto=format&q=70",
+    image: "",
     tags: [
       "Python",
       "Flask",
@@ -526,7 +806,9 @@ export const projectsData = [
     videoUrl: "",
     badge: "Self-Learning Project",
     status: "Completed",
-    heroBanner: "https://images.unsplash.com/photo-1488272690691-2636704d6000?w=1600&h=900&fit=crop&auto=format&q=70",
+    featured: false,
+    published: true,
+    heroBanner: "",
     problemStatement: "Long URLs are hard to share, remember, and paste cleanly into messages and documents. This project explores how a lightweight link-shortening service works, from validating input to redirecting visitors, using a simple web stack.",
     solution: "The app accepts a long URL through a web form, validates it, and generates a unique random short code. The code and original URL are stored in SQLite, and the app returns a shareable short link. Opening that link triggers a Flask route that looks up the code and redirects to the original destination.",
     features: [
@@ -551,3 +833,10 @@ export const projectsData = [
     results: "Built as a self-learning project to practice Flask, SQLite, and request validation fundamentals."
   }
 ];
+
+// Projects visible on the site. Every page and component reads these lists, never projectsData directly.
+// A project is visible unless it has `published: false`.
+export const publishedProjects = projectsData.filter((project) => project.published !== false);
+
+// Published projects marked `featured: true`, in the same order as above.
+export const featuredProjects = publishedProjects.filter((project) => project.featured === true);

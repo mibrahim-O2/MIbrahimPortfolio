@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  margin-bottom: clamp(2.25rem, 4vw, 3.5rem);
+}
+
+.text {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 46rem;
+}
+
+.title {
+  font-size: var(--fs-2xl);
+}
+
+.lead {
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+  max-width: 40rem;
+}
+
+.action {
+  flex-shrink: 0;
+}
+
+.center {
+  justify-content: center;
+  text-align: center;
+}
+
+.center .text {
+  justify-items: center;
+  margin-inline: auto;
+}

@@ -1,0 +1,246 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--nav-h);
+  border-bottom: 1px solid transparent;
+  transition:
+    transform 0.4s var(--ease),
+    background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.scrolled {
+  background: rgba(var(--bg-rgb), 0.72);
+  border-bottom-color: var(--border);
+  backdrop-filter: saturate(140%) blur(14px);
+  -webkit-backdrop-filter: saturate(140%) blur(14px);
+}
+
+.hidden {
+  transform: translateY(-100%);
+}
+
+.nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* ---- Brand ---- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--gradient-accent);
+  color: #1A120D;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  box-shadow: 0 6px 20px -8px rgba(var(--accent-rgb), 0.8);
+  transition: transform var(--dur) var(--ease);
+}
+
+.brand:hover .mark {
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.brandName {
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 360px) {
+  .brandLast {
+    display: none;
+  }
+}
+
+.brandLast {
+  color: var(--text-muted);
+}
+
+/* ---- Desktop links ---- */
+.links {
+  display: none;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.link {
+  position: relative;
+  display: inline-flex;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.link:hover,
+.active {
+  color: var(--text);
+}
+
+.linkText {
+  position: relative;
+  z-index: 1;
+}
+
+.pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb), 0.14);
+  box-shadow: inset 0 0 0 1px rgba(var(--accent-rgb), 0.35);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.actions .cta {
+  display: none;
+}
+
+@media (min-width: 420px) {
+  .actions .cta {
+    display: inline-flex;
+  }
+}
+
+/* ---- Burger ---- */
+.burger {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.burger span {
+  position: absolute;
+  left: 13px;
+  right: 13px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform var(--dur) var(--ease), top var(--dur) var(--ease);
+}
+
+.burger span:first-child {
+  top: 17px;
+}
+
+.burger span:last-child {
+  top: 25px;
+}
+
+.burgerOpen span:first-child {
+  top: 21px;
+  transform: rotate(45deg);
+}
+
+.burgerOpen span:last-child {
+  top: 21px;
+  transform: rotate(-45deg);
+}
+
+/* ---- Mobile sheet ---- */
+.sheet {
+  position: fixed;
+  inset: var(--nav-h) 0 0 0;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-block: 2rem calc(2rem + env(safe-area-inset-bottom));
+  background: rgba(var(--bg-rgb), 0.97);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  overflow-y: auto;
+}
+
+.sheetLinks {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.sheetLink {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  font-size: clamp(1.9rem, 8vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  border-bottom: 1px solid var(--border);
+}
+
+.sheetLink:active {
+  color: var(--accent);
+}
+
+.sheetIndex {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  color: var(--accent);
+}
+
+.sheetFooter {
+  display: grid;
+  gap: 1rem;
+  padding-top: 2rem;
+}
+
+.sheetEmail {
+  color: var(--text-muted);
+}
+
+.sheetSocials {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.sheetSocials a {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+}
+
+@media (min-width: 960px) {
+  .links {
+    display: inline-flex;
+  }
+
+  .burger,
+  .sheet {
+    display: none;
+  }
+}

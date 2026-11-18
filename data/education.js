@@ -1,4 +1,4 @@
-// Education entries, newest first. Displayed by components/EducationPath.js.
+// Education entries, newest first. Displayed by components/EducationTimeline.js.
 // Shape: { id, period, degree, short (label on the mobile tabs), title, institutionName, chip, status?, campusImage, logos: [{ src, alt }], summary, metas: [{ label, value }] }
 // `logos` holds 1 or 2 logos, shown left to right. Add `status: "In progress"` to show a pulsing badge.
 // A meta value like "94%" or "82.6%" is animated as a count-up; any other value is shown as text.

@@ -88,6 +88,34 @@ Building AI systems, optimization tools, and full-stack web applications.
 
 <br/>
 
+</div>
+
+## About this repository
+
+Source of my personal portfolio: a static, data-driven **Next.js 14** site (React, plain CSS) deployed on
+**Vercel**. There is no database or admin panel: all content lives in the `data/` folder, and every push to
+`main` deploys automatically.
+
+## Documentation
+
+How to update the portfolio, written so it can be followed (or handed to an AI coding agent) without
+knowing the whole codebase:
+
+| Guide | Covers |
+|---|---|
+| [docs/README.md](docs/README.md) | Start here: where all content lives, rules, example requests |
+| [docs/ADD-PROJECT.md](docs/ADD-PROJECT.md) | Adding a project: every field, screenshots, featured, ordering |
+| [docs/UPDATE-PROJECT.md](docs/UPDATE-PROJECT.md) | Editing, featuring, hiding or removing a project |
+| [docs/ADD-EXPERIENCE.md](docs/ADD-EXPERIENCE.md) | Professional experience |
+| [docs/ADD-EDUCATION.md](docs/ADD-EDUCATION.md) | Education |
+| [docs/ADD-CERTIFICATION.md](docs/ADD-CERTIFICATION.md) | Certifications and verification links |
+| [docs/UPDATE-SKILLS.md](docs/UPDATE-SKILLS.md) | Technical and soft skills |
+| [docs/UPDATE-PROFILE.md](docs/UPDATE-PROFILE.md) | Name, headline, About, contact details, social links |
+| [docs/UPDATE-IMAGES.md](docs/UPDATE-IMAGES.md) | Image folders, sizes, naming, replacing images |
+| [docs/UPDATE-HOMEPAGE-SECTIONS.md](docs/UPDATE-HOMEPAGE-SECTIONS.md) | Section order, hiding and adding sections |
+| [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) | GitHub → Vercel previews → production, rollbacks |
+| [docs/PROJECT-STRUCTURE.md](docs/PROJECT-STRUCTURE.md) | What every folder and file does |
+
 <div align="center">
   <img src="https://capsule-render.vercel.app/api?type=waving&color=0:141413,50:D97B4A,100:141413&height=120&section=footer" width="100%"/>
   <br/>

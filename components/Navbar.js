@@ -1,152 +1,188 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { playClickSound } from '@/utils/sound';
+import { AnimatePresence, motion } from 'framer-motion';
+import { personalInfo } from '@/data/personal';
+import styles from './Navbar.module.css';
+
+// Main navigation. `id` = the homepage section it scrolls to; `pages` = routes that mark it active.
+const NAV_ITEMS = [
+  { label: 'Projects', id: 'projects', pages: ['/projects'] },
+  { label: 'Expertise', id: 'expertise', pages: [] },
+  { label: 'Experience', id: 'experience', pages: ['/experience'] },
+  { label: 'About', id: 'about', pages: ['/about', '/volunteer', '/gallery'] },
+  { label: 'Stack', id: 'skills', pages: ['/skills'] }
+];
+
+const MENU_SOCIALS = ['GitHub', 'LinkedIn', 'Email'];
 
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
   const pathname = usePathname();
+  const isHome = pathname === '/';
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [activeId, setActiveId] = useState(null);
 
-  const isHomePage = pathname === '/';
-
-  const navItems = [
-    { name: 'Home', sectionId: 'home', pagePath: '/' },
-    { name: 'About', sectionId: 'about', pagePath: '/about' },
-    { name: 'Experience', sectionId: 'experience', pagePath: '/experience' },
-    { name: 'Education', sectionId: 'education', pagePath: '/education' },
-    { name: 'Projects', sectionId: 'projects', pagePath: '/projects' },
-    { name: 'Skills', sectionId: 'skills', pagePath: '/skills' },
-    { name: 'Volunteer', sectionId: 'volunteer', pagePath: '/volunteer' },
-    { name: 'Certificates', sectionId: 'certificates', pagePath: '/certificates' },
-    { name: 'Contact', sectionId: 'contact', pagePath: '/contact' },
-    { name: 'Gallery', sectionId: 'gallery', pagePath: '/gallery' }
-  ];
-
-  // Scroll spy & navbar background shadow toggle
+  // Background after scrolling; hide while scrolling down, show again when scrolling up
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-
-      // Scroll Spy for Home Page Sections
-      if (isHomePage) {
-        const sections = navItems
-          .map((item) => document.getElementById(item.sectionId))
-          .filter(Boolean);
-
-        const scrollPosition = window.scrollY + 200;
-
-        for (let i = sections.length - 1; i >= 0; i--) {
-          const section = sections[i];
-          if (section.offsetTop <= scrollPosition) {
-            setActiveSection(section.id);
-            break;
-          }
-        }
+    let lastY = window.scrollY;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      setScrolled(y > 12);
+      if (Math.abs(y - lastY) > 6) {
+        setHidden(y > lastY && y > 320);
+        lastY = y;
       }
     };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]);
-
-  const handleNavClick = (sectionId) => {
-    playClickSound();
-    setActiveSection(sectionId);
-    if (mobileMenuOpen) {
-      setMobileMenuOpen(false);
+  // Scroll spy on the homepage: the section crossing the upper third of the screen is active
+  useEffect(() => {
+    if (!isHome) {
+      setActiveId(null);
+      return undefined;
     }
-  };
+    const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(Boolean);
+    const hero = document.getElementById('home');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveId(entry.target.id === 'home' ? null : entry.target.id);
+        });
+      },
+      { rootMargin: '-35% 0px -60% 0px' }
+    );
+    [hero, ...sections].filter(Boolean).forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [isHome]);
 
-  const toggleMobileMenu = () => {
-    playClickSound();
-    setMobileMenuOpen(!mobileMenuOpen);
-  };
+  // Close the menu on navigation; lock page scroll while it is open; Esc closes it
+  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    if (!open) return undefined;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (event) => event.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [open]);
+
+  const isActive = (item) => (isHome ? activeId === item.id : item.pages.some((page) => pathname.startsWith(page)));
+  const socials = MENU_SOCIALS.map((name) => personalInfo.socialLinks.find((social) => social.name === name)).filter(Boolean);
+  const [firstName, ...rest] = personalInfo.name.split(' ');
 
   return (
-    <header className={`header-sticky ${scrolled ? 'header-scrolled' : ''}`} id="header" role="banner">
-      <div className="container">
-        <nav className="navbar-container" aria-label="Main Navigation">
-          <Link href="/" className="navbar-brand-serif" onClick={() => handleNavClick('home')}>
-            Muhammad<span className="brand-accent">Ibrahim</span>
+    <>
+      <header className={`${styles.header} ${scrolled || open ? styles.scrolled : ''} ${hidden && !open ? styles.hidden : ''}`}>
+        <nav className={`container ${styles.nav}`} aria-label="Main">
+          <Link href="/" className={styles.brand} aria-label={`${personalInfo.name}, home`}>
+            <span className={styles.mark} aria-hidden="true">
+              {firstName.charAt(0)}
+              {rest.join(' ').charAt(0)}
+            </span>
+            <span className={styles.brandName}>
+              {firstName} <span className={styles.brandLast}>{rest.join(' ')}</span>
+            </span>
           </Link>
 
-          <ul className="nav-menu-serif" role="menubar">
-            {navItems.map((item) => {
-              const isSectionActive = isHomePage && activeSection === item.sectionId;
-              const isPageActive = !isHomePage && pathname === item.pagePath;
-              const isActive = isSectionActive || isPageActive;
-
-              const href = (isHomePage && item.pagePath !== '/gallery') ? `#${item.sectionId}` : item.pagePath;
-
+          <ul className={styles.links}>
+            {NAV_ITEMS.map((item) => {
+              const active = isActive(item);
               return (
-                <li key={item.name} className="nav-item-serif" role="none">
-                  <Link
-                    href={href}
-                    role="menuitem"
-                    aria-current={isActive ? 'page' : undefined}
-                    className={`nav-link-serif ${isActive ? 'active' : ''}`}
-                    onClick={() => handleNavClick(item.sectionId)}
-                  >
-                    <span className="nav-link-text">{item.name}</span>
-                    {isActive && <span className="active-dot-glow"></span>}
+                <li key={item.id}>
+                  <Link href={`/#${item.id}`} className={`${styles.link} ${active ? styles.active : ''}`} aria-current={active ? 'page' : undefined}>
+                    {active && <motion.span layoutId="nav-pill" className={styles.pill} transition={{ type: 'spring', stiffness: 380, damping: 32 }} />}
+                    <span className={styles.linkText}>{item.label}</span>
                   </Link>
                 </li>
               );
             })}
           </ul>
 
-          <div className="mobile-nav-actions">
+          <div className={styles.actions}>
+            <Link href="/#contact" className={`btn btn-primary btn-sm ${styles.cta}`}>
+              Let&apos;s talk
+            </Link>
             <button
-              id="mobile-menu-btn"
-              className={`mobile-hamburger ${mobileMenuOpen ? 'open' : ''}`}
-              aria-label="Toggle mobile menu"
-              aria-expanded={mobileMenuOpen}
-              onClick={toggleMobileMenu}
+              type="button"
+              className={`${styles.burger} ${open ? styles.burgerOpen : ''}`}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen((value) => !value)}
             >
-              <span></span>
-              <span></span>
-              <span></span>
+              <span />
+              <span />
             </button>
           </div>
         </nav>
-      </div>
+      </header>
 
-      {/* Mobile Menu Drawer */}
-      <div className={`mobile-menu-drawer ${mobileMenuOpen ? 'open' : ''}`} data-lenis-prevent>
-        <ul className="mobile-menu-list">
-          {navItems.map((item) => {
-            const isSectionActive = isHomePage && activeSection === item.sectionId;
-            const isPageActive = !isHomePage && pathname === item.pagePath;
-            const isActive = isSectionActive || isPageActive;
-            const href = (isHomePage && item.pagePath !== '/gallery') ? `#${item.sectionId}` : item.pagePath;
-
-            return (
-              <li key={item.name}>
-                <Link
-                  href={href}
-                  className={`mobile-nav-link ${isActive ? 'active' : ''}`}
-                  onClick={() => handleNavClick(item.sectionId)}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="mobile-menu"
+            className={styles.sheet}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <motion.ul
+              className={`container ${styles.sheetLinks}`}
+              initial="hidden"
+              animate="show"
+              variants={{ show: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } } }}
+            >
+              {[...NAV_ITEMS, { label: 'Contact', id: 'contact', pages: ['/contact'] }].map((item, index) => (
+                <motion.li
+                  key={item.id}
+                  variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } } }}
                 >
-                  <span>{item.name}</span>
-                  {isActive && <i className="fas fa-chevron-right"></i>}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      {mobileMenuOpen && (
-        <div className="mobile-menu-backdrop" onClick={() => setMobileMenuOpen(false)}></div>
-      )}
-    </header>
+                  <Link href={`/#${item.id}`} className={styles.sheetLink} onClick={() => setOpen(false)}>
+                    <span className={styles.sheetIndex}>0{index + 1}</span>
+                    {item.label}
+                  </Link>
+                </motion.li>
+              ))}
+            </motion.ul>
+            <div className={`container ${styles.sheetFooter}`}>
+              <p className={styles.sheetEmail}>
+                <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
+              </p>
+              <div className={styles.sheetSocials}>
+                {socials.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    aria-label={social.name}
+                    {...(social.url.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    <i className={social.icon} aria-hidden="true"></i>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

@@ -1,147 +1,126 @@
 'use client';
 
 import { useState } from 'react';
-import SectionTitle from '@/components/SectionTitle';
+import Reveal from '@/components/motion/Reveal';
 import { personalInfo } from '@/data/personal';
+import styles from './ContactSection.module.css';
 
-export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [submitted, setSubmitted] = useState(false);
+const CHANNELS = ['Email', 'LinkedIn', 'GitHub', 'Phone'];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+const display = (social) => {
+  if (social.name === 'Email') return personalInfo.email;
+  if (social.name === 'Phone') return personalInfo.phone;
+  return social.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+};
+
+// "Let's work together": direct channels from data/personal.js and a form. The site has no backend, so the
+// form opens the visitor's email app with a ready-to-send message addressed to personalInfo.email.
+export default function ContactSection({ headingLevel = 'h2' }) {
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
+  const [opened, setOpened] = useState(false);
+  const Heading = headingLevel;
+
+  const channels = CHANNELS.map((name) => personalInfo.socialLinks.find((social) => social.name === name)).filter(Boolean);
+  const pill = personalInfo.statusPill || '';
+
+  const onChange = (event) => {
+    const { name, value } = event.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (opened) setOpened(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 5000);
+  const onSubmit = (event) => {
+    event.preventDefault();
+    const subject = form.subject.trim() || 'Portfolio enquiry';
+    const body = `${form.message.trim()}\n\n${form.name.trim()}\n${form.email.trim()}`;
+    window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setOpened(true);
   };
 
   return (
-    <section id="contact" className="section">
-      <div className="container">
-        <SectionTitle
-          icon="fas fa-paper-plane"
-          title="Get In Touch"
-          description="Have a project proposal, engineering inquiry, or potential collaboration? My inbox is always open."
-          ghost="CONTACT"
-        />
+    <section id="contact" className={`section ${styles.section}`}>
+      <div className={styles.glow} aria-hidden="true" />
+      <div className={`container ${styles.layout}`}>
+        <Reveal className={styles.intro}>
+          <span className="eyebrow">Contact</span>
+          <Heading className={styles.title}>
+            Let&apos;s build something <span className="text-gradient">that works.</span>
+          </Heading>
+          <p className={styles.lead}>
+            Have a role, a project or a collaboration in mind? Send a message and I&apos;ll get back to you.
+          </p>
+          {pill && (
+            <p className={styles.available}>
+              <span aria-hidden="true" /> {pill}
+            </p>
+          )}
 
-        <div className="contact-grid">
-          <div>
-            <h3 className="contact-info-title" data-aos="rise-blur" data-aos-delay="0">Contact Information</h3>
-            <div className="contact-info-items">
-              <div className="contact-info-item" data-aos="rise-blur" data-aos-delay="70">
-                <div className="contact-info-icon">
-                  <i className="fas fa-envelope"></i>
-                </div>
-                <div className="contact-info-content">
-                  <h3>Email</h3>
-                  <a href="mailto:mibrahimkhalid306@gmail.com">contact@mibrahimdev.tech</a>
-                </div>
-              </div>
+          <ul className={styles.channels}>
+            {channels.map((social) => {
+              const external = social.url.startsWith('http');
+              return (
+                <li key={social.name}>
+                  <a
+                    href={social.url}
+                    className={styles.channel}
+                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  >
+                    <span className={styles.channelIcon} aria-hidden="true">
+                      <i className={social.icon}></i>
+                    </span>
+                    <span className={styles.channelText}>
+                      <span className={styles.channelName}>{social.name}</span>
+                      <span className={styles.channelValue}>{display(social)}</span>
+                    </span>
+                    <i className={`fas fa-arrow-right ${styles.channelArrow}`} aria-hidden="true"></i>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+          <p className={styles.location}>
+            <i className="fas fa-location-dot" aria-hidden="true"></i> {personalInfo.location}
+          </p>
+        </Reveal>
 
-              <div className="contact-info-item" data-aos="rise-blur" data-aos-delay="140">
-                <div className="contact-info-icon">
-                  <i className="fas fa-phone"></i>
-                </div>
-                <div className="contact-info-content">
-                  <h3>Phone</h3>
-                  <a href="tel:+923242991303">+92 324 2991303</a>
-                </div>
-              </div>
-
-              <div className="contact-info-item" data-aos="rise-blur" data-aos-delay="210">
-                <div className="contact-info-icon">
-                  <i className="fas fa-map-marker-alt"></i>
-                </div>
-                <div className="contact-info-content">
-                  <h3>Location</h3>
-                  <p>{personalInfo.location}</p>
-                </div>
-              </div>
+        <Reveal delay={0.1} className={`card ${styles.formCard}`}>
+          <form onSubmit={onSubmit} className={styles.form}>
+            <div className={styles.row}>
+              <label className={styles.field}>
+                <span>Your name</span>
+                <input name="name" type="text" value={form.name} onChange={onChange} maxLength={100} autoComplete="name" required />
+              </label>
+              <label className={styles.field}>
+                <span>Your email</span>
+                <input name="email" type="email" value={form.email} onChange={onChange} maxLength={200} autoComplete="email" required />
+              </label>
             </div>
-          </div>
-
-          <div data-aos="slide-tilt-right">
-            <div className="contact-form-container">
-              <h3 className="contact-form-title">Send Me a Message</h3>
-              {submitted && (
-                <div className="form-success" style={{ display: 'block' }}>
-                  <i className="fas fa-check-circle"></i> Thank you for your message! I'll get back to you soon.
-                </div>
+            <label className={styles.field}>
+              <span>Subject</span>
+              <input name="subject" type="text" value={form.subject} onChange={onChange} maxLength={150} required />
+            </label>
+            <label className={styles.field}>
+              <span>Message</span>
+              <textarea name="message" rows={5} value={form.message} onChange={onChange} maxLength={1500} required />
+            </label>
+            <button type="submit" className={`btn btn-primary ${styles.submit}`}>
+              <i className="fas fa-paper-plane" aria-hidden="true"></i> Send via email
+            </button>
+            <p className={styles.note} role="status">
+              {opened ? (
+                <>
+                  Your email app should now be open with the message ready. Press send there. If nothing opened, write to{' '}
+                  <a className="link" href={`mailto:${personalInfo.email}`}>
+                    {personalInfo.email}
+                  </a>
+                  .
+                </>
+              ) : (
+                'This opens your email app with the message ready to send.'
               )}
-              <form id="contact-form" onSubmit={handleSubmit}>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="name" className="form-label">Your Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      className="form-control"
-                      placeholder="Muhammad Ali"
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="email" className="form-label">Your Email</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      className="form-control"
-                      placeholder="ali@example.com"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="subject" className="form-label">Subject</label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    className="form-control"
-                    placeholder="How can I help you?"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="message" className="form-label">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    className="form-control form-message"
-                    placeholder="Your message here..."
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                  ></textarea>
-                </div>
-                <button type="submit" className="submit-btn">
-                  <i className="fas fa-paper-plane"></i> Send Message
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
+            </p>
+          </form>
+        </Reveal>
       </div>
     </section>
   );

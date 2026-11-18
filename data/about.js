@@ -1,13 +1,13 @@
 // Single source for the About bio. Edit the text and the `highlights` lists here;
-// AboutSection, /about and the terminal `about` command all read from this file.
+// the About section (homepage and /about) reads from this file.
 // Each entry in `highlights` must appear (case-insensitive) inside that paragraph's text.
 export const aboutParagraphs = [
   {
-    text: "I am a passionate AI engineer and researcher focused on Artificial Intelligence and applied problem-solving. My research covers optimization techniques such as genetic algorithms and Google OR-Tools for tackling complex scheduling and constraint-based problems, as well as AI systems built on Retrieval-Augmented Generation (RAG) for context-aware responses. My work has also involved integrating multiple LLM providers, building adaptive learning mechanics, and hardening these systems.",
-    highlights: ["AI engineer", "genetic algorithms", "Google OR-Tools", "Retrieval-Augmented Generation (RAG)", "LLM providers"]
+    text: "I'm an AI engineer focused on agentic systems: software that plans, decides and acts on its own. I have built a voice agent that answers calls, qualifies leads and books appointments, a multi-agent platform that runs business tasks such as refunds and invoice collections, and an inbound lead agent that scores enquiries and drafts replies. What ties them together is control: tools are exposed through the Model Context Protocol (MCP), answers come from retrieval-augmented generation (RAG) with sources, and every action that changes data waits for human approval or is checked by deterministic code.",
+    highlights: ["agentic systems", "voice agent", "multi-agent platform", "Model Context Protocol (MCP)", "retrieval-augmented generation (RAG)", "human approval"]
   },
   {
-    text: "Alongside this, I build full-stack web applications aimed at solving practical, everyday problems, combining solid software engineering with applied AI to create tools that are genuinely useful rather than just technically impressive. I'm driven by a passion for turning research-grade ideas into real, working software that people can actually use.",
-    highlights: ["full-stack web applications", "applied AI", "genuinely useful", "real, working software"]
+    text: "The same principle drives FinLexPurple, my open-source security agent for financial apps, where AI may propose a test but only code can mark a finding verified, and every result ships as signed evidence. Alongside the AI work, I build full-stack products for real businesses, from a live e-commerce store for a herbal brand to a billing and ledger system for a family dairy farm, so the automation ends up in software people rely on every day.",
+    highlights: ["FinLexPurple", "only code can mark a finding verified", "full-stack products", "real businesses"]
   }
 ];

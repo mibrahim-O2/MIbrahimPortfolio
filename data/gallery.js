@@ -23,7 +23,7 @@ export function categoryLabel(key) {
   return hit ? hit.label : key;
 }
 
-// SINGLE source for the About "Gallery & Highlights" deck, the home marquee and the top of /gallery.
+// SINGLE source for the photos in the About "Beyond code" card (first four) and the top of /gallery.
 // File base names (no extension) of photos in public/gallery/, in display order. Every other photo follows, sorted by name.
 export const highlightOrder = [
   'uos-image',
@@ -39,7 +39,7 @@ export const highlightOrder = [
   'trip-2025'
 ];
 
-// Photos that are taller than wide (used for the marquee card shape)
+// Photos that are taller than wide (sets `aspect` on each gallery item)
 export const portraitPhotos = [
   'armed-forces-exhibition-2025',
   'exhibition-2026',

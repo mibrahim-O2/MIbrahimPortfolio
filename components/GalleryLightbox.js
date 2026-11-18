@@ -79,7 +79,7 @@ export default function GalleryLightbox({ item, currentIndex, totalCount, onClos
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         role="dialog"
-        data-lenis-prevent
+       
         aria-modal="true"
         aria-label={`Gallery Lightbox: ${item.title}`}
       >

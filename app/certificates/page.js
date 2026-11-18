@@ -1,17 +1,15 @@
-import Navbar from '@/components/Navbar';
-import CertificatesSection from '@/sections/CertificatesSection';
-import FooterSection from '@/sections/FooterSection';
-import ScrollToTop from '@/components/ScrollToTop';
+import EducationSection from '@/sections/EducationSection';
+
+export const metadata = {
+  title: 'Certifications | Muhammad Ibrahim',
+  description: 'Certifications of Muhammad Ibrahim in AI, cybersecurity and software automation, with verification links.',
+  alternates: { canonical: '/certificates' }
+};
 
 export default function CertificatesPage() {
   return (
-    <main className="main-content" style={{ paddingTop: '80px' }}>
-      <Navbar />
-
-      <CertificatesSection />
-
-      <FooterSection />
-      <ScrollToTop />
-    </main>
+    <div className="subpage">
+      <EducationSection show="certificates" headingLevel="h1" />
+    </div>
   );
 }
