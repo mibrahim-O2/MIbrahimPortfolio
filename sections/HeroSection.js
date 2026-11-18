@@ -6,7 +6,6 @@ import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'fram
 import { personalInfo } from '@/data/personal';
 import { publishedProjects, featuredProjects } from '@/data/projects';
 import { certificatesData } from '@/data/certificates';
-import { experienceData } from '@/data/experience';
 import styles from './HeroSection.module.css';
 
 // Icons shown under the hero buttons, in this order (all come from personalInfo.socialLinks)
@@ -64,7 +63,7 @@ export default function HeroSection() {
 
   const stats = [
     { value: publishedProjects.length, label: 'Projects' },
-    { value: experienceData.length, label: 'Roles' },
+    { value: publishedProjects.filter((project) => project.status === 'Live').length, label: 'Live' },
     { value: certificatesData.length, label: 'Certifications' }
   ];
 

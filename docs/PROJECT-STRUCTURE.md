@@ -29,7 +29,7 @@ package.json    Dependencies: next, react, react-dom, framer-motion
 | `app/projects/page.js` | `/projects` | Project archive with category filters |
 | `app/projects/[id]/page.js` + `project.module.css` | `/projects/<id>` | Case study page, one per published project |
 | `app/about/page.js` | `/about` | About + Technical Expertise |
-| `app/experience/page.js` | `/experience` | Experience |
+| `app/experience/page.js` | `/experience` | Experience (404 while `data/experience.js` is empty) |
 | `app/education/page.js` | `/education` | Education |
 | `app/certificates/page.js` | `/certificates` | Certifications |
 | `app/skills/page.js` + `skills.module.css` | `/skills` | Technology stack + working strengths (soft skills) |
@@ -44,7 +44,7 @@ package.json    Dependencies: next, react, react-dom, framer-motion
 | File | Content | Guide |
 |---|---|---|
 | `projects.js` | Projects, categories, `publishedProjects`, `featuredProjects` | [ADD-PROJECT.md](./ADD-PROJECT.md) |
-| `experience.js` | Professional experience | [ADD-EXPERIENCE.md](./ADD-EXPERIENCE.md) |
+| `experience.js` | Professional experience (empty for now; the section hides itself) | [EXPERIENCE.md](./EXPERIENCE.md) |
 | `education.js` | Education | [ADD-EDUCATION.md](./ADD-EDUCATION.md) |
 | `certificates.js` | Certifications | [ADD-CERTIFICATION.md](./ADD-CERTIFICATION.md) |
 | `skills.js` | Technology stack + soft skills | [UPDATE-SKILLS.md](./UPDATE-SKILLS.md) |

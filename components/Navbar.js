@@ -5,16 +5,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { personalInfo } from '@/data/personal';
+import { hasExperience } from '@/data/experience';
 import styles from './Navbar.module.css';
 
 // Main navigation. `id` = the homepage section it scrolls to; `pages` = routes that mark it active.
+// Experience is listed only while data/experience.js has at least one role.
 const NAV_ITEMS = [
   { label: 'Projects', id: 'projects', pages: ['/projects'] },
   { label: 'Expertise', id: 'expertise', pages: [] },
-  { label: 'Experience', id: 'experience', pages: ['/experience'] },
+  { label: 'Experience', id: 'experience', pages: ['/experience'], show: hasExperience },
   { label: 'About', id: 'about', pages: ['/about', '/volunteer', '/gallery'] },
   { label: 'Stack', id: 'skills', pages: ['/skills'] }
-];
+].filter((item) => item.show !== false);
 
 const MENU_SOCIALS = ['GitHub', 'LinkedIn', 'Email'];
 

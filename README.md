@@ -106,7 +106,7 @@ knowing the whole codebase:
 | [docs/README.md](docs/README.md) | Start here: where all content lives, rules, example requests |
 | [docs/ADD-PROJECT.md](docs/ADD-PROJECT.md) | Adding a project: every field, screenshots, featured, ordering |
 | [docs/UPDATE-PROJECT.md](docs/UPDATE-PROJECT.md) | Editing, featuring, hiding or removing a project |
-| [docs/ADD-EXPERIENCE.md](docs/ADD-EXPERIENCE.md) | Professional experience |
+| [docs/EXPERIENCE.md](docs/EXPERIENCE.md) | Adding professional experience (the section is hidden until the first role) |
 | [docs/ADD-EDUCATION.md](docs/ADD-EDUCATION.md) | Education |
 | [docs/ADD-CERTIFICATION.md](docs/ADD-CERTIFICATION.md) | Certifications and verification links |
 | [docs/UPDATE-SKILLS.md](docs/UPDATE-SKILLS.md) | Technical and soft skills |

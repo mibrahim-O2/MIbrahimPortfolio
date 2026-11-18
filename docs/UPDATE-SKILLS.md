@@ -13,6 +13,18 @@ It contains two lists:
 
 ---
 
+## The rule: skills must match your projects
+
+Every technology in `skillCategories` is used in at least one project in `data/projects.js`. The comment
+above each card in `data/skills.js` lists which projects use it. Keep it that way:
+
+- **Adding a skill?** Make sure a project (or an experience entry) actually uses it, and add the project to
+  the comment above the card.
+- **Removing a project?** Check whether any skill was only used in that project, and remove it too.
+
+Current cards: Languages · AI Agents and LLMs · Machine Learning and Data · Backend and APIs · Frontend ·
+Databases and Auth · Security, Testing and Delivery.
+
 ## Technical skills
 
 Each category is a card:
@@ -34,7 +46,7 @@ Each category is a card:
 | `id` | Unique internal name for the card |
 | `title` | Card heading |
 | `icon` | Font Awesome icon next to the heading |
-| `live` | Optional. `live: true` shows a small green "active" indicator next to the title (used on "Business Process Automation") |
+| `live` | Optional. `live: true` shows a small green "active" indicator next to the title (no card uses it at the moment) |
 | `items` | The skill chips |
 
 Each skill chip:
@@ -112,7 +124,7 @@ example.
 ## Prompt for an AI agent
 
 ```text
-Read docs/UPDATE-SKILLS.md. In data/skills.js:
+Read docs/UPDATE-SKILLS.md. In data/skills.js (only add skills a project in data/projects.js really uses):
 - add "<skill>" to the "<category title>" card (find the right Devicon class and brand colour)
 - remove "<skill>"
 Do not modify components. Work on a branch and give me the Preview URL.

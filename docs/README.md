@@ -16,7 +16,7 @@ then merge it into `main`.
 | What you want to change | File | Guide |
 |---|---|---|
 | Projects (cards, detail pages, featured, hidden) | `data/projects.js` | [ADD-PROJECT.md](./ADD-PROJECT.md), [UPDATE-PROJECT.md](./UPDATE-PROJECT.md) |
-| Professional experience | `data/experience.js` | [ADD-EXPERIENCE.md](./ADD-EXPERIENCE.md) |
+| Professional experience (currently empty and hidden) | `data/experience.js` | [EXPERIENCE.md](./EXPERIENCE.md) |
 | Education | `data/education.js` | [ADD-EDUCATION.md](./ADD-EDUCATION.md) |
 | Certifications | `data/certificates.js` | [ADD-CERTIFICATION.md](./ADD-CERTIFICATION.md) |
 | Technical skills and soft skills | `data/skills.js` | [UPDATE-SKILLS.md](./UPDATE-SKILLS.md) |
