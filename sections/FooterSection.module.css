@@ -56,11 +56,6 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-/* Contact column spans the full width on phones so the email never breaks */
-.contactCol {
-  grid-column: 1 / -1;
-}
-
 .brand {
   grid-column: 1 / -1;
   display: grid;
@@ -159,11 +154,10 @@
 
 @media (min-width: 900px) {
   .grid {
-    grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
   }
 
-  .brand,
-  .contactCol {
+  .brand {
     grid-column: auto;
   }
 }

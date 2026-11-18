@@ -2,23 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Reveal from '@/components/motion/Reveal';
-import { personalInfo } from '@/data/personal';
 import { aboutParagraphs } from '@/data/about';
-import { educationData } from '@/data/education';
 import { highlightItems } from '@/utils/galleryLoader';
 import { splitByHighlights } from '@/utils/highlight';
 import styles from './AboutSection.module.css';
 
-// About: portrait, bio from data/about.js (highlights emphasised), quick facts and a "beyond code" strip.
+// About: bio from data/about.js (highlights emphasised) and a "beyond code" strip.
+// The portrait, title, availability, location and education are shown in other sections, so they are not repeated here.
 export default function AboutSection({ headingLevel = 'h2' }) {
-  const current = educationData.find((entry) => entry.status) || educationData[0];
-  const pill = personalInfo.statusPill || '';
-  const facts = [
-    { label: 'Based in', value: personalInfo.location },
-    current && { label: current.status ? 'Studying' : 'Education', value: `${current.title}, ${current.institutionName}` },
-    { label: 'Focus', value: personalInfo.title },
-    pill && { label: 'Availability', value: pill.includes(':') ? pill.slice(pill.indexOf(':') + 1).trim() : pill }
-  ].filter(Boolean);
   const photos = highlightItems.filter((item) => !item.isVideo).slice(0, 4);
 
   return (
@@ -27,13 +18,6 @@ export default function AboutSection({ headingLevel = 'h2' }) {
         <SectionHeader as={headingLevel} eyebrow="About me" title="Autonomous software, with accountability built in" />
 
         <div className={styles.layout}>
-          <Reveal className={styles.portraitWrap}>
-            <div className={styles.portrait}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={personalInfo.avatarUrl} alt={personalInfo.name} width="400" height="400" loading="lazy" />
-            </div>
-          </Reveal>
-
           <div className={styles.text}>
             {aboutParagraphs.map((paragraph) => (
               <Reveal as="p" key={paragraph.text.slice(0, 24)} className={styles.paragraph}>
@@ -49,14 +33,6 @@ export default function AboutSection({ headingLevel = 'h2' }) {
               </Reveal>
             ))}
 
-            <Reveal as="dl" className={styles.facts}>
-              {facts.map((fact) => (
-                <div key={fact.label} className={styles.fact}>
-                  <dt>{fact.label}</dt>
-                  <dd>{fact.value}</dd>
-                </div>
-              ))}
-            </Reveal>
           </div>
         </div>
 

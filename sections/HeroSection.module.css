@@ -32,7 +32,7 @@
   right: -8%;
   width: min(820px, 120vw);
   aspect-ratio: 1;
-  background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.32), rgba(var(--accent-rgb), 0.08) 55%, transparent 72%);
+  background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.2), rgba(var(--accent-rgb), 0.05) 55%, transparent 72%);
   animation: drift 22s ease-in-out infinite alternate;
 }
 
@@ -41,7 +41,7 @@
   left: -18%;
   width: min(680px, 110vw);
   aspect-ratio: 1;
-  background: radial-gradient(closest-side, rgba(var(--accent-2-rgb), 0.16), transparent 70%);
+  background: radial-gradient(closest-side, rgba(var(--accent-2-rgb), 0.1), transparent 70%);
   animation: drift2 26s ease-in-out infinite alternate;
 }
 
@@ -61,7 +61,7 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(520px circle at var(--hx) var(--hy), rgba(var(--accent-rgb), 0.1), transparent 60%);
+  background: radial-gradient(520px circle at var(--hx) var(--hy), rgba(var(--accent-rgb), 0.06), transparent 60%);
 }
 
 @keyframes drift {
@@ -279,12 +279,11 @@
   }
 }
 
-/* ---- Visual: portrait card + floating project chip ---- */
+/* ---- Visual: portrait card with counts ---- */
 .visual {
   position: relative;
   justify-self: center;
-  width: min(100%, 400px);
-  perspective: 1000px;
+  width: min(100%, 360px);
 }
 
 .card {
@@ -293,29 +292,16 @@
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-strong);
   background: var(--surface);
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(var(--accent-rgb), 0.06);
-  transform-style: preserve-3d;
+  padding: 0.6rem;
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.9);
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  border-radius: inherit;
-  background: linear-gradient(140deg, rgba(var(--accent-rgb), 0.35), transparent 35%, transparent 70%, rgba(var(--accent-2-rgb), 0.2));
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  padding: 1px;
-}
 
 .portrait {
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  border-radius: 12px;
   background: var(--surface-2);
 }
 
@@ -323,42 +309,21 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.92) contrast(1.04);
+  object-position: center 30%;
 }
 
-.portrait::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(var(--surface-rgb), 0.95));
-}
 
 .cardBody {
   position: relative;
   display: grid;
-  gap: 0.9rem;
-  padding: 0 1.25rem 1.25rem;
-  margin-top: -2.5rem;
+  padding: 0.9rem 0.6rem 0.4rem;
 }
 
-.cardLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
 
-.cardLabel i {
-  color: var(--accent);
-}
 
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--border);
-  padding-top: 0.9rem;
 }
 
 .stats > div {
@@ -386,57 +351,11 @@
   color: var(--text-dim);
 }
 
-.floating {
-  position: relative;
-  display: grid;
-  gap: 0.25rem;
-  margin: 1rem auto 0;
-  max-width: 340px;
-  padding: 0.9rem 1.1rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-accent);
-  background: rgba(var(--surface-rgb), 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(var(--accent-rgb), 0.35);
-  transition: transform var(--dur) var(--ease), border-color var(--dur-fast);
-}
 
-.floatingLabel {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
 
-.floatingTitle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-}
 
-.floatingTitle i {
-  font-size: 0.75rem;
-  color: var(--accent);
-  transition: transform var(--dur-fast) var(--ease);
-}
 
-.floatingMeta {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
 
-@media (hover: hover) {
-  .floating:hover {
-    transform: translateY(-3px);
-  }
-
-  .floating:hover .floatingTitle i {
-    transform: translateX(3px);
-  }
-}
 
 /* ---- Scroll cue ---- */
 .scrollCue {
@@ -486,30 +405,77 @@
     justify-self: end;
   }
 
-  .floating {
-    position: absolute;
-    left: -4rem;
-    top: 2rem;
-    margin: 0;
-    max-width: 270px;
-  }
 
   .scrollCue {
     display: block;
   }
 }
 
+@media (max-width: 559px) {
+  .intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .sep {
+    display: none;
+  }
+}
+
+/* Phones and tablets: a compact horizontal card (photo left, counts right) instead of a tall photo */
 @media (max-width: 959px) {
+  .hero {
+    min-height: auto;
+  }
+
+  .inner {
+    gap: 2.25rem;
+  }
+
+  /* No scroll parallax on small screens: the card stays where it is */
   .visual {
-    width: min(100%, 340px);
+    transform: none !important;
+    justify-self: stretch;
+    width: 100%;
+    max-width: 30rem;
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
   }
 
   .portrait {
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 1;
+    border-radius: 12px;
   }
 
-  .portrait img {
-    object-position: center 25%;
+  .cardBody {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .stats > div + div {
+    padding-left: 0.75rem;
+  }
+
+  .stats dd {
+    font-size: 1.3rem;
+  }
+
+  .stats dt {
+    font-size: 0.6rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .stats {
+    grid-template-columns: auto auto auto;
+    justify-content: start;
   }
 }
 

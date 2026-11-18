@@ -1,117 +1,104 @@
+/* Project card. One structure for every variant: screenshot, meta row, title, description,
+   facts line, tags, footer (case study cue + external links). The title link is stretched over the
+   whole card, so the card opens the case study; external links sit above that layer. */
+
 .card {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   height: 100%;
+  overflow: hidden;
   transition:
     transform var(--dur) var(--ease),
     border-color var(--dur) var(--ease),
-    box-shadow var(--dur) var(--ease);
-}
-
-@media (hover: hover) {
-  .card:hover {
-    transform: translateY(-4px);
-    border-color: var(--border-accent);
-    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(var(--accent-rgb), 0.12);
-  }
-
-  .card:hover .image {
-    transform: scale(1.045);
-  }
+    background-color var(--dur) var(--ease);
 }
 
 /* ---- Media ---- */
 .media {
   position: relative;
-  display: block;
-  aspect-ratio: 1200 / 630; /* same shape as the recommended screenshot size */
+  aspect-ratio: 40 / 21; /* the screenshots are 1800x945 / 2000x1050 */
   overflow: hidden;
   background: var(--surface-2);
   border-bottom: 1px solid var(--border);
 }
 
-.media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, transparent 60%, rgba(var(--bg-rgb), 0.35));
-}
-
 .image {
   object-fit: cover;
-  transition: transform 0.7s var(--ease);
-}
-
-.status {
-  margin-left: auto;
-  text-transform: none;
-  letter-spacing: 0.02em;
+  transition: transform 0.6s var(--ease);
 }
 
 /* ---- Body ---- */
 .body {
   display: flex;
-  flex-direction: column;
   flex: 1;
-  gap: 0.85rem;
-  padding: clamp(1.15rem, 2.5vw, 1.6rem);
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.25rem 1.25rem 1.1rem;
 }
 
 .meta {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
-  min-height: 1rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.meta:empty {
-  display: none;
-}
-
-.index {
-  color: var(--accent);
-}
-
-.badge {
+  font-size: var(--fs-xs);
   color: var(--text-dim);
 }
 
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
 .title {
-  font-size: var(--fs-lg);
-  letter-spacing: -0.03em;
-  overflow-wrap: anywhere;
+  font-size: 1.2rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
 }
 
 .titleLink {
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-size: 0% 2px;
-  background-position: 0 100%;
-  background-repeat: no-repeat;
-  transition: background-size var(--dur) var(--ease);
+  display: inline;
+  transition: color var(--dur-fast) var(--ease);
 }
 
-.card:hover .titleLink,
+/* Stretched link: the whole card is clickable */
+.titleLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+
 .titleLink:focus-visible {
-  background-size: 100% 2px;
+  outline: none;
+}
+
+.card:has(.titleLink:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.titleArrow {
+  display: inline-block;
+  margin-left: 0.3rem;
+  vertical-align: -0.05em;
+  color: var(--text-dim);
+  transition: transform var(--dur) var(--ease), color var(--dur-fast);
 }
 
 .description {
   color: var(--text-muted);
-  font-size: 0.95rem;
-  line-height: 1.65;
+  font-size: 0.9375rem;
+  line-height: 1.6;
 }
 
+/* Real facts from data/projects.js (version, tests, where it runs) */
 .highlight {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  line-height: 1.6;
-  color: var(--accent-2);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text-dim);
 }
 
 .tags {
@@ -119,6 +106,7 @@
   flex-wrap: wrap;
   gap: 0.4rem;
   min-width: 0;
+  padding-top: 0.15rem;
 }
 
 .tags :global(.tag) {
@@ -128,119 +116,224 @@
 }
 
 .more {
-  color: var(--text-dim);
+  background: transparent !important;
+  color: var(--text-dim) !important;
 }
 
-.actions {
+.footer {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
   margin-top: auto;
-  padding-top: 0.4rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
 }
 
-.iconOnly {
-  width: 40px;
-  padding: 0;
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent);
 }
 
-/* ---- Lead: signature border. A copper gradient sweeps around the top project's card on hover. ---- */
-@property --sweep {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
+.cta i {
+  font-size: 0.8em;
+  transition: transform var(--dur) var(--ease);
 }
 
-.lead::before {
-  content: '';
-  position: absolute;
-  inset: 0;
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-right: -0.55rem;
+}
+
+/* External links: above the stretched case-study link */
+.ext {
+  position: relative;
   z-index: 2;
-  padding: 1px;
-  border-radius: inherit;
-  pointer-events: none;
-  background: conic-gradient(from var(--sweep), transparent 0deg, rgba(var(--accent-rgb), 0.9) 60deg, transparent 140deg, transparent 360deg);
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  opacity: 0;
-  transition: opacity var(--dur) var(--ease);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 40px;
+  min-width: 40px;
+  justify-content: center;
+  padding: 0 0.55rem;
+  border-radius: 8px;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  transition: color var(--dur-fast), background-color var(--dur-fast);
 }
 
+.ext i {
+  font-size: 0.9em;
+}
+
+/* ---- Interaction: a small lift, the screenshot eases in, the arrows nudge ---- */
 @media (hover: hover) {
-  .lead:hover::before {
-    opacity: 1;
-    animation: sweep 3.2s linear infinite;
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-strong);
+    background-color: var(--surface-2);
+  }
+
+  .card:hover .image {
+    transform: scale(1.03);
+  }
+
+  .card:hover .titleLink {
+    color: var(--accent-hover);
+  }
+
+  .card:hover .titleArrow {
+    color: var(--accent-hover);
+    transform: translate(2px, -2px);
+  }
+
+  .card:hover .cta i {
+    transform: translateX(3px);
+  }
+
+  .ext:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.05);
   }
 }
 
-@keyframes sweep {
-  to {
-    --sweep: 360deg;
+@media (hover: none) {
+  .card:active {
+    transform: scale(0.99);
   }
 }
 
-/* ---- Lead: full-width screenshot on top, two-column text below on desktop ---- */
+/* ---- Lead (FinLexPurple): framed screenshot. Mobile: one column. Desktop: visual left, text right ---- */
+.lead {
+  padding: 0.75rem 0.75rem 1.1rem;
+  gap: 0;
+}
+
+.leadVisual,
+.leadText {
+  display: contents;
+}
+
+.lead .media {
+  order: 0;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.leadText > * {
+  order: 1;
+  margin-inline: 0.5rem;
+}
+
+.lead .meta {
+  margin-top: 1.1rem;
+}
+
 .lead .title {
+  margin-top: 0.55rem;
   font-size: var(--fs-xl);
+  letter-spacing: -0.03em;
 }
 
 .lead .description {
+  margin-top: 0.7rem;
   font-size: var(--fs-base);
+  line-height: 1.7;
 }
 
-@media (min-width: 960px) {
-  .lead .body {
+.lead .highlight {
+  margin-top: 0.7rem;
+}
+
+.lead .tags {
+  order: 2;
+  margin: 1rem 0.5rem 0;
+}
+
+.lead .footer {
+  order: 3;
+  margin: 1.1rem 0.5rem 0;
+}
+
+@media (min-width: 1024px) {
+  .lead {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    grid-template-areas:
-      'meta meta'
-      'title tags'
-      'desc tags'
-      'hl actions';
-    column-gap: 3rem;
-    align-items: start;
-    padding: 2rem 2.25rem 2.25rem;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    gap: 2.75rem;
+    padding: 1.25rem 2.5rem 1.25rem 1.25rem;
   }
 
-  .lead .meta { grid-area: meta; }
-  .lead .title { grid-area: title; }
-  .lead .description { grid-area: desc; }
-  .lead .highlight { grid-area: hl; }
-  .lead .tags { grid-area: tags; align-content: start; }
-  .lead .actions { grid-area: actions; margin-top: 0; padding-top: 0; }
+  .leadVisual {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .leadText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 1rem;
+  }
+
+  .leadText > *,
+  .lead .tags,
+  .lead .footer {
+    margin-inline: 0;
+  }
+
+  .lead .meta {
+    margin-top: 0;
+  }
+
+  .lead .tags {
+    margin-top: 1.25rem;
+    padding-inline: 0.25rem;
+  }
+
+  .lead .footer {
+    margin-top: auto;
+    padding-top: 1rem;
+    padding-inline: 0.25rem;
+  }
+
+  .lead .tags + .footer {
+    margin-top: 1.1rem;
+  }
 }
 
-/* ---- Wide: a featured card that spans both grid columns (image left, text right) ---- */
+/* ---- Wide: the last card of an odd grid spans both columns (image left, text right) ---- */
 @media (min-width: 760px) {
   .wide {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 
-  /* Keep the screenshot's full 1200x630 shape (no cropping), centred next to the text */
   .wide .media {
-    align-self: center;
-    margin: clamp(1rem, 2vw, 1.5rem);
-    margin-right: 0;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-bottom: 0;
+    border-right: 1px solid var(--border);
+    aspect-ratio: auto;
+    min-height: 100%;
+  }
+
+  .wide .image {
+    object-position: left top;
   }
 
   .wide .body {
-    justify-content: center;
-    padding: clamp(1.5rem, 3vw, 2.25rem);
-  }
-
-  .wide .actions {
-    margin-top: 0.5rem;
+    padding: 1.75rem;
   }
 }
 
-/* ---- Compact: archive grid ---- */
+/* ---- Compact: archive grid on /projects ---- */
 .compact .title {
-  font-size: 1.15rem;
+  font-size: 1.1rem;
 }
 
 .compact .description {

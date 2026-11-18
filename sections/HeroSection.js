@@ -2,9 +2,9 @@
 
 import { Fragment, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { personalInfo } from '@/data/personal';
-import { publishedProjects, featuredProjects } from '@/data/projects';
+import { publishedProjects } from '@/data/projects';
 import { certificatesData } from '@/data/certificates';
 import styles from './HeroSection.module.css';
 
@@ -37,14 +37,8 @@ export default function HeroSection() {
     return () => observer.disconnect();
   }, []);
   const words = headlineWords();
-  const spotlight = featuredProjects[0];
 
-  // Pointer position -> spotlight (CSS variables) + gentle tilt of the portrait card. Mouse only.
-  const tiltX = useMotionValue(0);
-  const tiltY = useMotionValue(0);
-  const rotateX = useSpring(tiltX, { stiffness: 120, damping: 18 });
-  const rotateY = useSpring(tiltY, { stiffness: 120, damping: 18 });
-
+  // Pointer position -> soft spotlight behind the hero (CSS variables). Mouse only.
   const onPointerMove = (event) => {
     if (event.pointerType !== 'mouse' || !sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
@@ -52,12 +46,6 @@ export default function HeroSection() {
     const y = event.clientY - rect.top;
     sectionRef.current.style.setProperty('--hx', `${x}px`);
     sectionRef.current.style.setProperty('--hy', `${y}px`);
-    tiltY.set((x / rect.width - 0.5) * 8);
-    tiltX.set(-(y / rect.height - 0.5) * 8);
-  };
-  const onPointerLeave = () => {
-    tiltX.set(0);
-    tiltY.set(0);
   };
 
   // Light parallax while scrolling past the hero
@@ -74,12 +62,12 @@ export default function HeroSection() {
 
   const stats = [
     { value: publishedProjects.length, label: 'Projects' },
-    { value: publishedProjects.filter((project) => project.status === 'Live').length, label: 'Live' },
+    { value: publishedProjects.filter((project) => project.status === 'Live').length, label: 'Live apps' },
     { value: certificatesData.length, label: 'Certifications' }
   ];
 
   return (
-    <section id="home" ref={sectionRef} className={styles.hero} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
+    <section id="home" ref={sectionRef} className={styles.hero} onPointerMove={onPointerMove}>
       <motion.div className={styles.backdrop} style={{ y: glowY }} aria-hidden="true">
         <div className={styles.aurora} />
         <div className={styles.aurora2} />
@@ -158,15 +146,12 @@ export default function HeroSection() {
           className={`${styles.visual} ${styles.fadeIn}`}
           style={{ y: visualY }}
         >
-          <motion.div className={styles.card} style={{ rotateX, rotateY }}>
+          <div className={styles.card}>
             <div className={styles.portrait}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={personalInfo.avatarUrl} alt={personalInfo.name} width="400" height="400" fetchPriority="high" />
             </div>
             <div className={styles.cardBody}>
-              <span className={styles.cardLabel}>
-                <i className="fas fa-location-dot" aria-hidden="true"></i> {personalInfo.location}
-              </span>
               <dl className={styles.stats}>
                 {stats.map((stat) => (
                   <div key={stat.label}>
@@ -176,17 +161,7 @@ export default function HeroSection() {
                 ))}
               </dl>
             </div>
-          </motion.div>
-
-          {spotlight && (
-            <Link href={`/projects/${spotlight.id}`} className={styles.floating}>
-              <span className={styles.floatingLabel}>Featured project</span>
-              <span className={styles.floatingTitle}>
-                {spotlight.title} <i className="fas fa-arrow-right" aria-hidden="true"></i>
-              </span>
-              {spotlight.highlight && <span className={styles.floatingMeta}>{spotlight.highlight}</span>}
-            </Link>
-          )}
+          </div>
         </motion.div>
       </div>
 

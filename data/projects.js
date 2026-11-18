@@ -51,7 +51,7 @@ export const projectsData = [
       { label: "PyPI", url: "https://pypi.org/project/finlexpurple", icon: "fab fa-python" },
       { label: "Blog post", url: "", icon: "fas fa-pen-nib" } // TODO: add the blog post URL only once it is live
     ],
-    badge: "Solo Project · Open Source",
+    badge: "Solo · Open Source",
     status: "Live",
     featured: true,
     published: true,
@@ -268,6 +268,7 @@ export const projectsData = [
     id: "bin-khalid-dairy-v2",
     title: "Bin Khalid Dairy Farm V2",
     subtitle: "Dairy operations, billing, and finances in one secure dashboard.",
+    highlight: "Next.js 15 · PostgreSQL with Drizzle ORM · Firebase Auth · live on Vercel",
     description: "A full-stack management system for a family dairy farm covering customers, suppliers, employees, livestock, billing, and printable invoices, rebuilt as an advanced V2 from an earlier Flask version.",
     image: "/images/projects/bin-khalid-dairy-v2.webp",
     tags: [
@@ -288,7 +289,7 @@ export const projectsData = [
     demoLabel: "Live website",
     githubUrl: "https://github.com/mibrahim-O2/Bin-Khalid-Dairy-Farm-V2",
     videoUrl: "",
-    badge: "Family Business Project",
+    badge: "Family Business",
     status: "Live",
     featured: true,
     published: true,
@@ -320,6 +321,7 @@ export const projectsData = [
     id: "finlytics-tracker",
     title: "Finlytics",
     subtitle: "One private place for spending, goals, balances, and debts.",
+    highlight: "React and Supabase · Row-Level Security · scheduled email reports · live on Netlify",
     description: "A private, single-user personal finance app for tracking income, expenses, monthly goals, account balances, and money owed, with automated email reminders and reports.",
     image: "/images/projects/finlytics-tracker.webp",
     tags: [
@@ -338,8 +340,8 @@ export const projectsData = [
     demoLabel: "Live website",
     githubUrl: "https://github.com/mibrahim-O2/finlytics-tracker",
     videoUrl: "",
-    badge: "Personal Project",
-    status: "Completed",
+    badge: "Solo Project",
+    status: "Live",
     featured: true,
     published: true,
     heroBanner: "/images/projects/finlytics-tracker.webp",
@@ -370,6 +372,7 @@ export const projectsData = [
     id: "neurocode",
     title: "NeuroCode",
     subtitle: "Adaptive coding practice with verified execution and verifiable credentials.",
+    highlight: "Adaptive roadmap · Python, JavaScript and C++ grading · verifiable credentials · live on Netlify",
     description: "A solo-built, AI-powered coding education platform with adaptive roadmaps, execution-verified practice, proctored assessments, and publicly verifiable credentials.",
     image: "/images/projects/neurocode.webp",
     tags: [
@@ -429,6 +432,7 @@ export const projectsData = [
     id: "verdexai",
     title: "VerdexAI",
     subtitle: "From CV screening to onboarding, in one AI-assisted hiring workflow.",
+    highlight: "Next.js, Express and MongoDB · GPT-4o-mini CV scoring · live on Vercel",
     description: "An AI-powered recruitment platform that scores CVs, generates job-specific assessments, and manages hiring from application to onboarding, with separate flows for candidates, HR, and admins.",
     image: "/images/projects/verdexai.webp",
     tags: [
@@ -454,7 +458,7 @@ export const projectsData = [
     githubUrl: "https://github.com/mibrahim-O2/verdexai-official",
     videoUrl: "https://youtu.be/s-M_aoWDOkM",
     videoLabel: "Watch demo",
-    badge: "Self-Learning Project",
+    badge: "Solo Project",
     status: "Live",
     featured: true,
     published: true,
@@ -504,7 +508,7 @@ export const projectsData = [
     demoUrl: "",
     githubUrl: "https://github.com/mibrahim-O2/AI_Tutor_PLR_AbstractMinds",
     videoUrl: "https://www.youtube.com/watch?v=mhN8FOQ0iA8",
-    badge: "BSCS 7th Semester",
+    badge: "Team Lead · 7th Semester",
     status: "Completed",
     featured: true,
     published: true,
@@ -562,7 +566,7 @@ export const projectsData = [
     badge: "Final Year Project",
     status: "In progress",
     featured: false,
-    published: true,
+    published: false, // hidden from the site (archived); set to true to show it again
     heroBanner: "",
     problemStatement: "Academic scheduling at IMCS was done entirely by hand: class timetables, paper schedules, events, and seminars. The department runs three BS programs with morning and evening shifts, around 14 rooms, labs, and halls, and about 50 teachers, many of whom teach across programs. Avoiding teacher, room, and cross-program clashes manually was slow and error-prone.",
     solution: "An automated scheduling system where a genetic algorithm and Google OR-Tools generate timetables that respect hard constraints such as teacher and room availability, while soft preferences are scored through a weighted fitness function. Academic data lives in PostgreSQL, exposed through a FastAPI backend and a Next.js interface, and the same platform is being extended to paper timetables, events, and seminars.",
@@ -615,7 +619,7 @@ export const projectsData = [
     badge: "Solo Project",
     status: "Completed",
     featured: false,
-    published: true,
+    published: false, // hidden from the site (archived); set to true to show it again
     heroBanner: "",
     problemStatement: "Industrial equipment needs continuous monitoring of conditions such as temperature and pressure, and without a unified live view, threshold breaches are noticed late. Hardware-based projects are also hard to demonstrate online, because a cloud server has no physical device plugged into it.",
     solution: "PulseGrid combines an Arduino sensor layer with a MERN web dashboard. A Hybrid Detection Engine checks whether a physical Arduino is connected over USB, and if none is found it switches to a mathematically generated simulator. Both sources feed the same real-time pipeline into MongoDB and the React dashboard, so the system works identically with or without hardware.",
@@ -664,7 +668,7 @@ export const projectsData = [
     badge: "Client Work",
     status: "Completed",
     featured: false,
-    published: true,
+    published: false, // hidden from the site (archived); set to true to show it again
     heroBanner: "",
     problemStatement: "The farm handled customer milk billing manually every month. Repeated calculations, paper records, and manual reconciliation of totals and dues made the process slow and left room for arithmetic errors, and monthly reporting took longer than it should have.",
     solution: "A Flask web app stores voucher data in SQLite and gives the admin a dashboard for customers and monthly summaries. It calculates total milk, bill amounts, and outstanding dues automatically, and generates printable bilingual bills that can be saved as images and shared straight from a phone.",
@@ -711,7 +715,7 @@ export const projectsData = [
     badge: "Self-Learning Project",
     status: "Completed",
     featured: false,
-    published: true,
+    published: false, // hidden from the site (archived); set to true to show it again
     heroBanner: "",
     problemStatement: "Students and organizers need a simple way to list upcoming events and collect registrations without a heavy authentication setup. Managing sign-ups through forms or messages makes it easy to lose track of who registered and to accept the same person twice.",
     solution: "A lightweight Flask application renders events and processes registrations, with SQLite storing event and participant data. Jinja2 templates and Bootstrap provide a consistent interface, while server-side validation and flash messages keep the registration flow clear.",
@@ -759,7 +763,7 @@ export const projectsData = [
     badge: "Self-Learning Project",
     status: "Completed",
     featured: false,
-    published: true,
+    published: false, // hidden from the site (archived); set to true to show it again
     heroBanner: "",
     problemStatement: "Small restaurants need a simple way to show their menu and keep track of customer orders and table bookings without a full enterprise system. This project explores how that workflow can be built end to end with a lightweight stack, keeping menu, order, and reservation data in one database.",
     solution: "A Flask application serves the menu and forms, records orders with automatically calculated totals, and stores reservations in SQLite. Jinja2 templates and Bootstrap provide a simple management interface, and the database is initialized and seeded with menu items on first run.",
@@ -806,7 +810,7 @@ export const projectsData = [
     badge: "Self-Learning Project",
     status: "Completed",
     featured: false,
-    published: true,
+    published: false, // hidden from the site (archived); set to true to show it again
     heroBanner: "",
     problemStatement: "Long URLs are hard to share, remember, and paste cleanly into messages and documents. This project explores how a lightweight link-shortening service works, from validating input to redirecting visitors, using a simple web stack.",
     solution: "The app accepts a long URL through a web form, validates it, and generates a unique random short code. The code and original URL are stored in SQLite, and the app returns a shareable short link. Opening that link triggers a Flask route that looks up the code and redirects to the original destination.",

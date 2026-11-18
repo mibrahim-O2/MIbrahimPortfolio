@@ -37,15 +37,15 @@ export const personalInfo = {
 | Field | Where it appears | Notes |
 |---|---|---|
 | `name` | Hero (above the headline), navbar logo (initials + name), footer, page titles | Plain text. The navbar logo uses the first letters of the first and last word. |
-| `title` | Hero (next to your name), About quick facts, footer tagline | Your professional title |
+| `title` | Hero (next to your name), footer tagline | Your professional title |
 | `headline` | The big animated hero heading (`<h1>`) | One sentence. About 8–14 words looks best. |
 | `headlineAccent` | The words inside `headline` that get the copper gradient | Must appear **word for word** in `headline` (any upper/lower case). `""` = no gradient. |
 | `intro` | Paragraph under the hero heading | 1–2 sentences |
 | `resumeUrl` | Shows a **Résumé** button in the hero when filled | Upload `public/resume.pdf` and set `resumeUrl: "/resume.pdf"`. `""` = no button. |
-| `statusPill` | Availability badge at the top of the hero, contact section, About quick facts. **The text before the first `:` is bold** (e.g. "Open to Work"). | `"Open to Work: Remote AI Engineering Roles"`. Use `""` to hide the badge. |
-| `avatarUrl` | Hero portrait card and About photo (desktop) | A local file such as `"/images/profile/portrait.webp"` (square, see [UPDATE-IMAGES.md](./UPDATE-IMAGES.md)) or a GitHub avatar URL. A photo from any other website must also be added to `img-src` in `next.config.js` (see [DEPLOYMENT.md](./DEPLOYMENT.md#security-headers)). |
-| `location` | Hero card, contact section, footer, About quick facts | e.g. `"Sindh, Pakistan"` |
-| `email` | Contact section, contact form destination, footer, mobile menu | Also update the `Email` social link below |
+| `statusPill` | Availability badge at the top of the hero. **The text before the first `:` is bold** (e.g. "Open to Work"). | `"Open to Work: Remote AI Engineering Roles"`. Use `""` to hide the badge. |
+| `avatarUrl` | Hero portrait card | A local file such as `"/images/profile/portrait.webp"` (square, see [UPDATE-IMAGES.md](./UPDATE-IMAGES.md)) or a GitHub avatar URL. A photo from any other website must also be added to `img-src` in `next.config.js` (see [DEPLOYMENT.md](./DEPLOYMENT.md#security-headers)). |
+| `location` | Contact section | e.g. `"Sindh, Pakistan"` |
+| `email` | Contact section, contact form destination, footer call to action, hero icon | Also update the `Email` social link below |
 | `greeting`, `gpa` | Currently not displayed | |
 | `bio` | Built automatically from `data/about.js`. **Don't edit it here.** | |
 
@@ -104,7 +104,6 @@ export const aboutParagraphs = [
     icon: "fa-solid fa-shield-halved",
     category: "Security Engineering and Verifiable Evidence",
     description: "Security-testing agents where AI can plan the tests but only deterministic code verifies a finding…",
-    technologies: ["Python", "AI agents", "DSSE/in-toto", "Sigstore", ...],
     evidence: "FinLexPurple",
     projectId: "finlexpurple",
     repoUrl: "https://github.com/FinLexPurple/finlexpurple"
@@ -116,10 +115,11 @@ export const aboutParagraphs = [
 | `icon` | Font Awesome icon |
 | `category` | Card title |
 | `description` | One or two sentences |
-| `technologies` | Chips on the card |
 | `projectId` | Id of the project that proves this skill (from `data/projects.js`). The card shows **Proof: <project title>** and links to its case study. |
 | `evidence` | Fallback text ("Built in · …") shown only when `projectId` is empty or not found |
 | `repoUrl` | Kept for reference; not displayed |
+
+The cards have no technology chips: the Tech Stack section (`data/skills.js`) already lists them.
 
 Card order = array order. On desktop the first two cards are wider.
 

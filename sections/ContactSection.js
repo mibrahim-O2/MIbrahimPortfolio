@@ -20,7 +20,6 @@ export default function ContactSection({ headingLevel = 'h2' }) {
   const Heading = headingLevel;
 
   const channels = CHANNELS.map((name) => personalInfo.socialLinks.find((social) => social.name === name)).filter(Boolean);
-  const pill = personalInfo.statusPill || '';
 
   const onChange = (event) => {
     const { name, value } = event.target;
@@ -48,12 +47,6 @@ export default function ContactSection({ headingLevel = 'h2' }) {
           <p className={styles.lead}>
             Have a role, a project or a collaboration in mind? Send a message and I&apos;ll get back to you.
           </p>
-          {pill && (
-            <p className={styles.available}>
-              <span aria-hidden="true" /> {pill}
-            </p>
-          )}
-
           <ul className={styles.channels}>
             {channels.map((social) => {
               const external = social.url.startsWith('http');
