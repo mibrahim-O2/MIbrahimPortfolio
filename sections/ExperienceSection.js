@@ -22,10 +22,11 @@ function durationLabel(start, end) {
 }
 
 // Professional experience as a vertical timeline; the copper line fills in as you scroll.
-export default function ExperienceSection({ headingLevel = 'h2' }) {
+function ExperienceTimeline({ headingLevel }) {
   const listRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: listRef, offset: ['start 75%', 'end 60%'] });
   const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, restDelta: 0.001 });
+
 
   return (
     <section id="experience" className="section">
@@ -80,4 +81,10 @@ export default function ExperienceSection({ headingLevel = 'h2' }) {
       </div>
     </section>
   );
+}
+
+// Renders nothing until data/experience.js has at least one role (see docs/EXPERIENCE.md)
+export default function ExperienceSection({ headingLevel = 'h2' }) {
+  if (experienceData.length === 0) return null;
+  return <ExperienceTimeline headingLevel={headingLevel} />;
 }

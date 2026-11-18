@@ -380,7 +380,6 @@ export const projectsData = [
       "Python",
       "Supabase (PostgreSQL)",
       "Firebase Auth",
-      "Socket.io",
       "ChromaDB",
       "Google Gemini",
       "OpenAI",

@@ -1,130 +1,117 @@
-// Technical skills shown by components/SkillsStack.js (home + /skills) and read by the terminal and chatbot.
-// Shape: { id, title, icon, items: [{ name, icon, color }], live? }.
-// Every chip has its own icon: a Devicon glyph (loaded in app/layout.js) when Devicon has one,
-// otherwise a Font Awesome 6.4 icon. Each chip also carries its own real/brand `color`, shown on a
-// light tile behind the icon (see components/SkillChip.js) so it stands out on the dark background.
-// A card never repeats an icon.
-// `live: true` shows a small pulsing "active" indicator next to the title (used for the automation card,
-// since it is about live/running workflows).
+// Technology stack shown by sections/SkillsSection.js (homepage and /skills).
+// Every skill here is used in at least one project in data/projects.js; the comment above each card lists where.
+// Shape: { id, title, icon, items: [{ name, icon, color }] }.
+// `icon` is a Devicon class (https://devicon.dev, v2.16.0 is loaded) or a Font Awesome 6.4 free class.
+// `color` is the technology's brand colour, used for the icon. See docs/UPDATE-SKILLS.md.
 export const skillCategories = [
+  // FinLexPurple, AI agents, AI Tutor (Python); SN Noor, Bin Khalid V2, dashboards (TypeScript); Finlytics, NeuroCode, VerdexAI (JavaScript)
   {
     id: "languages",
     title: "Languages",
     icon: "fa-solid fa-code",
     items: [
       { name: "Python", icon: "devicon-python-plain", color: "#3776AB" },
-      { name: "JavaScript", icon: "devicon-javascript-plain", color: "#F0DB4F" },
       { name: "TypeScript", icon: "devicon-typescript-plain", color: "#3178C6" },
-      { name: "SQL", icon: "fa-solid fa-database", color: "#F29111" },
-      { name: "C++", icon: "devicon-cplusplus-plain", color: "#00599C" }
+      { name: "JavaScript", icon: "devicon-javascript-plain", color: "#F0DB4F" },
+      { name: "SQL", icon: "fa-solid fa-database", color: "#F29111" }
     ]
   },
+  // AI Voice Agent, Autonomous Business Ops Agent, Lead Generation Agent, FinLexPurple, NeuroCode, VerdexAI
   {
-    id: "ai-ml",
-    title: "AI / ML",
-    icon: "fa-solid fa-brain",
+    id: "ai-agents",
+    title: "AI Agents and LLMs",
+    icon: "fa-solid fa-robot",
+    items: [
+      { name: "OpenAI Agents SDK", icon: "fa-solid fa-robot", color: "#10A37F" },
+      { name: "Model Context Protocol (MCP)", icon: "fa-solid fa-plug", color: "#D97B4A" },
+      { name: "RAG", icon: "fa-solid fa-book-open-reader", color: "#B08968" },
+      { name: "Human-in-the-loop approvals", icon: "fa-solid fa-user-check", color: "#7FA3A6" },
+      { name: "OpenAI API", icon: "fa-solid fa-brain", color: "#74AA9C" },
+      { name: "Google Gemini", icon: "fa-solid fa-wand-magic-sparkles", color: "#8E75FF" },
+      { name: "Ollama (local models)", icon: "fa-solid fa-microchip", color: "#E8E2DA" },
+      { name: "ChromaDB", icon: "fa-solid fa-vector-square", color: "#FF6446" }
+    ]
+  },
+  // AI Tutor for Personalized Learning Recommendations, NeuroCode
+  {
+    id: "ml-data",
+    title: "Machine Learning and Data",
+    icon: "fa-solid fa-chart-simple",
     items: [
       { name: "scikit-learn", icon: "devicon-scikitlearn-plain", color: "#F7931E" },
-      { name: "pandas", icon: "devicon-pandas-plain", color: "#150458" },
+      { name: "pandas", icon: "devicon-pandas-plain", color: "#E70488" },
       { name: "NumPy", icon: "devicon-numpy-plain", color: "#4DABCF" },
-      { name: "Plotly", icon: "devicon-plotly-plain", color: "#3F4F75" },
-      { name: "Genetic Algorithms", icon: "fa-solid fa-dna", color: "#8FBC8F" },
-      { name: "Google OR-Tools", icon: "fa-solid fa-route", color: "#4285F4" },
-      { name: "RAG", icon: "fa-solid fa-book-open-reader", color: "#B08968" },
-      { name: "LLM Integration (OpenAI, Google Gemini)", icon: "fa-solid fa-robot", color: "#10A37F" },
-      { name: "ChromaDB", icon: "fa-solid fa-vector-square", color: "#6E56CF" },
-      { name: "sentence-transformers", icon: "fa-solid fa-language", color: "#FFB000" },
-      { name: "Tree-sitter", icon: "fa-solid fa-tree", color: "#4E944F" },
-      { name: "Prompt and Context Engineering", icon: "fa-solid fa-wand-magic-sparkles", color: "#B983FF" }
+      { name: "Plotly", icon: "devicon-plotly-plain", color: "#7A76FF" },
+      { name: "Streamlit", icon: "devicon-streamlit-plain", color: "#FF4B4B" }
     ]
   },
+  // FastAPI (Business Ops Agent, Lead Gen Agent, NeuroCode), Express (VerdexAI), Hono (SN Noor), Pydantic (agents), Zod (SN Noor, Bin Khalid V2)
   {
     id: "backend",
-    title: "Backend",
+    title: "Backend and APIs",
     icon: "fa-solid fa-server",
     items: [
       { name: "FastAPI", icon: "devicon-fastapi-plain", color: "#009688" },
-      { name: "Flask", icon: "devicon-flask-plain", color: "#FFFFFF" },
       { name: "Node.js", icon: "devicon-nodejs-plain", color: "#68A063" },
       { name: "Express", icon: "devicon-express-original", color: "#FFFFFF" },
-      { name: "REST APIs", icon: "fa-solid fa-plug", color: "#61AFFE" },
-      { name: "SQLAlchemy", icon: "devicon-sqlalchemy-plain", color: "#D71F00" },
-      { name: "Alembic", icon: "fa-solid fa-code-branch", color: "#8A8A8A" },
-      { name: "Drizzle ORM", icon: "fa-solid fa-droplet", color: "#C5F74F" },
+      { name: "Hono", icon: "fa-solid fa-fire-flame-curved", color: "#FF5B11" },
       { name: "Pydantic", icon: "fa-solid fa-shield-halved", color: "#E92063" },
-      { name: "Jinja2", icon: "fa-solid fa-file-lines", color: "#B41717" },
-      { name: "Socket.io", icon: "devicon-socketio-plain", color: "#FFFFFF" },
-      { name: "JWT Authentication", icon: "fa-solid fa-key", color: "#FB015B" },
-      { name: "Firebase Authentication", icon: "fa-solid fa-user-shield", color: "#FFCA28" },
-      { name: "Resend", icon: "fa-solid fa-paper-plane", color: "#000000" }
+      { name: "Zod", icon: "fa-solid fa-list-check", color: "#3E67B1" }
     ]
   },
+  // Next.js (Bin Khalid V2, VerdexAI), React and Vite (SN Noor, Finlytics, NeuroCode, Lead Gen dashboard), shadcn/ui (Bin Khalid V2), Recharts (Finlytics)
   {
     id: "frontend",
     title: "Frontend",
     icon: "fa-solid fa-laptop-code",
     items: [
-      { name: "React", icon: "devicon-react-plain", color: "#61DAFB" },
+      { name: "React", icon: "devicon-react-original", color: "#61DAFB" },
       { name: "Next.js", icon: "devicon-nextjs-plain", color: "#FFFFFF" },
-      { name: "Vite", icon: "devicon-vitejs-plain", color: "#646CFF" },
-      { name: "Tailwind CSS", icon: "devicon-tailwindcss-plain", color: "#38BDF8" },
+      { name: "Vite", icon: "devicon-vitejs-plain", color: "#9C8CFF" },
+      { name: "Tailwind CSS", icon: "devicon-tailwindcss-original", color: "#38BDF8" },
       { name: "shadcn/ui", icon: "fa-solid fa-cube", color: "#FFFFFF" },
-      { name: "Framer Motion", icon: "devicon-framermotion-plain", color: "#0055FF" },
-      { name: "Recharts", icon: "fa-solid fa-chart-line", color: "#22B5BF" },
-      { name: "Monaco Editor", icon: "fa-solid fa-file-code", color: "#519ABA" },
-      { name: "Bootstrap", icon: "devicon-bootstrap-plain", color: "#7952B3" },
-      { name: "HTML", icon: "devicon-html5-plain", color: "#E34F26" },
-      { name: "CSS", icon: "devicon-css3-plain", color: "#1572B6" }
+      { name: "Framer Motion", icon: "devicon-framermotion-original", color: "#E94FF5" },
+      { name: "Recharts", icon: "fa-solid fa-chart-line", color: "#22B5BF" }
     ]
   },
+  // PostgreSQL + Drizzle (Bin Khalid V2), Supabase (Finlytics, NeuroCode), Firebase (Bin Khalid V2, NeuroCode, VerdexAI),
+  // MongoDB (VerdexAI), SQLite (Business Ops Agent), Cloudflare D1 (SN Noor)
   {
     id: "databases",
-    title: "Databases",
+    title: "Databases and Auth",
     icon: "fa-solid fa-database",
     items: [
-      { name: "PostgreSQL", icon: "devicon-postgresql-plain", color: "#4169E1" },
-      { name: "MongoDB (Mongoose)", icon: "devicon-mongodb-plain", color: "#47A248" },
-      { name: "SQLite", icon: "devicon-sqlite-plain", color: "#003B57" },
+      { name: "PostgreSQL", icon: "devicon-postgresql-plain", color: "#5B8FE8" },
       { name: "Supabase", icon: "devicon-supabase-plain", color: "#3ECF8E" },
-      { name: "Firebase / Firestore", icon: "devicon-firebase-plain", color: "#FFCA28" }
+      { name: "Firebase", icon: "devicon-firebase-plain", color: "#FFCA28" },
+      { name: "MongoDB", icon: "devicon-mongodb-plain", color: "#47A248" },
+      { name: "SQLite", icon: "devicon-sqlite-plain", color: "#5DA9E9" },
+      { name: "Cloudflare D1", icon: "devicon-cloudflare-plain", color: "#F38020" },
+      { name: "Drizzle ORM", icon: "fa-solid fa-layer-group", color: "#C5F74F" }
     ]
   },
+  // Sigstore and PyPI Trusted Publishing (FinLexPurple), pytest (agents, FinLexPurple), Vitest (SN Noor, Lead Gen dashboard),
+  // GitHub Actions (FinLexPurple, agents), Docker (Business Ops Agent, NeuroCode), hosting on Vercel, Netlify and Cloudflare Workers
   {
-    id: "tools",
-    title: "Tools & DevOps",
-    icon: "fa-solid fa-screwdriver-wrench",
+    id: "delivery",
+    title: "Security, Testing and Delivery",
+    icon: "fa-solid fa-shield-halved",
     items: [
-      { name: "Git", icon: "devicon-git-plain", color: "#F05032" },
-      { name: "GitHub", icon: "devicon-github-plain", color: "#FFFFFF" },
+      { name: "Sigstore and DSSE/in-toto", icon: "fa-solid fa-file-signature", color: "#F0A070" },
+      { name: "PyPI Trusted Publishing", icon: "devicon-pypi-plain", color: "#3775A9" },
+      { name: "pytest", icon: "devicon-pytest-plain", color: "#0A9EDC" },
+      { name: "Vitest", icon: "devicon-vitest-plain", color: "#FCC72B" },
+      { name: "GitHub Actions", icon: "devicon-githubactions-plain", color: "#2088FF" },
       { name: "Docker", icon: "devicon-docker-plain", color: "#2496ED" },
+      { name: "Cloudflare Workers", icon: "devicon-cloudflareworkers-plain", color: "#F38020" },
+      { name: "Vercel", icon: "devicon-vercel-original", color: "#FFFFFF" },
       { name: "Netlify", icon: "devicon-netlify-plain", color: "#00C7B7" },
-      { name: "Vercel", icon: "devicon-vercel-plain", color: "#FFFFFF" },
-      { name: "Railway", icon: "devicon-railway-plain", color: "#0B0D0E" },
-      { name: "Streamlit", icon: "devicon-streamlit-plain", color: "#FF4B4B" },
-      { name: "Arduino", icon: "devicon-arduino-plain", color: "#00979D" },
-      { name: "Linux", icon: "devicon-linux-plain", color: "#FCC624" },
-      { name: "Piston", icon: "fa-solid fa-gears", color: "#8A8A8A" }
-    ]
-  },
-  {
-    id: "automation",
-    title: "Business Process Automation",
-    icon: "fa-solid fa-gears",
-    live: true,
-    items: [
-      { name: "n8n", icon: "fa-solid fa-diagram-project", color: "#EA4B71" },
-      { name: "Chatwoot", icon: "fa-solid fa-headset", color: "#1F93FF" },
-      { name: "WhatsApp Cloud API", icon: "fa-brands fa-whatsapp", color: "#25D366" },
-      { name: "AI Sales Agents", icon: "fa-solid fa-robot", color: "#10A37F" },
-      { name: "Lead Collection", icon: "fa-solid fa-funnel-dollar", color: "#F0A070" },
-      { name: "Webhooks", icon: "fa-solid fa-tower-broadcast", color: "#7FA3A6" },
-      { name: "Google Sheets API", icon: "fa-solid fa-table-cells", color: "#0F9D58" },
-      { name: "Workflow Orchestration", icon: "fa-solid fa-sitemap", color: "#8F4726" }
+      { name: "Git", icon: "devicon-git-plain", color: "#F05032" }
     ]
   }
 ];
 
-// Compatible export name for the importers (terminal, chatbot).
+// Compatible export name (kept for older imports).
 export const skillsData = skillCategories;
 
 // Soft skills shown on /skills. Shape: { id, title, icon, description }.

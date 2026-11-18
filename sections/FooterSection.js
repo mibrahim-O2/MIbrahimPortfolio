@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { personalInfo } from '@/data/personal';
+import { hasExperience } from '@/data/experience';
 import XIcon from '@/components/XIcon';
 import styles from './FooterSection.module.css';
 
@@ -13,7 +14,7 @@ const footerSocials = FOOTER_SOCIALS
 const QUICK_LINKS = [
   { label: 'Projects', href: '/#projects' },
   { label: 'Expertise', href: '/#expertise' },
-  { label: 'Experience', href: '/#experience' },
+  ...(hasExperience ? [{ label: 'Experience', href: '/#experience' }] : []),
   { label: 'About', href: '/#about' },
   { label: 'Contact', href: '/#contact' }
 ];

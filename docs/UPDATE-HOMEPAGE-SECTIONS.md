@@ -29,7 +29,7 @@ back-to-top button are not sections. They come from `app/layout.js` and appear o
 | 1 | `HeroSection` | `sections/HeroSection.js` | `home` | `data/personal.js` (+ counts from projects, experience, certificates) | - |
 | 2 | `ProjectsSection` | `sections/ProjectsSection.js` | `projects` | featured projects in `data/projects.js` | `/projects` (archive) |
 | 3 | `ExpertiseSection` | `sections/ExpertiseSection.js` | `expertise` | `data/focusAreas.js` | shown on `/about` |
-| 4 | `ExperienceSection` | `sections/ExperienceSection.js` | `experience` | `data/experience.js` | `/experience` |
+| 4 | `ExperienceSection` | `sections/ExperienceSection.js` | `experience` | `data/experience.js` (**hidden while empty**, see [EXPERIENCE.md](./EXPERIENCE.md)) | `/experience` |
 | 5 | `AboutSection` | `sections/AboutSection.js` | `about` | `data/about.js`, `data/personal.js`, `data/education.js`, gallery highlights | `/about` |
 | 6 | `SkillsSection` | `sections/SkillsSection.js` | `skills` | `data/skills.js` | `/skills` |
 | 7 | `EducationSection` | `sections/EducationSection.js` | `education` | `data/education.js` + `data/certificates.js` | `/education`, `/certificates` |
