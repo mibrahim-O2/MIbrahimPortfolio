@@ -122,7 +122,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #4ADE80;
+  background: var(--success);
 }
 
 .badgeDot::after {
@@ -130,7 +130,7 @@
   position: absolute;
   inset: -4px;
   border-radius: 50%;
-  border: 1px solid #4ADE80;
+  border: 1px solid var(--success);
   animation: ping 2.2s var(--ease) infinite;
 }
 
@@ -511,6 +511,13 @@
   .portrait img {
     object-position: center 25%;
   }
+}
+
+.hero[data-paused='true'] .aurora,
+.hero[data-paused='true'] .aurora2,
+.hero[data-paused='true'] .badgeDot::after,
+.hero[data-paused='true'] .scrollCue span {
+  animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {

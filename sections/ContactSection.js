@@ -5,11 +5,10 @@ import Reveal from '@/components/motion/Reveal';
 import { personalInfo } from '@/data/personal';
 import styles from './ContactSection.module.css';
 
-const CHANNELS = ['Email', 'LinkedIn', 'GitHub', 'Phone'];
+const CHANNELS = ['Email', 'LinkedIn', 'GitHub'];
 
 const display = (social) => {
   if (social.name === 'Email') return personalInfo.email;
-  if (social.name === 'Phone') return personalInfo.phone;
   return social.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
 };
 

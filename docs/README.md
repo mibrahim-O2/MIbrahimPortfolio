@@ -20,7 +20,7 @@ then merge it into `main`.
 | Education | `data/education.js` | [ADD-EDUCATION.md](./ADD-EDUCATION.md) |
 | Certifications | `data/certificates.js` | [ADD-CERTIFICATION.md](./ADD-CERTIFICATION.md) |
 | Technical skills and soft skills | `data/skills.js` | [UPDATE-SKILLS.md](./UPDATE-SKILLS.md) |
-| Name, hero headline and intro, email, phone, location, social links, résumé link | `data/personal.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
+| Name, hero headline and intro, email, location, social links, résumé link | `data/personal.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
 | About text | `data/about.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
 | Technical Expertise cards | `data/focusAreas.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
 | Volunteer work | `data/volunteer.js` | [PROJECT-STRUCTURE.md](./PROJECT-STRUCTURE.md) |

@@ -14,7 +14,6 @@ export const personalInfo = {
   avatarUrl: "https://github.com/mibrahim-O2.png?size=400",
   location: "Pakistan",
   email: "contact@mibrahimdev.tech",
-  phone: "+92 324 2991303",
   gpa: "3.6 CGPA",
   bio: aboutParagraphs.map((paragraph) => paragraph.text),
   socialLinks: [
@@ -33,12 +32,6 @@ export const personalInfo = {
       url: "mailto:contact@mibrahimdev.tech",
       icon: "fas fa-envelope"
     },
-    {
-      name: "Phone",
-      url: "tel:+923242991303",
-      icon: "fas fa-phone"
-    },
-    
     {
       name: "YouTube",
       url: "https://www.youtube.com/@mIbrahim_02",

@@ -86,7 +86,7 @@
   height: 48px;
   overflow: hidden;
   border-radius: 12px;
-  background: #f4f1ec;
+  background: var(--plate);
   color: var(--accent);
   font-size: 1.1rem;
 }

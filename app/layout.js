@@ -15,7 +15,7 @@ const jetbrains = JetBrains_Mono({ subsets: ['latin'], display: 'swap', weight: 
 const TITLE = 'Muhammad Ibrahim | Agentic AI & Automation Engineer';
 const DESCRIPTION = 'Portfolio of Muhammad Ibrahim, an agentic AI and automation engineer building AI agents, business automation and full-stack products with human approval and verifiable results.';
 // 1200x630 JPEG: LinkedIn and some other crawlers do not render WebP
-const OG_IMAGE = { url: '/og-image.jpg', width: 1200, height: 630, alt: 'Muhammad Ibrahim' };
+const OG_IMAGE = { url: '/og-image.jpg', width: 1200, height: 630, alt: 'Muhammad Ibrahim, Agentic AI & Automation Engineer' };
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),

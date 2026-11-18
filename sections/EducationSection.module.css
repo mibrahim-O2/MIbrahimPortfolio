@@ -44,7 +44,7 @@
   width: 52px;
   height: 52px;
   border-radius: 12px;
-  background: #f4f1ec;
+  background: var(--plate);
   border: 3px solid var(--surface);
 }
 
@@ -160,7 +160,7 @@
   width: 48px;
   height: 48px;
   border-radius: 12px;
-  background: #f4f1ec;
+  background: var(--plate);
   overflow: hidden;
   color: var(--accent);
 }

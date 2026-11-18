@@ -17,10 +17,14 @@
   --accent-2: #7FA3A6;        /* secondary accent: status "Live", small details only */
   --text: #EDEEF0;
   --text-muted: #A1A7B0;
-  --text-dim: #7A818B;
+  --text-dim: #858C96;      /* smallest labels; >= 4.5:1 on every surface */
   --border: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.14);
   --border-accent: rgba(217, 123, 74, 0.38);
+  --success: #4ADE80;         /* status only: "available" and "active" dots */
+  --success-rgb: 74, 222, 128;
+  --on-accent: #1A120D;       /* text and icons placed on the copper accent */
+  --plate: #F4F1EC;           /* light tile behind organisation logos */
 
   --accent-rgb: 217, 123, 74;
   --accent-2-rgb: 127, 163, 166;
@@ -70,6 +74,7 @@
   --foreground: var(--text);
   --muted-foreground: var(--text-muted);
   --gradient-text: var(--gradient-accent);
+  --card: var(--surface);
   --gradient-button: linear-gradient(135deg, #B8603A, #D97B4A);
 }
 
@@ -305,8 +310,19 @@ body::before {
 
 .btn-primary {
   --btn-bg: var(--accent);
-  --btn-fg: #16100C;
+  --btn-fg: var(--on-accent);
   --btn-border: var(--accent);
+  overflow: hidden;
+}
+
+/* Soft light sweep across primary buttons on hover */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, 0.35) 50%, transparent 65%);
+  transform: translateX(-120%);
 }
 
 .btn-ghost {
@@ -333,6 +349,22 @@ body::before {
 
   .btn:hover .btn-arrow {
     transform: translateX(3px);
+  }
+
+  .btn-primary:hover::after {
+    transform: translateX(120%);
+    transition: transform 0.7s var(--ease);
+  }
+}
+
+/* Touch screens: interactive cards press in slightly when tapped */
+@media (hover: none) {
+  .spotlight {
+    transition: transform var(--dur-fast) var(--ease);
+  }
+
+  .spotlight:active {
+    transform: scale(0.985);
   }
 }
 

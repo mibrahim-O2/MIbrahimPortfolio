@@ -4,11 +4,11 @@ Your personal information is split across three data files:
 
 | File | Contains |
 |---|---|
-| `data/personal.js` | Name, title, hero headline and intro, availability, photo, email, phone, location, social links, résumé link |
+| `data/personal.js` | Name, title, hero headline and intro, availability, photo, email, location, social links, résumé link |
 | `data/about.js` | The About section text (and its highlighted phrases) |
 | `data/focusAreas.js` | The Technical Expertise cards |
 
-Components read these files. **Never type your email, phone or links directly into a component.** One edit
+Components read these files. **Never type your email or links directly into a component.** One edit
 in `data/personal.js` updates the hero, navigation menu, contact section and footer together.
 
 ---
@@ -28,7 +28,6 @@ export const personalInfo = {
   avatarUrl: "https://github.com/mibrahim-O2.png?size=400",
   location: "Pakistan",
   email: "contact@mibrahimdev.tech",
-  phone: "+92 324 2991303",
   gpa: "3.6 CGPA",
   bio: ...,
   socialLinks: [ ... ]
@@ -47,7 +46,6 @@ export const personalInfo = {
 | `avatarUrl` | Hero portrait card and About photo (desktop) | A local file such as `"/images/profile/portrait.webp"` (square, see [UPDATE-IMAGES.md](./UPDATE-IMAGES.md)) or a GitHub avatar URL. A photo from any other website must also be added to `img-src` in `next.config.js` (see [DEPLOYMENT.md](./DEPLOYMENT.md#security-headers)). |
 | `location` | Hero card, contact section, footer, About quick facts | e.g. `"Sindh, Pakistan"` |
 | `email` | Contact section, contact form destination, footer, mobile menu | Also update the `Email` social link below |
-| `phone` | Contact section, footer | Write it readably, e.g. `"+92 324 2991303"`; links are built automatically. Also update the `Phone` social link below |
 | `greeting`, `gpa` | Currently not displayed | |
 | `bio` | Built automatically from `data/about.js`. **Don't edit it here.** | |
 
@@ -58,7 +56,6 @@ export const personalInfo = {
     { name: "GitHub",   url: "https://github.com/mibrahim-O2",                  icon: "fab fa-github" },
     { name: "LinkedIn", url: "https://www.linkedin.com/in/muhammad-ibrahim-o2", icon: "fab fa-linkedin-in" },
     { name: "Email",    url: "mailto:contact@mibrahimdev.tech",                 icon: "fas fa-envelope" },
-    { name: "Phone",    url: "tel:+923242991303",                               icon: "fas fa-phone" },
     { name: "YouTube",  url: "https://www.youtube.com/@mIbrahim_02",            icon: "fab fa-youtube" },
     { name: "X",        url: "https://x.com/MIbraheem_02",                      icon: "" }
   ]
@@ -68,18 +65,19 @@ export const personalInfo = {
 
   | Where | Links shown (in this order) | List defined in |
   |---|---|---|
-  | Hero icons | GitHub, LinkedIn, Email, Phone | `HERO_SOCIALS` in `sections/HeroSection.js` |
-  | Contact section | Email, LinkedIn, GitHub, Phone | `CHANNELS` in `sections/ContactSection.js` |
+  | Hero icons | GitHub, LinkedIn, Email | `HERO_SOCIALS` in `sections/HeroSection.js` |
+  | Contact section | Email, LinkedIn, GitHub | `CHANNELS` in `sections/ContactSection.js` |
   | Mobile menu | GitHub, LinkedIn, Email | `MENU_SOCIALS` in `components/Navbar.js` |
   | Footer icons | GitHub, LinkedIn, X, YouTube | `FOOTER_SOCIALS` in `sections/FooterSection.js` |
 
-- `Email` URL must start with `mailto:`; `Phone` URL must start with `tel:` and contain no spaces.
+- `Email` URL must start with `mailto:`.
 - `X` has an empty `icon` on purpose: Font Awesome 6.4 has no X logo, so `components/XIcon.js` draws it.
 - To remove a link from the site, delete its line. It disappears everywhere automatically.
 - A brand-new network (e.g. Instagram) can be added to the data safely, but it is only shown once its name
   is added to one of the lists in the table above.
-- To hide your phone number publicly, delete the `Phone` social link **and** ask the agent to remove the phone
-  lines from `sections/ContactSection.js` (`CHANNELS`) and `sections/FooterSection.js`.
+- **Phone number:** the site intentionally shows no phone number; email is the contact method. To add one
+  back, add `phone` and a `Phone` social link (`url: "tel:+92…"`, `icon: "fas fa-phone"`) and ask the agent to list
+  it in `CHANNELS` (contact section) and the footer.
 
 ---
 

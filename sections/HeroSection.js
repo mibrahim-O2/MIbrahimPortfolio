@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useRef } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { personalInfo } from '@/data/personal';
@@ -9,7 +9,7 @@ import { certificatesData } from '@/data/certificates';
 import styles from './HeroSection.module.css';
 
 // Icons shown under the hero buttons, in this order (all come from personalInfo.socialLinks)
-const HERO_SOCIALS = ['GitHub', 'LinkedIn', 'Email', 'Phone'];
+const HERO_SOCIALS = ['GitHub', 'LinkedIn', 'Email'];
 const heroSocials = HERO_SOCIALS
   .map((name) => personalInfo.socialLinks.find((social) => social.name === name))
   .filter((social) => social && social.url && social.icon);
@@ -25,6 +25,17 @@ function headlineWords() {
 
 export default function HeroSection() {
   const sectionRef = useRef(null);
+
+  // Pause the looping background animations while the hero is off screen (saves battery on phones)
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || !('IntersectionObserver' in window)) return undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      el.dataset.paused = entry.isIntersecting ? 'false' : 'true';
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   const words = headlineWords();
   const spotlight = featuredProjects[0];
 
