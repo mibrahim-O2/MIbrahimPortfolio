@@ -2,7 +2,8 @@ import EducationSection from '@/sections/EducationSection';
 
 export const metadata = {
   title: 'Certifications | Muhammad Ibrahim',
-  description: 'Certifications of Muhammad Ibrahim in AI, cybersecurity and software automation, with verification links.'
+  description: 'Certifications of Muhammad Ibrahim in AI, cybersecurity and software automation, with verification links.',
+  alternates: { canonical: '/certificates' }
 };
 
 export default function CertificatesPage() {

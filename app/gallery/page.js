@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import GalleryLightbox from '@/components/GalleryLightbox';
+import PageIntro from '@/components/PageIntro';
 import { fallbackGalleryItems } from '@/utils/galleryLoader';
 import { galleryCategories } from '@/data/gallery';
 
@@ -93,112 +94,25 @@ export default function GalleryPage() {
   return (
     <div className="gallery-main-wrapper" style={{ minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
 
-      {/* Hero Section */}
-      <section className="gallery-hero-section" style={{ position: 'relative', paddingTop: '130px', paddingBottom: '4rem', overflow: 'hidden' }}>
-
-        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            style={{ textAlign: 'center', maxWidth: '860px', margin: '0 auto' }}
-          >
-            {/* Subtitle Pill */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.6rem',
-                padding: '0.45rem 1.25rem',
-                borderRadius: '30px',
-                background: 'rgba(var(--accent-rgb), 0.12)',
-                border: '1px solid rgba(var(--accent-rgb), 0.3)',
-                boxShadow: '0 0 20px rgba(var(--accent-rgb), 0.15)',
-                color: 'var(--primary)',
-                fontSize: '0.9rem',
-                fontWeight: 700,
-                letterSpacing: '1px',
-                textTransform: 'uppercase',
-                marginBottom: '1.25rem'
-              }}
-            >
-              <i className="fas fa-camera-retro" style={{ fontSize: '1rem', color: 'var(--accent-soft)' }}></i>
-              Gallery Showcase
-            </motion.div>
-
-            {/* Main Title */}
-            <h1
-              style={{
-                fontSize: 'clamp(2.8rem, 6vw, 4.5rem)',
-                fontWeight: 800,
-                lineHeight: 1.1,
-                marginBottom: '1.25rem',
-                letterSpacing: '-1px',
-                color: 'var(--foreground)'
-              }}
-            >
-              Ibrahim <span className="brand-accent" style={{ background: 'var(--gradient-text)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Gallery</span>
-            </h1>
-
-            {/* Description */}
-            <p
-              style={{
-                fontSize: 'clamp(1.05rem, 2vw, 1.25rem)',
-                lineHeight: 1.65,
-                color: 'var(--muted-foreground)',
-                maxWidth: '750px',
-                margin: '0 auto 2.5rem'
-              }}
-            >
-              "A collection of memorable moments from my academic journey, internships, competitions, leadership roles, travels, achievements, and professional experiences."
-            </p>
-
-            {/* Quick Stats Bar */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              style={{
-                display: 'inline-flex',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '1.75rem',
-                padding: '1rem 2rem',
-                borderRadius: '50px',
-                background: 'rgba(var(--text-rgb), 0.05)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                border: '1px solid var(--border)',
-                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)'
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--primary)' }}>{items.length}</span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--muted-foreground)', fontWeight: 600 }}>Captured Moments</span>
-              </div>
-              <div style={{ width: '1px', height: '24px', background: 'var(--border)', alignSelf: 'center' }} />
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--accent-soft)' }}>{categoryCount}</span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--muted-foreground)', fontWeight: 600 }}>Categories</span>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+      <PageIntro
+        eyebrow="Beyond code"
+        title="Gallery"
+        lead="Moments from university, exhibitions, sports galas, volunteering and trips."
+        back={{ href: '/about', label: 'About' }}
+      />
+      <p className="container mono" style={{ color: 'var(--text-muted)', fontSize: '0.8rem', paddingBottom: '2rem' }}>
+        {items.length} photos · {categoryCount} categories
+      </p>
 
       {/* Main Gallery Section */}
-      <section className="container" style={{ paddingBottom: '6rem', position: 'relative', zIndex: 2 }}>
+      <section className="container" style={{ paddingBottom: 'var(--space-section)', position: 'relative', zIndex: 2 }}>
         {/* Category Filter Pills */}
         <div
           style={{
             display: 'flex',
             flexWrap: 'wrap',
             gap: '0.75rem',
-            justifyContent: 'center',
-            marginBottom: '3.5rem'
+            marginBottom: '2.5rem'
           }}
         >
           {categories.map((cat) => {
@@ -212,49 +126,28 @@ export default function GalleryPage() {
                   setActiveCategory(cat.key);
                   setLightboxIndex(null);
                 }}
+                aria-pressed={isActive}
                 style={{
-                  padding: '0.65rem 1.35rem',
-                  borderRadius: '30px',
-                  border: isActive ? '1px solid rgba(var(--accent-rgb), 0.6)' : '1px solid var(--border)',
-                  background: isActive
-                    ? 'var(--gradient-button)'
-                    : 'rgba(var(--text-rgb), 0.06)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  color: isActive ? 'var(--text)' : 'var(--foreground)',
-                  fontWeight: isActive ? 700 : 600,
-                  fontSize: '0.9rem',
+                  minHeight: '42px',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '999px',
+                  border: isActive ? '1px solid rgba(var(--accent-rgb), 0.45)' : '1px solid var(--border)',
+                  background: isActive ? 'rgba(var(--accent-rgb), 0.14)' : 'transparent',
+                  color: isActive ? 'var(--text)' : 'var(--text-muted)',
+                  fontWeight: 500,
+                  fontSize: '0.875rem',
                   cursor: 'pointer',
-                  boxShadow: isActive
-                    ? '0 8px 25px rgba(var(--accent-rgb), 0.35), 0 0 15px rgba(var(--accent-soft-rgb), 0.2)'
-                    : '0 4px 12px rgba(0, 0, 0, 0.5)',
-                  transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+                  transition: 'background-color 0.2s, border-color 0.2s, color 0.2s',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem'
                 }}
               >
-                <i className={cat.icon} style={{ fontSize: '0.85rem', color: isActive ? 'var(--text)' : 'var(--primary)' }}></i>
+                <i className={cat.icon} aria-hidden="true" style={{ fontSize: '0.8rem', color: 'var(--accent)' }}></i>
                 {cat.label}
               </motion.button>
             );
           })}
-        </div>
-
-        {/* Section Heading */}
-        <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <h2 style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--foreground)' }}>
-            Gallery Showcase
-          </h2>
-          <div
-            style={{
-              width: '60px',
-              height: '3px',
-              background: 'var(--gradient-accent)',
-              borderRadius: '3px',
-              margin: '0.5rem auto 0'
-            }}
-          />
         </div>
 
         {/* Loading Spinner Skeleton */}

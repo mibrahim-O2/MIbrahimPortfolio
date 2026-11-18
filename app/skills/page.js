@@ -6,7 +6,8 @@ import styles from './skills.module.css';
 
 export const metadata = {
   title: 'Skills & Tech Stack | Muhammad Ibrahim',
-  description: 'Technical skills, AI/ML tools, programming languages, databases, and working strengths of Muhammad Ibrahim.'
+  description: 'Technical skills, AI/ML tools, programming languages, databases, and working strengths of Muhammad Ibrahim.',
+  alternates: { canonical: '/skills' }
 };
 
 export default function SkillsPage() {

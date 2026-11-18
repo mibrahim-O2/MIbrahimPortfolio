@@ -20,6 +20,7 @@ export function generateMetadata({ params }) {
   return {
     title,
     description: project.subtitle || project.description,
+    alternates: { canonical: `/projects/${project.id}` },
     openGraph: { title, description: project.subtitle || project.description, ...(local ? { images: [local] } : {}) }
   };
 }

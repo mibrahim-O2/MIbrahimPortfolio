@@ -44,7 +44,7 @@ export const personalInfo = {
 | `intro` | Paragraph under the hero heading | 1–2 sentences |
 | `resumeUrl` | Shows a **Résumé** button in the hero when filled | Upload `public/resume.pdf` and set `resumeUrl: "/resume.pdf"`. `""` = no button. |
 | `statusPill` | Availability badge at the top of the hero, contact section, About quick facts. **The text before the first `:` is bold** (e.g. "Open to Work"). | `"Open to Work: Remote AI Engineering Roles"`. Use `""` to hide the badge. |
-| `avatarUrl` | Hero portrait card and About photo (desktop) | A full URL, or a local file such as `"/images/profile/portrait.webp"` (square, see [UPDATE-IMAGES.md](./UPDATE-IMAGES.md)) |
+| `avatarUrl` | Hero portrait card and About photo (desktop) | A local file such as `"/images/profile/portrait.webp"` (square, see [UPDATE-IMAGES.md](./UPDATE-IMAGES.md)) or a GitHub avatar URL. A photo from any other website must also be added to `img-src` in `next.config.js` (see [DEPLOYMENT.md](./DEPLOYMENT.md#security-headers)). |
 | `location` | Hero card, contact section, footer, About quick facts | e.g. `"Sindh, Pakistan"` |
 | `email` | Contact section, contact form destination, footer, mobile menu | Also update the `Email` social link below |
 | `phone` | Contact section, footer | Write it readably, e.g. `"+92 324 2991303"`; links are built automatically. Also update the `Phone` social link below |

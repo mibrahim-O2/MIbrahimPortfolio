@@ -91,4 +91,11 @@ configured in Vercel for it.
 ## Security headers
 
 `next.config.js` adds security headers (no framing of the site, no MIME sniffing, strict referrer, no
-camera/mic/location access). They apply automatically on every deployment.
+camera/mic/location access) and a **Content-Security-Policy** that only allows the outside sites the portfolio
+really uses: the Font Awesome and Devicon stylesheets, the GitHub profile photo, YouTube video embeds and the
+Vercel preview toolbar. They apply automatically on every deployment.
+
+If you ever add something that loads from a **new outside website** (a different image host for your photo,
+a Vimeo video, an analytics script), add that host to the matching line of `csp` at the top of
+`next.config.js` (`img-src` for images, `frame-src` for embedded videos, `script-src` for scripts), otherwise the
+browser blocks it. Links to other sites (buttons) are not affected.

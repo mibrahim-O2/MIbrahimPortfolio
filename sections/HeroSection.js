@@ -15,8 +15,6 @@ const heroSocials = HERO_SOCIALS
   .map((name) => personalInfo.socialLinks.find((social) => social.name === name))
   .filter((social) => social && social.url && social.icon);
 
-const EASE = [0.22, 1, 0.36, 1];
-
 // Splits the headline into words; words that belong to `headlineAccent` get the copper gradient.
 function headlineWords() {
   const words = (personalInfo.headline || personalInfo.title).split(' ');
@@ -81,60 +79,39 @@ export default function HeroSection() {
 
       <div className={`container ${styles.inner}`}>
         <motion.div className={styles.content} style={{ opacity: contentOpacity }}>
-          <motion.p
-            className={styles.badge}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: EASE }}
-          >
+          <p className={`${styles.badge} ${styles.enter}`}>
             <span className={styles.badgeDot} aria-hidden="true" />
             {pillLabel && <strong>{pillLabel}</strong>}
             <span>{pillText}</span>
-          </motion.p>
+          </p>
 
-          <motion.p
-            className={styles.intro}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.08 }}
-          >
+          <p className={`${styles.intro} ${styles.enter}`} style={{ '--d': '80ms' }}>
             <span className={styles.name}>{personalInfo.name}</span>
             <span className={styles.sep} aria-hidden="true">/</span>
             <span>{personalInfo.title}</span>
-          </motion.p>
+          </p>
 
           <h1 className={styles.title} aria-label={personalInfo.headline}>
             {words.map(({ word, isAccent }, index) => (
               <Fragment key={index}>
                 <span className={styles.wordMask} aria-hidden="true">
-                  <motion.span
+                  <span
                     className={`${styles.word} ${isAccent ? 'text-gradient' : ''}`}
-                    initial={{ y: '105%' }}
-                    animate={{ y: '0%' }}
-                    transition={{ duration: 0.8, ease: EASE, delay: 0.15 + index * 0.05 }}
+                    style={{ '--d': `${150 + index * 50}ms` }}
                   >
                     {word}
-                  </motion.span>
+                  </span>
                 </span>{' '}
               </Fragment>
             ))}
           </h1>
 
-          <motion.p
-            className={styles.lead}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.55 }}
-          >
+          {/* Visible from the first paint (transform-only entrance), so it never delays the largest contentful paint */}
+          <p className={`${styles.lead} ${styles.enterSoft}`} style={{ '--d': '200ms' }}>
             {personalInfo.intro}
-          </motion.p>
+          </p>
 
-          <motion.div
-            className={styles.ctas}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE, delay: 0.65 }}
-          >
+          <div className={`${styles.ctas} ${styles.enter}`} style={{ '--d': '450ms' }}>
             <Link href="/#projects" className="btn btn-primary">
               View selected work <i className="fas fa-arrow-down btn-arrow" aria-hidden="true"></i>
             </Link>
@@ -146,14 +123,9 @@ export default function HeroSection() {
                 <i className="fas fa-file-arrow-down" aria-hidden="true"></i> Résumé
               </a>
             )}
-          </motion.div>
+          </div>
 
-          <motion.ul
-            className={styles.socials}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.8 }}
-          >
+          <ul className={`${styles.socials} ${styles.enter}`} style={{ '--d': '600ms' }}>
             {heroSocials.map((social) => {
               const external = social.url.startsWith('http');
               return (
@@ -169,15 +141,12 @@ export default function HeroSection() {
                 </li>
               );
             })}
-          </motion.ul>
+          </ul>
         </motion.div>
 
         <motion.div
-          className={styles.visual}
+          className={`${styles.visual} ${styles.fadeIn}`}
           style={{ y: visualY }}
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: EASE, delay: 0.3 }}
         >
           <motion.div className={styles.card} style={{ rotateX, rotateY }}>
             <div className={styles.portrait}>

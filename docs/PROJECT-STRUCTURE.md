@@ -113,7 +113,7 @@ Never introduce a new accent colour; reuse the tokens.
 | `utils/galleryLoader.js` | Gallery file list and captions |
 | `utils/highlight.js` | Highlights phrases in the About text |
 | `utils/usePrefersReducedMotion.js` | Detects the "reduce motion" setting |
-| `next.config.js` | Image optimisation (allowed remote hosts) + security headers |
+| `next.config.js` | Image optimisation (allowed remote hosts), security headers and the Content-Security-Policy |
 | `jsconfig.json` | Lets code import with `@/` (e.g. `@/data/projects`) |
 
 ## How data reaches the page

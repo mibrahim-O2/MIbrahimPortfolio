@@ -37,6 +37,7 @@ export const metadata = {
     'Pakistan'
   ],
   authors: [{ name: 'Muhammad Ibrahim' }],
+  alternates: { canonical: '/' },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
