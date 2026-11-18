@@ -66,6 +66,12 @@ as usual.
 On GitHub you can also open the merged pull request and tap **Revert**, which creates a new pull request
 that undoes it.
 
+## Build steps
+
+Vercel runs `npm run build`. Before the Next.js build, `npm` automatically runs `prebuild`, which generates the
+icon font (`scripts/build-icons.mjs`, a few seconds). The generated files are also committed, so nothing breaks
+if that step is ever skipped. No other setup is needed.
+
 ## Environment variables
 
 The site needs **no secrets**. One optional variable exists:
@@ -92,8 +98,8 @@ configured in Vercel for it.
 
 `next.config.js` adds security headers (no framing of the site, no MIME sniffing, strict referrer, no
 camera/mic/location access) and a **Content-Security-Policy** that only allows the outside sites the portfolio
-really uses: the Font Awesome and Devicon stylesheets, the GitHub profile photo, YouTube video embeds and the
-Vercel preview toolbar. They apply automatically on every deployment.
+really uses: the GitHub profile photo, YouTube video embeds and the Vercel preview toolbar. Fonts and icons are
+self-hosted, so they need no outside sites. They apply automatically on every deployment.
 
 If you ever add something that loads from a **new outside website** (a different image host for your photo,
 a Vimeo video, an analytics script), add that host to the matching line of `csp` at the top of

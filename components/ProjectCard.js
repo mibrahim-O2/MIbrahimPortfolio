@@ -16,7 +16,7 @@ const SIZES = {
 // One project card. variant: "lead" (large, first featured project), "featured" (homepage grid),
 // "compact" (project archive). The lead card shows `description`; the others show the shorter `subtitle`.
 // All content comes from data/projects.js.
-export default function ProjectCard({ project, variant = 'featured', index, priority = false }) {
+export default function ProjectCard({ project, variant = 'featured', index, priority = false, wide = false }) {
   const onPointerMove = useSpotlight();
   const links = projectLinks(project);
   const tags = project.tags || [];
@@ -27,7 +27,7 @@ export default function ProjectCard({ project, variant = 'featured', index, prio
   const visibleLinks = variant === 'lead' ? links : links.slice(0, 2);
 
   return (
-    <article className={`card spotlight ${styles.card} ${styles[variant]}`} onPointerMove={onPointerMove}>
+    <article className={`card spotlight ${styles.card} ${styles[variant]} ${wide ? styles.wide : ''}`} onPointerMove={onPointerMove}>
       <Link href={href} className={styles.media} tabIndex={-1} aria-hidden="true">
         <ProjectMedia project={project} src={project.image} sizes={SIZES[variant]} priority={priority} className={styles.image} />
       </Link>

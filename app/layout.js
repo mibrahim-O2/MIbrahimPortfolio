@@ -1,5 +1,6 @@
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import '@/styles/globals.css';
+import '@/styles/icons.css';
 import '@/styles/legacy.css';
 import { SITE_URL } from '@/utils/siteUrl';
 import Navbar from '@/components/Navbar';
@@ -66,11 +67,6 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
-      <head>
-        {/* Icon fonts used by the data files (skills, focus areas, experience, social links) */}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css" />
-      </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
         <ScrollProgress />

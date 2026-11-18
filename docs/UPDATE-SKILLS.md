@@ -79,7 +79,7 @@ Cards are shown in array order.
 
 1. **Devicon** (preferred for technologies): open <https://devicon.dev>, search the technology and copy the
    class, e.g. `devicon-fastapi-plain`, `devicon-postgresql-plain`. Use the `-plain` or `-original` variant.
-   (Devicon v2.16.0 is loaded in `app/layout.js`.)
+   (Devicon 2.16.0 is used.)
 2. **Font Awesome 6.4 free** (for concepts without a logo): <https://fontawesome.com/v6/search?o=r&m=free>,
    e.g. `fa-solid fa-database`, `fa-solid fa-gears`.
 3. Rule used in this file: **a card never repeats an icon**.
@@ -87,7 +87,13 @@ Cards are shown in array order.
    Icons are brightened slightly so dark brand colours stay visible, but very dark colours (e.g. `#150458`) may
    still look dim, so pick a lighter shade if needed.
 
-If an icon class is wrong, the chip just shows an empty tile. Check the Preview.
+**Icons are bundled automatically.** The site does not load icon fonts from other websites. Before every build,
+`scripts/build-icons.mjs` scans the data files and components for `fa-…` and `devicon-…` class names and
+generates a tiny font containing only those icons (`styles/icons.css` and `public/icons/`). So a new icon class
+in `data/skills.js` (or any data file) just works after the next deploy; there is nothing else to update.
+
+If an icon class is wrong (not in Font Awesome 6.4 free or Devicon 2.16.0), the chip shows an empty tile and the
+build log prints a warning for unknown Devicon names. Check the Preview.
 
 ---
 

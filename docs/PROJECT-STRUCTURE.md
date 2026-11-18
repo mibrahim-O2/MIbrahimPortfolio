@@ -13,8 +13,9 @@ styles/         globals.css (design system) + legacy.css (gallery page and image
 theme/          Animation timings for JavaScript
 utils/          Small helpers
 docs/           This documentation
+scripts/        Build helper that generates the self-hosted icon font
 next.config.js  Next.js settings, image optimisation and security headers
-package.json    Dependencies: next, react, react-dom, framer-motion
+package.json    Dependencies: next, react, react-dom, framer-motion (+ build-only: icon packages, subset-font)
 ```
 
 ---
@@ -23,7 +24,7 @@ package.json    Dependencies: next, react, react-dom, framer-motion
 
 | File | URL | Purpose |
 |---|---|---|
-| `app/layout.js` | (every page) | Fonts (Inter + JetBrains Mono via `next/font`), SEO metadata, icon stylesheets, navbar, footer, scroll progress, back-to-top |
+| `app/layout.js` | (every page) | Fonts (Inter + JetBrains Mono via `next/font`), SEO metadata, self-hosted icons, navbar, footer, scroll progress, back-to-top |
 | `app/template.js` | (every page) | Page transition (fade + rise) and "reduce motion" support for all animations |
 | `app/page.js` | `/` | Homepage: lists the sections in order (see [UPDATE-HOMEPAGE-SECTIONS.md](./UPDATE-HOMEPAGE-SECTIONS.md)) |
 | `app/projects/page.js` | `/projects` | Project archive with category filters |
@@ -106,6 +107,8 @@ Never introduce a new accent colour; reuse the tokens.
 | Path | Purpose |
 |---|---|
 | `styles/legacy.css` | Older styles still used by the `/gallery` page and `ImageLightbox` |
+| `styles/icons.css`, `public/icons/` | **Generated** icon CSS and fonts (only the icons the site uses). Do not edit by hand |
+| `scripts/build-icons.mjs` | Generates the icon files above; runs automatically before `npm run dev` and `npm run build` |
 | `theme/motion.js` | Shared animation timings |
 | `utils/siteUrl.js` | Public site URL for metadata and sitemap |
 | `utils/projectLinks.js` | Builds a project's buttons (live site/demo, GitHub or private repo, video, extra links) and YouTube embed URLs |
