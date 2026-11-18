@@ -8,7 +8,7 @@ export function projectLinks(project) {
   if (project.githubUrl) {
     links.push(
       project.githubPrivate
-        ? { label: 'Private repo', url: project.githubUrl, icon: 'fas fa-lock', title: 'Private repository: visible to the client and invited reviewers' }
+        ? { label: 'Private repo', url: project.githubUrl, icon: 'fas fa-lock', title: 'Private repository (client work): visible to the client and invited reviewers' }
         : { label: 'GitHub', url: project.githubUrl, icon: 'fab fa-github' }
     );
   }

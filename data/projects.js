@@ -121,8 +121,8 @@ export const projectsData = [
     id: "sn-noor-herbal-store",
     title: "SN Noor Herbal Store",
     subtitle: "A production e-commerce store and admin for a Pakistani herbal hair care brand.",
-    description: "A client e-commerce website for SN Noor's herbal hair oil, herbal shampoo and Hair Care Kit, live at snnoor.com and built as my 8th-semester BSCS E-commerce course project. Shoppers browse the catalog, check out with cash on delivery and track their orders, while the owner runs products, stock, orders, promotions, policy pages and settings from a role-based admin.",
-    highlight: "Client project and BSCS 8th semester E-commerce course project · Live at snnoor.com",
+    description: "An e-commerce website for SN Noor's herbal hair oil, herbal shampoo and Hair Care Kit, built as my 8th-semester BSCS E-commerce class project and shipped to the client as a freelance project, live at snnoor.com. Shoppers browse the catalog, check out with cash on delivery and track their orders, while the owner runs products, stock, orders, promotions, policy pages and settings from a role-based admin.",
+    highlight: "Freelance project shipped to the client · BSCS 8th semester E-commerce class project · Live at snnoor.com",
     image: "/images/projects/sn-noor-herbal-store.webp",
     tags: [
       "React 19",
@@ -148,7 +148,7 @@ export const projectsData = [
     githubPrivate: true,
     videoUrl: "",
     links: [],
-    badge: "Client · BSCS 8th Semester",
+    badge: "Freelance · 8th Semester",
     status: "Live",
     featured: true,
     published: true,
@@ -166,7 +166,7 @@ export const projectsData = [
     architectureDiagram: "React storefront and admin (Vite, Tailwind CSS) -> Hono API on one Cloudflare Worker (same origin) -> zod validation, sessions and rate limits -> pricing engine and order service -> Cloudflare D1 -> email and payment providers",
     challenges: [],
     lessonsLearned: [],
-    results: "Built in four phases and deployed to snnoor.com, with an API test suite that runs inside the Workers runtime against a real local D1 database, and a written manual for the shop owner. The repository is private."
+    results: "Built in four phases and deployed to snnoor.com, with an API test suite that runs inside the Workers runtime against a real local D1 database, and a written manual for the shop owner. The repository is private because it is client work."
   },
   {
     id: "autonomous-ai-business-operations-agent",

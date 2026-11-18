@@ -11,7 +11,7 @@ Current project ids, in display order:
 |---|---|---|---|
 | 1 | `finlexpurple` | FinLexPurple | ✅ (lead) |
 | 2 | `ai-voice-agent-for-business` | AI Voice Agent for Business | ✅ |
-| 3 | `sn-noor-herbal-store` | SN Noor Herbal Store (client and BSCS 8th semester course project, private repo) | ✅ |
+| 3 | `sn-noor-herbal-store` | SN Noor Herbal Store (freelance client project and BSCS 8th semester E-commerce class project, private repo) | ✅ |
 | 4 | `autonomous-ai-business-operations-agent` | Autonomous AI Business Operations Agent | ✅ |
 | 5 | `lead-generation-agent-inbound` | Lead Generation Agent (Inbound) | ✅ |
 | 6 | `bin-khalid-dairy-v2` | Bin Khalid Dairy Farm V2 | ✅ |
