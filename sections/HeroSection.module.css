@@ -283,8 +283,7 @@
 .visual {
   position: relative;
   justify-self: center;
-  width: min(100%, 400px);
-  perspective: 1000px;
+  width: min(100%, 360px);
 }
 
 .card {
@@ -293,29 +292,16 @@
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-strong);
   background: var(--surface);
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(var(--accent-rgb), 0.06);
-  transform-style: preserve-3d;
+  padding: 0.6rem;
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.9);
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  border-radius: inherit;
-  background: linear-gradient(140deg, rgba(var(--accent-rgb), 0.35), transparent 35%, transparent 70%, rgba(var(--accent-2-rgb), 0.2));
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-  padding: 1px;
-}
 
 .portrait {
   position: relative;
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  border-radius: 12px;
   background: var(--surface-2);
 }
 
@@ -323,22 +309,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(0.92) contrast(1.04);
+  object-position: center 30%;
 }
 
-.portrait::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(var(--surface-rgb), 0.95));
-}
 
 .cardBody {
   position: relative;
   display: grid;
-  gap: 0.9rem;
-  padding: 0 1.25rem 1.25rem;
-  margin-top: -2.5rem;
+  padding: 0.9rem 0.6rem 0.4rem;
 }
 
 
@@ -346,8 +324,6 @@
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--border);
-  padding-top: 0.9rem;
 }
 
 .stats > div {
@@ -435,6 +411,18 @@
   }
 }
 
+@media (max-width: 559px) {
+  .intro {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  .sep {
+    display: none;
+  }
+}
+
 /* Phones and tablets: a compact horizontal card (photo left, counts right) instead of a tall photo */
 @media (max-width: 959px) {
   .hero {
@@ -466,18 +454,9 @@
     border-radius: 12px;
   }
 
-  .portrait::after {
-    display: none;
-  }
-
   .cardBody {
     margin-top: 0;
     padding: 0;
-  }
-
-  .stats {
-    border-top: 0;
-    padding-top: 0;
   }
 
   .stats > div + div {
