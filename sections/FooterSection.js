@@ -26,7 +26,6 @@ const MORE_LINKS = [
   { label: 'Gallery', href: '/gallery' }
 ];
 
-const phoneHref = `tel:${personalInfo.phone.replace(/[^+\d]/g, '')}`;
 
 export default function FooterSection() {
   const year = new Date().getFullYear();
@@ -78,14 +77,11 @@ export default function FooterSection() {
             </ul>
           </div>
 
-          <div>
+          <div className={styles.contactCol}>
             <p className={styles.heading}>Contact</p>
             <ul className={styles.links}>
               <li>
                 <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
-              </li>
-              <li>
-                <a href={phoneHref}>{personalInfo.phone}</a>
               </li>
               <li className={styles.muted}>{personalInfo.location}</li>
             </ul>

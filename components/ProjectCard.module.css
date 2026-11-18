@@ -144,6 +144,43 @@
   padding: 0;
 }
 
+/* ---- Lead: signature border. A copper gradient sweeps around the top project's card on hover. ---- */
+@property --sweep {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.lead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(from var(--sweep), transparent 0deg, rgba(var(--accent-rgb), 0.9) 60deg, transparent 140deg, transparent 360deg);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+
+@media (hover: hover) {
+  .lead:hover::before {
+    opacity: 1;
+    animation: sweep 3.2s linear infinite;
+  }
+}
+
+@keyframes sweep {
+  to {
+    --sweep: 360deg;
+  }
+}
+
 /* ---- Lead: full-width screenshot on top, two-column text below on desktop ---- */
 .lead .title {
   font-size: var(--fs-xl);

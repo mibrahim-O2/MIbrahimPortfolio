@@ -45,7 +45,7 @@
   height: 34px;
   border-radius: 10px;
   background: var(--gradient-accent);
-  color: #1A120D;
+  color: var(--on-accent);
   font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 500;

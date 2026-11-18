@@ -26,10 +26,11 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
-  font-size: clamp(1.4rem, 1rem + 3vw, 3rem);
+  /* sized so the full address fits on one line even on a 320px phone */
+  font-size: clamp(1.1rem, 0.45rem + 3.6vw, 3rem);
   font-weight: 700;
   letter-spacing: -0.04em;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
   transition: color var(--dur-fast);
 }
 
@@ -53,6 +54,11 @@
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Contact column spans the full width on phones so the email never breaks */
+.contactCol {
+  grid-column: 1 / -1;
 }
 
 .brand {
@@ -156,7 +162,8 @@
     grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
   }
 
-  .brand {
+  .brand,
+  .contactCol {
     grid-column: auto;
   }
 }

@@ -41,7 +41,7 @@ Open the Preview URL and go through this list:
 
 1. **Homepage loads** and scrolls smoothly, with no sideways scrolling.
 2. **What you changed** is visible and correct (text, links, images).
-3. **Tap every new or changed link/button** (Demo, GitHub, email, phone).
+3. **Tap every new or changed link/button** (Demo, GitHub, email).
 4. **Open the menu** (☰) and tap a few items.
 5. For projects: open `/projects` and the project's detail page `/projects/<id>`.
 6. **Rotate the phone** to landscape once.
