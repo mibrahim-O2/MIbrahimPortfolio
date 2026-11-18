@@ -24,8 +24,8 @@
 
 .mark {
   color: var(--text);
-  background: linear-gradient(transparent 62%, rgba(var(--accent-rgb), 0.28) 62%);
-  padding-inline: 0.05em;
+  font-weight: 500;
+  background: transparent;
 }
 
 

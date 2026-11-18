@@ -32,7 +32,7 @@
   right: -8%;
   width: min(820px, 120vw);
   aspect-ratio: 1;
-  background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.32), rgba(var(--accent-rgb), 0.08) 55%, transparent 72%);
+  background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.2), rgba(var(--accent-rgb), 0.05) 55%, transparent 72%);
   animation: drift 22s ease-in-out infinite alternate;
 }
 
@@ -41,7 +41,7 @@
   left: -18%;
   width: min(680px, 110vw);
   aspect-ratio: 1;
-  background: radial-gradient(closest-side, rgba(var(--accent-2-rgb), 0.16), transparent 70%);
+  background: radial-gradient(closest-side, rgba(var(--accent-2-rgb), 0.1), transparent 70%);
   animation: drift2 26s ease-in-out infinite alternate;
 }
 
@@ -61,7 +61,7 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(520px circle at var(--hx) var(--hy), rgba(var(--accent-rgb), 0.1), transparent 60%);
+  background: radial-gradient(520px circle at var(--hx) var(--hy), rgba(var(--accent-rgb), 0.06), transparent 60%);
 }
 
 @keyframes drift {
@@ -435,17 +435,68 @@
   }
 }
 
+/* Phones and tablets: a compact horizontal card (photo left, counts right) instead of a tall photo */
 @media (max-width: 959px) {
+  .hero {
+    min-height: auto;
+  }
+
+  .inner {
+    gap: 2.25rem;
+  }
+
+  /* No scroll parallax on small screens: the card stays where it is */
   .visual {
-    width: min(100%, 340px);
+    transform: none !important;
+    justify-self: stretch;
+    width: 100%;
+    max-width: 30rem;
+  }
+
+  .card {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem;
   }
 
   .portrait {
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 1;
+    border-radius: 12px;
   }
 
-  .portrait img {
-    object-position: center 25%;
+  .portrait::after {
+    display: none;
+  }
+
+  .cardBody {
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .stats {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .stats > div + div {
+    padding-left: 0.75rem;
+  }
+
+  .stats dd {
+    font-size: 1.3rem;
+  }
+
+  .stats dt {
+    font-size: 0.6rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .stats {
+    grid-template-columns: auto auto auto;
+    justify-content: start;
   }
 }
 

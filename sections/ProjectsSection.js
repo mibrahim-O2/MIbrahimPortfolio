@@ -1,15 +1,13 @@
-import Link from 'next/link';
 import SectionHeader from '@/components/ui/SectionHeader';
 import ProjectCard from '@/components/ProjectCard';
 import Reveal from '@/components/motion/Reveal';
-import { featuredProjects, publishedProjects } from '@/data/projects';
+import { featuredProjects } from '@/data/projects';
 import styles from './ProjectsSection.module.css';
 
 // Homepage "Selected Projects": the first featured project as a large lead card, the other featured
-// projects in a grid, then a link to the full archive on /projects.
+// projects in a two-column grid.
 export default function ProjectsSection() {
   const [lead, ...rest] = featuredProjects;
-  const others = publishedProjects.length - featuredProjects.length;
 
   return (
     <section id="projects" className="section">
@@ -22,7 +20,7 @@ export default function ProjectsSection() {
 
         {lead && (
           <Reveal className={styles.lead}>
-            <ProjectCard project={lead} variant="lead" index={0} priority />
+            <ProjectCard project={lead} variant="lead" priority />
           </Reveal>
         )}
 
@@ -32,22 +30,12 @@ export default function ProjectsSection() {
             const wide = rest.length % 2 === 1 && i === rest.length - 1;
             return (
               <Reveal key={project.id} delay={(i % 2) * 0.08} className={`${styles.cell} ${wide ? styles.wideCell : ''}`}>
-                <ProjectCard project={project} variant="featured" index={i + 1} wide={wide} />
+                <ProjectCard project={project} variant="featured" wide={wide} />
               </Reveal>
             );
           })}
         </div>
 
-        {others > 0 && (
-          <Reveal className={styles.more}>
-            <p>
-              Plus {others} more project{others === 1 ? '' : 's'} in the archive.
-            </p>
-            <Link href="/projects" className="btn btn-primary">
-              Browse the archive <i className="fas fa-arrow-right btn-arrow" aria-hidden="true"></i>
-            </Link>
-          </Reveal>
-        )}
       </div>
     </section>
   );
