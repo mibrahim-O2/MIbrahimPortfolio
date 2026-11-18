@@ -3,7 +3,7 @@ import ProjectArchive from '@/components/ProjectArchive';
 
 export const metadata = {
   title: 'Projects | Muhammad Ibrahim',
-  description: 'All projects by Muhammad Ibrahim: AI agents, business automation, security tooling and full-stack web applications.',
+  description: 'Projects by Muhammad Ibrahim: AI agents, business automation, security tooling and full-stack web applications.',
   alternates: { canonical: '/projects' }
 };
 
@@ -13,7 +13,7 @@ export default function ProjectsPage() {
       <PageIntro
         eyebrow="Project archive"
         title="Projects"
-        lead="Everything I've built, from security tooling and AI platforms to client software and small experiments. Filter by area, or open a case study."
+        lead="Ten projects, from AI agents and security tooling to client software. Filter by area, or open a case study."
       />
       <section className="container" style={{ paddingBottom: 'var(--space-section)' }}>
         <ProjectArchive />

@@ -28,54 +28,45 @@ export default function EducationSection({ show = 'both', headingLevel = 'h2' })
         <SectionHeader eyebrow={heading.eyebrow} title={heading.title} as={headingLevel} />
 
         {showEducation && (
-          <div className={styles.eduGrid}>
+          <ol className={styles.timeline}>
             {educationData.map((entry, index) => (
-              <Reveal key={entry.id} delay={(index % 2) * 0.08} className={`card ${styles.edu}`}>
-                <div className={styles.banner}>
-                  {entry.campusImage && <Image src={entry.campusImage} alt={`${entry.institutionName} campus`} fill sizes="(min-width: 820px) 560px, 100vw" />}
-                  <div className={styles.logos}>
-                    {(entry.logos || []).map((logo) => (
-                      <span key={logo.src} className={styles.logo}>
-                        <Image src={logo.src} alt={logo.alt} width={40} height={40} />
-                      </span>
-                    ))}
-                  </div>
-                  {entry.status && (
-                    <span className="status" data-status="In progress" style={{ position: 'absolute', top: '0.85rem', right: '0.85rem' }}>
-                      {entry.status}
+              <Reveal as="li" key={entry.id} delay={index * 0.05} className={`card ${styles.edu} ${entry.status ? styles.current : ''}`}>
+                <div className={styles.logos}>
+                  {(entry.logos || []).map((logo) => (
+                    <span key={logo.src} className={styles.logo}>
+                      <Image src={logo.src} alt={logo.alt} width={40} height={40} />
                     </span>
-                  )}
+                  ))}
                 </div>
                 <div className={styles.eduBody}>
                   <div className={styles.eduMeta}>
-                    <span>{entry.period}</span>
-                    <span className={styles.dotSep} aria-hidden="true" />
-                    <span>{entry.degree}</span>
+                    <span className={styles.period}>{entry.period}</span>
+                    <span className={styles.degree}>{entry.degree}</span>
+                    {entry.status && (
+                      <span className="status" data-status="In progress">
+                        {entry.status}
+                      </span>
+                    )}
                   </div>
                   <h3 className={styles.eduTitle}>{entry.title}</h3>
                   <p className={styles.institution}>
                     {entry.institutionName}
-                    {entry.chip && (
-                      <span className={styles.chip}>
-                        <i className="fas fa-location-dot" aria-hidden="true"></i> {entry.chip}
-                      </span>
-                    )}
+                    {entry.chip && <span className={styles.chip}> · {entry.chip}</span>}
                   </p>
-                  <p className={styles.summary}>{entry.summary}</p>
+                  {entry.summary && <p className={styles.summary}>{entry.summary}</p>}
                   {entry.metas && entry.metas.length > 0 && (
-                    <dl className={styles.metas}>
+                    <ul className={styles.results}>
                       {entry.metas.map((meta) => (
-                        <div key={meta.label}>
-                          <dt>{meta.label}</dt>
-                          <dd>{meta.value}</dd>
-                        </div>
+                        <li key={meta.label}>
+                          <span>{meta.label}</span> {meta.value}
+                        </li>
                       ))}
-                    </dl>
+                    </ul>
                   )}
                 </div>
               </Reveal>
             ))}
-          </div>
+          </ol>
         )}
 
         {showCerts && (

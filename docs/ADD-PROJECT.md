@@ -87,7 +87,7 @@ every field, including the optional ones.
 | `image` | No | Card image. A path in `public/` (starts with `/`) or a full `https://` URL. If empty or broken, a generated cover with an icon and the title is shown instead, so you never get a broken image. | `"/images/projects/finlexpurple.webp"` |
 | `tags` | **Yes** | Technology stack. Cards show the first few (8 on the lead card, 5 on featured cards, 4 in the archive) plus "+N"; the case study page shows all. Put the most important first. | `["Python", "Sigstore", …]` |
 | `categories` | **Yes** | Which archive filter buttons the project appears under. **Must match a `key` in `projectCategories` exactly.** | `["AI Agents", "AI & Machine Learning"]` |
-| `badge` | No | Small label next to the card number, e.g. `"Solo Project"`, `"Client Project"`, `"BSCS 7th Semester"`. | |
+| `badge` | No | Small label next to the card number, See the badge convention below. | `"Solo Project"` |
 | `status` | No | Status pill. Use exactly `"Live"`, `"Completed"` or `"In progress"`. | `"Live"` |
 | `featured` | **Yes** | `true` = shown in the homepage Featured projects section. See [Featured projects](#featured-projects). | `true` |
 | `published` | **Yes** | `true` = visible. `false` = hidden everywhere (cards, case study page, sitemap), but the content stays in the file. | `true` |
@@ -157,6 +157,9 @@ export const projectCategories = [
 
 ## Technology tags
 
+Badge convention (`badge` field): `"Solo Project"`, `"Solo · Open Source"`, `"Family Business"`,
+`"Team Lead · 7th Semester"`, `"Freelance · 8th Semester"`. Keep new badges in the same style.
+
 Use official spelling (`"Next.js"`, `"PostgreSQL"`, `"Tailwind CSS"`). Most important first. Tags are plain text.
 
 ## Featured projects
@@ -168,10 +171,11 @@ Use official spelling (`"Next.js"`, `"PostgreSQL"`, `"Tailwind CSS"`). Most impo
 - The other featured projects appear in a two-column grid below it, in array order.
 - Current featured projects, in order: FinLexPurple, AI Voice Agent for Business, SN Noor Herbal Store,
   Autonomous AI Business Operations Agent, Lead Generation Agent (Inbound), Bin Khalid Dairy Farm V2,
-  Finlytics, NeuroCode, VerdexAI, AI Tutor for Personalized Learning Recommendations. The remaining projects (`featured: false`) appear only in the `/projects`
-  archive, after the featured ones.
+  Finlytics, NeuroCode, VerdexAI, AI Tutor for Personalized Learning Recommendations.
+- Older projects (IMCS Scheduler, PulseGrid, Bin Khalid Dairy Farm V1, Event Registration, Restaurant
+  Management, URL Shortener) are kept in the file with `published: false`, so they are hidden everywhere.
+  Set `published: true` to show one again (it then appears on `/projects`, after the featured ones).
 - An **odd** number of featured projects (lead + an even number in the grid) gives the neatest layout.
-- The first featured project is also shown in the hero's "Featured project" chip.
 
 To change which project leads, move its block to the top of `projectsData` (or above the other featured ones).
 

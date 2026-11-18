@@ -279,7 +279,7 @@
   }
 }
 
-/* ---- Visual: portrait card + floating project chip ---- */
+/* ---- Visual: portrait card with counts ---- */
 .visual {
   position: relative;
   justify-self: center;
@@ -341,18 +341,7 @@
   margin-top: -2.5rem;
 }
 
-.cardLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
 
-.cardLabel i {
-  color: var(--accent);
-}
 
 .stats {
   display: grid;
@@ -386,57 +375,11 @@
   color: var(--text-dim);
 }
 
-.floating {
-  position: relative;
-  display: grid;
-  gap: 0.25rem;
-  margin: 1rem auto 0;
-  max-width: 340px;
-  padding: 0.9rem 1.1rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-accent);
-  background: rgba(var(--surface-rgb), 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.8), 0 0 30px -10px rgba(var(--accent-rgb), 0.35);
-  transition: transform var(--dur) var(--ease), border-color var(--dur-fast);
-}
 
-.floatingLabel {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
 
-.floatingTitle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-}
 
-.floatingTitle i {
-  font-size: 0.75rem;
-  color: var(--accent);
-  transition: transform var(--dur-fast) var(--ease);
-}
 
-.floatingMeta {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
 
-@media (hover: hover) {
-  .floating:hover {
-    transform: translateY(-3px);
-  }
-
-  .floating:hover .floatingTitle i {
-    transform: translateX(3px);
-  }
-}
 
 /* ---- Scroll cue ---- */
 .scrollCue {
@@ -486,13 +429,6 @@
     justify-self: end;
   }
 
-  .floating {
-    position: absolute;
-    left: -4rem;
-    top: 2rem;
-    margin: 0;
-    max-width: 270px;
-  }
 
   .scrollCue {
     display: block;

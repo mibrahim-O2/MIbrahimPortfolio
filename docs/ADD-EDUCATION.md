@@ -19,13 +19,11 @@ Each school, degree or program is one object in the `educationData` array, **new
     title: "Master of Science in Artificial Intelligence",
     institutionName: "University Name",
     chip: "City, Country",
-    campusImage: "/logos/university-campus.webp",
     logos: [
       { src: "/logos/university-logo.png", alt: "University Name logo" }
     ],
-    summary: "One or two sentences about the institution or program.",
+    summary: "One sentence about the program, or \"\" to hide it.",
     metas: [
-      { label: "Focus", value: "Machine learning and optimization" },
       { label: "Result", value: "3.6 CGPA" }
     ]
   },
@@ -37,20 +35,19 @@ Each school, degree or program is one object in the `educationData` array, **new
 |---|---|---|
 | `id` | Unique internal name | `"bscs"` |
 | `period` | Years shown on the card | `"2023 – 2027"` |
-| `status` | **Optional.** Shows a status pill on the card and marks it as "Studying" in the About section's quick facts. Remove the line when finished. | `"In progress"` |
+| `status` | **Optional.** Shows a status pill and highlights the card with a copper border. Remove the line when finished. | `"In progress"` |
 | `degree` | Small label above the title | `"BSCS"`, `"FSc Pre-Engineering"` |
 | `short` | Short label. **Not displayed**, kept for compatibility. | `"BSCS"` |
 | `title` | Main heading | `"Bachelor of Science in Computer Science"` |
 | `institutionName` | Institution under the title | `"IMCS, University of Sindh"` |
 | `chip` | Small location/board chip with a pin icon | `"Jamshoro, Sindh"`, `"BISE Nawabshah"` |
-| `campusImage` | Banner image at the top of the card (shown dimmed behind the logos) | `"/logos/UOSimage.webp"` |
+| `campusImage` | **Not displayed** (the cards no longer have banners). Kept for compatibility; you can leave it out. | `"/logos/UOSimage.webp"` |
 | `logos` | 1 or 2 logos shown left to right. Each needs `src` and `alt`. | UoS + IMCS logos |
-| `summary` | Paragraph describing the institution/program | |
-| `metas` | Label/value rows at the bottom of the card: `{ label, value }`. | `{ label: "Result", value: "94%" }` |
+| `summary` | **Optional.** One short sentence. `""` = hidden. Avoid filler. | |
+| `metas` | Real results only (grade, CGPA), shown as small tiles: `{ label, value }`. `[]` = none. | `{ label: "Result", value: "94%" }` |
 
 ## Images
 
-- `campusImage`: landscape photo, ~1200×600, WebP, in `public/logos/` (where the existing ones are).
 - `logos[].src`: square logo, ~200×200, PNG/WebP, in `public/logos/`.
 - Paths start with `/logos/…` and must match the file name's upper/lower case exactly.
 
@@ -81,8 +78,8 @@ Delete its whole `{ … },` block and check that the array still ends with `];`.
 ```text
 Read docs/ADD-EDUCATION.md and add this entry to data/education.js (newest first):
 title: … / institution: … / period: … / location chip: … / status: in progress or finished
-logos: public/logos/<file> (alt: …) / campus image: public/logos/<file>
-summary: …
-metas: label/value pairs …
+logos: public/logos/<file> (alt: …)
+summary: one short sentence or none
+result: … (only if real)
 Do not modify components. Work on a branch and give me the Preview URL.
 ```

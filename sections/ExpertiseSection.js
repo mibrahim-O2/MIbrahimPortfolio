@@ -35,13 +35,6 @@ export default function ExpertiseSection({ headingLevel = 'h2' }) {
                   </div>
                   <h3 className={styles.title}>{area.category}</h3>
                   <p className={styles.description}>{area.description}</p>
-                  <ul className={styles.tech}>
-                    {area.technologies.map((tech) => (
-                      <li key={tech} className="tag">
-                        {tech}
-                      </li>
-                    ))}
-                  </ul>
                   {project ? (
                     <Link href={`/projects/${project.id}`} className={styles.proof}>
                       <span className={styles.proofLabel}>Proof</span>

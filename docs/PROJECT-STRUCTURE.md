@@ -59,13 +59,13 @@ package.json    Dependencies: next, react, react-dom, framer-motion (+ build-onl
 
 | File | Shows |
 |---|---|
-| `HeroSection.js` | Availability badge, name/title, animated headline, intro, buttons, social icons, portrait card with counts, featured-project chip, animated background |
-| `ProjectsSection.js` | Featured projects: first one as a large lead card, the rest in a grid, link to the archive |
+| `HeroSection.js` | Availability badge, name/title, animated headline, intro, buttons, social icons, portrait card with counts, animated background |
+| `ProjectsSection.js` | Featured projects: first one as a large lead card, the rest in a grid |
 | `ExpertiseSection.js` | Focus-area cards, each linking to its proof project |
 | `ExperienceSection.js` | Timeline with a line that fills as you scroll |
-| `AboutSection.js` | Portrait (desktop), bio with highlights, quick facts, "Beyond code" card |
+| `AboutSection.js` | Bio with highlights and the "Beyond code" card |
 | `SkillsSection.js` | Technology stack cards |
-| `EducationSection.js` | Education cards + certifications list (`show` prop: `both`, `education`, `certificates`) |
+| `EducationSection.js` | Education timeline cards + certifications list (`show` prop: `both`, `education`, `certificates`) |
 | `ContactSection.js` | Contact channels + email form |
 | `VolunteerSection.js` | Volunteer cards (`/volunteer`) |
 | `FooterSection.js` | Email call-to-action, links, socials, © line |

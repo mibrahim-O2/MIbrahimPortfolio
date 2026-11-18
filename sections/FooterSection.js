@@ -20,7 +20,6 @@ const QUICK_LINKS = [
 ];
 
 const MORE_LINKS = [
-  { label: 'All projects', href: '/projects' },
   { label: 'Certifications', href: '/certificates' },
   { label: 'Volunteer', href: '/volunteer' },
   { label: 'Gallery', href: '/gallery' }
@@ -74,16 +73,6 @@ export default function FooterSection() {
                   <Link href={link.href}>{link.label}</Link>
                 </li>
               ))}
-            </ul>
-          </div>
-
-          <div className={styles.contactCol}>
-            <p className={styles.heading}>Contact</p>
-            <ul className={styles.links}>
-              <li>
-                <a href={`mailto:${personalInfo.email}`}>{personalInfo.email}</a>
-              </li>
-              <li className={styles.muted}>{personalInfo.location}</li>
             </ul>
           </div>
         </div>

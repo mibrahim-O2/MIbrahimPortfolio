@@ -4,7 +4,7 @@ import { Fragment, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 import { personalInfo } from '@/data/personal';
-import { publishedProjects, featuredProjects } from '@/data/projects';
+import { publishedProjects } from '@/data/projects';
 import { certificatesData } from '@/data/certificates';
 import styles from './HeroSection.module.css';
 
@@ -37,7 +37,6 @@ export default function HeroSection() {
     return () => observer.disconnect();
   }, []);
   const words = headlineWords();
-  const spotlight = featuredProjects[0];
 
   // Pointer position -> spotlight (CSS variables) + gentle tilt of the portrait card. Mouse only.
   const tiltX = useMotionValue(0);
@@ -74,7 +73,7 @@ export default function HeroSection() {
 
   const stats = [
     { value: publishedProjects.length, label: 'Projects' },
-    { value: publishedProjects.filter((project) => project.status === 'Live').length, label: 'Live' },
+    { value: publishedProjects.filter((project) => project.status === 'Live').length, label: 'Live apps' },
     { value: certificatesData.length, label: 'Certifications' }
   ];
 
@@ -164,9 +163,6 @@ export default function HeroSection() {
               <img src={personalInfo.avatarUrl} alt={personalInfo.name} width="400" height="400" fetchPriority="high" />
             </div>
             <div className={styles.cardBody}>
-              <span className={styles.cardLabel}>
-                <i className="fas fa-location-dot" aria-hidden="true"></i> {personalInfo.location}
-              </span>
               <dl className={styles.stats}>
                 {stats.map((stat) => (
                   <div key={stat.label}>
@@ -178,15 +174,6 @@ export default function HeroSection() {
             </div>
           </motion.div>
 
-          {spotlight && (
-            <Link href={`/projects/${spotlight.id}`} className={styles.floating}>
-              <span className={styles.floatingLabel}>Featured project</span>
-              <span className={styles.floatingTitle}>
-                {spotlight.title} <i className="fas fa-arrow-right" aria-hidden="true"></i>
-              </span>
-              {spotlight.highlight && <span className={styles.floatingMeta}>{spotlight.highlight}</span>}
-            </Link>
-          )}
         </motion.div>
       </div>
 
