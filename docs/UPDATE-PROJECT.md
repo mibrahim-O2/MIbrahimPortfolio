@@ -11,15 +11,15 @@ Current project ids, in display order:
 |---|---|---|---|
 | 1 | `finlexpurple` | FinLexPurple | ✅ (lead) |
 | 2 | `ai-voice-agent-for-business` | AI Voice Agent for Business | ✅ |
-| 3 | `sn-noor-herbal-store` | SN Noor Herbal Store (client, private repo) | ✅ |
+| 3 | `sn-noor-herbal-store` | SN Noor Herbal Store (client and BSCS 8th semester course project, private repo) | ✅ |
 | 4 | `autonomous-ai-business-operations-agent` | Autonomous AI Business Operations Agent | ✅ |
 | 5 | `lead-generation-agent-inbound` | Lead Generation Agent (Inbound) | ✅ |
 | 6 | `bin-khalid-dairy-v2` | Bin Khalid Dairy Farm V2 | ✅ |
 | 7 | `finlytics-tracker` | Finlytics | ✅ |
 | 8 | `neurocode` | NeuroCode | ✅ |
 | 9 | `verdexai` | VerdexAI | ✅ |
+| 10 | `ai-tutor-plr` | AI Tutor for Personalized Learning Recommendations (BSCS 7th semester course project) | ✅ |
 | | `imcs-scheduler` | IMCS Scheduler | |
-| | `ai-tutor-plr` | AI Tutor for Personalized Learning Recommendations | |
 | | `pulsegrid` | PulseGrid | |
 | `bin-khalid-dairy-farm` | Bin Khalid Dairy Farm V1 | |
 | `event-registration-system` | EventHub | |

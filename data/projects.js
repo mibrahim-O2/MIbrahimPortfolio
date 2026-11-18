@@ -16,6 +16,7 @@ export const projectCategories = [
   { key: "Security", label: "Security" },
   { key: "Optimization", label: "Optimization" },
   { key: "Freelance & Client", label: "Freelance & Client" },
+  { key: "Course Projects", label: "Course Projects" },
   { key: "Personal", label: "Personal" }
 ];
 
@@ -69,7 +70,7 @@ export const projectsData = [
     lessonsLearned: [],
     results: "Designed and built as the sole developer, from first commit to a public v0.4.0 release on PyPI, with an automated, attested release pipeline and a live product website."
   },
-{
+  {
     id: "ai-voice-agent-for-business",
     title: "AI Voice Agent for Business",
     subtitle: "Answers inbound calls, qualifies leads and books appointments, with a person approving every sensitive action.",
@@ -120,8 +121,8 @@ export const projectsData = [
     id: "sn-noor-herbal-store",
     title: "SN Noor Herbal Store",
     subtitle: "A production e-commerce store and admin for a Pakistani herbal hair care brand.",
-    description: "A client e-commerce website for SN Noor's herbal hair oil, herbal shampoo and Hair Care Kit, live at snnoor.com. Shoppers browse the catalog, check out with cash on delivery and track their orders, while the owner runs products, stock, orders, promotions, policy pages and settings from a role-based admin.",
-    highlight: "Client project · Live at snnoor.com · React 19 and Hono on Cloudflare Workers",
+    description: "A client e-commerce website for SN Noor's herbal hair oil, herbal shampoo and Hair Care Kit, live at snnoor.com and built as my 8th-semester BSCS E-commerce course project. Shoppers browse the catalog, check out with cash on delivery and track their orders, while the owner runs products, stock, orders, promotions, policy pages and settings from a role-based admin.",
+    highlight: "Client project and BSCS 8th semester E-commerce course project · Live at snnoor.com",
     image: "/images/projects/sn-noor-herbal-store.webp",
     tags: [
       "React 19",
@@ -138,6 +139,7 @@ export const projectsData = [
     ],
     categories: [
       "Freelance & Client",
+      "Course Projects",
       "Web & Full-Stack"
     ],
     demoUrl: "https://snnoor.com",
@@ -146,7 +148,7 @@ export const projectsData = [
     githubPrivate: true,
     videoUrl: "",
     links: [],
-    badge: "Client Project",
+    badge: "Client · BSCS 8th Semester",
     status: "Live",
     featured: true,
     published: true,
@@ -482,6 +484,56 @@ export const projectsData = [
     results: "Deployed with the frontend on Vercel and the backend on Railway, with a demo walkthrough video on YouTube: https://youtu.be/s-M_aoWDOkM"
   },
   {
+    id: "ai-tutor-plr",
+    title: "AI Tutor for Personalized Learning Recommendations",
+    subtitle: "Personalized study recommendations with explainable AI.",
+    highlight: "BSCS 7th semester · Artificial Intelligence Lab course project · Project Lead, team of three",
+    description: "A Streamlit AI tutor that turns a student's quiz score, response time, confidence and previous score into a study recommendation, using both a rule-based engine and a decision tree, with explanations and performance dashboards. Built as the 7th-semester BSCS Artificial Intelligence Lab project, where I led a team of three.",
+    image: "/images/projects/ai-tutor-plr.webp",
+    tags: [
+      "Python",
+      "Streamlit",
+      "scikit-learn",
+      "pandas",
+      "NumPy",
+      "Plotly"
+    ],
+    categories: [
+      "AI & Machine Learning",
+      "Course Projects"
+    ],
+    demoUrl: "",
+    githubUrl: "https://github.com/mibrahim-O2/AI_Tutor_PLR_AbstractMinds",
+    videoUrl: "https://www.youtube.com/watch?v=mhN8FOQ0iA8",
+    badge: "BSCS 7th Semester",
+    status: "Completed",
+    featured: true,
+    published: true,
+    heroBanner: "/images/projects/ai-tutor-plr.webp",
+    problemStatement: "Students with the same quiz score can need very different help. Fixed curricula ignore response time, confidence, and prior performance, so a student who guessed correctly and one who truly understood the topic get the same next step. This project turns those learning signals into individual study recommendations.",
+    solution: "The app takes quiz inputs and evaluates them with either a rule-based engine or a decision tree classifier. It returns a recommendation, the next topic, a practice count, and a revision flag, explains the reasoning behind each result, and compares both methods in a Streamlit dashboard.",
+    features: [
+      "Rule-based recommendation engine using score thresholds, response time, confidence, and previous score.",
+      "Decision tree training and prediction pipeline for personalized recommendations.",
+      "Explainability output showing the reasoning steps and the decision tree's split path.",
+      "Interactive Plotly dashboards for topic performance, recommendation distribution, score trends, and student-versus-dataset comparison.",
+      "Evaluation module comparing the rule-based engine and the decision tree using standard classification metrics.",
+      "Synthetic dataset generator for model training and experimentation."
+    ],
+    architectureDiagram: "Streamlit app (app.py) -> Input validation and shared thresholds (utils/helpers.py) -> Dataset (data/student_scores.csv) -> Recommendation engine (run_rules, train_model, run_model) -> Recommendation, explanation, charts, and evaluation -> Saved model (models/decision_tree.pkl)",
+    challenges: [
+      "Rules, helpers, and the dataset generator could drift apart, so score and time thresholds are centralized in one helper module.",
+      "Overfitting on a small synthetic dataset was reduced with noisy label generation and a maximum tree depth of 4.",
+      "Prediction reliability was improved by saving the trained model, auto-training it if missing, and keeping the feature order fixed between training and prediction."
+    ],
+    lessonsLearned: [
+      "Designing transparent AI that can be explained to a non-technical user instead of a black-box prediction.",
+      "Balancing rule-based logic with machine learning so the system stays interpretable and testable.",
+      "Leading a three-person team, dividing work across the recommendation engine, UI, and documentation."
+    ],
+    results: "Completed as the Artificial Intelligence Lab course project at IMCS, University of Sindh, with a written report covering the PEAS framework, methodology, results and limitations. The app compares both methods side by side on accuracy, precision, recall, F1 score and a confusion matrix.",
+  },
+  {
     id: "imcs-scheduler",
     title: "IMCS Scheduler",
     subtitle: "From manual scheduling to automated timetables, papers, and events at IMCS.",
@@ -535,54 +587,6 @@ export const projectsData = [
       "Real institutional data is messy, so original documents must be the source of truth over any digitized copy."
     ],
     results: "Data scope: about 14 rooms, labs, and halls and about 50 teachers across 3 programs, taken from real 2026 timetables. No performance metrics yet."
-  },
-  {
-    id: "ai-tutor-plr",
-    title: "AI Tutor for Personalized Learning Recommendations",
-    subtitle: "Personalized study recommendations with explainable AI.",
-    description: "A Streamlit AI tutor that recommends study actions from quiz data using a rule-based engine and a decision tree, with explanations and performance dashboards.",
-    image: "",
-    tags: [
-      "Python",
-      "Streamlit",
-      "scikit-learn",
-      "pandas",
-      "NumPy",
-      "Plotly"
-    ],
-    categories: [
-      "AI & Machine Learning"
-    ],
-    demoUrl: "",
-    githubUrl: "https://github.com/mibrahim-O2/AI_Tutor_PLR_AbstractMinds",
-    videoUrl: "https://www.youtube.com/watch?v=mhN8FOQ0iA8",
-    badge: "Course Project",
-    status: "Completed",
-    featured: false,
-    published: true,
-    heroBanner: "",
-    problemStatement: "Students with the same quiz score can need very different help. Fixed curricula ignore response time, confidence, and prior performance, so a student who guessed correctly and one who truly understood the topic get the same next step. This project turns those learning signals into individual study recommendations.",
-    solution: "The app takes quiz inputs and evaluates them with either a rule-based engine or a decision tree classifier. It returns a recommendation, the next topic, a practice count, and a revision flag, explains the reasoning behind each result, and compares both methods in a Streamlit dashboard.",
-    features: [
-      "Rule-based recommendation engine using score thresholds, response time, confidence, and previous score.",
-      "Decision tree training and prediction pipeline for personalized recommendations.",
-      "Explainability output showing the reasoning steps and the decision tree's split path.",
-      "Interactive Plotly dashboards for topic performance, recommendation distribution, score trends, and student-versus-dataset comparison.",
-      "Evaluation module comparing the rule-based engine and the decision tree using standard classification metrics.",
-      "Synthetic dataset generator for model training and experimentation."
-    ],
-    architectureDiagram: "Streamlit app (app.py) -> Input validation and shared thresholds (utils/helpers.py) -> Dataset (data/student_scores.csv) -> Recommendation engine (run_rules, train_model, run_model) -> Recommendation, explanation, charts, and evaluation -> Saved model (models/decision_tree.pkl)",
-    challenges: [
-      "Rules, helpers, and the dataset generator could drift apart, so score and time thresholds are centralized in one helper module.",
-      "Overfitting on a small synthetic dataset was reduced with noisy label generation and a maximum tree depth of 4.",
-      "Prediction reliability was improved by saving the trained model, auto-training it if missing, and keeping the feature order fixed between training and prediction."
-    ],
-    lessonsLearned: [
-      "Designing transparent AI that can be explained to a non-technical user instead of a black-box prediction.",
-      "Balancing rule-based logic with machine learning so the system stays interpretable and testable.",
-      "Leading a three-person team, dividing work across the recommendation engine, UI, and documentation."
-    ],
-    results: "On the project's synthetic dataset: the decision tree reached about 85% accuracy (F1 about 0.84) compared with about 80% accuracy (F1 about 0.79) for the rule-based engine."
   },
   {
     id: "pulsegrid",
