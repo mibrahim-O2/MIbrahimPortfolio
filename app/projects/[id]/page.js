@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import ProjectMedia from '@/components/ProjectCover';
 import Reveal from '@/components/motion/Reveal';
 import { publishedProjects } from '@/data/projects';
-import { projectLinks } from '@/utils/projectLinks';
+import { projectLinks, youtubeEmbedUrl } from '@/utils/projectLinks';
 import styles from './project.module.css';
 
 export const dynamicParams = false;
@@ -44,6 +44,7 @@ export default function ProjectDetailPage({ params }) {
   const features = project.features || [];
   const challenges = project.challenges || [];
   const lessons = project.lessonsLearned || [];
+  const videoEmbed = youtubeEmbedUrl(project.videoUrl);
 
   return (
     <article className={styles.page}>
@@ -72,6 +73,7 @@ export default function ProjectDetailPage({ params }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`btn ${i === 0 ? 'btn-primary' : 'btn-ghost'}`}
+                  title={link.title || link.label}
                 >
                   <i className={link.icon} aria-hidden="true"></i> {link.label}
                 </a>
@@ -104,6 +106,28 @@ export default function ProjectDetailPage({ params }) {
                 </Reveal>
               )}
             </div>
+          )}
+
+          {/* Video area: only rendered when the project has a videoUrl in data/projects.js */}
+          {project.videoUrl && (
+            <Block title={project.videoLabel || 'Watch video'}>
+              {videoEmbed ? (
+                <div className={styles.video}>
+                  <iframe
+                    src={videoEmbed}
+                    title={`${project.title}: ${project.videoLabel || 'video'}`}
+                    loading="lazy"
+                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                    allowFullScreen
+                    referrerPolicy="strict-origin-when-cross-origin"
+                  />
+                </div>
+              ) : (
+                <a href={project.videoUrl} target="_blank" rel="noopener noreferrer" className={`card ${styles.videoLink}`}>
+                  <i className="fas fa-play" aria-hidden="true"></i> {project.videoLabel || 'Watch video'}
+                </a>
+              )}
+            </Block>
           )}
 
           {features.length > 0 && (

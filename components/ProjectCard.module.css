@@ -85,6 +85,7 @@
 .title {
   font-size: var(--fs-lg);
   letter-spacing: -0.03em;
+  overflow-wrap: anywhere;
 }
 
 .titleLink {
@@ -117,6 +118,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
+  min-width: 0;
+}
+
+.tags :global(.tag) {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .more {

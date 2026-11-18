@@ -7,6 +7,10 @@ import styles from './ProjectCover.module.css';
 // Fallback icon per project id; anything else uses fa-code.
 const COVER_ICONS = {
   finlexpurple: 'fa-solid fa-shield-halved',
+  'ai-voice-agent-for-business': 'fa-solid fa-headset',
+  'sn-noor-herbal-store': 'fa-solid fa-leaf',
+  'autonomous-ai-business-operations-agent': 'fa-solid fa-diagram-project',
+  'lead-generation-agent-inbound': 'fa-solid fa-inbox',
   neurocode: 'fa-solid fa-brain',
   verdexai: 'fa-solid fa-user-tie',
   'imcs-scheduler': 'fa-solid fa-calendar-days',

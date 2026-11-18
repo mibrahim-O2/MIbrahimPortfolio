@@ -14,7 +14,8 @@ const SIZES = {
 };
 
 // One project card. variant: "lead" (large, first featured project), "featured" (homepage grid),
-// "compact" (project archive). All content comes from data/projects.js.
+// "compact" (project archive). The lead card shows `description`; the others show the shorter `subtitle`.
+// All content comes from data/projects.js.
 export default function ProjectCard({ project, variant = 'featured', index, priority = false }) {
   const onPointerMove = useSpotlight();
   const links = projectLinks(project);
@@ -48,7 +49,7 @@ export default function ProjectCard({ project, variant = 'featured', index, prio
           </Link>
         </h3>
 
-        <p className={styles.description}>{variant === 'compact' ? project.subtitle || project.description : project.description}</p>
+        <p className={styles.description}>{variant === 'lead' ? project.description : project.subtitle || project.description}</p>
 
         {variant !== 'compact' && project.highlight && <p className={styles.highlight}>{project.highlight}</p>}
 
@@ -73,7 +74,7 @@ export default function ProjectCard({ project, variant = 'featured', index, prio
               rel="noopener noreferrer"
               className={`btn btn-ghost btn-sm ${variant === 'compact' ? styles.iconOnly : ''}`}
               aria-label={`${link.label} (opens in a new tab)`}
-              title={link.label}
+              title={link.title || link.label}
             >
               <i className={link.icon} aria-hidden="true"></i>
               {variant !== 'compact' && <span>{link.label}</span>}

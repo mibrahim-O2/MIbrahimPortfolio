@@ -7,16 +7,20 @@ fields you need. Field meanings are explained in [ADD-PROJECT.md](./ADD-PROJECT.
 
 Current project ids, in display order:
 
-| id | Title | Featured |
-|---|---|---|
-| `finlexpurple` | FinLexPurple | ✅ (lead) |
-| `neurocode` | NeuroCode | ✅ |
-| `verdexai` | VerdexAI | ✅ |
-| `imcs-scheduler` | IMCS Scheduler | ✅ |
-| `ai-tutor-plr` | AI Tutor for Personalized Learning Recommendations | |
-| `bin-khalid-dairy-v2` | Bin Khalid Dairy Farm V2 | ✅ |
-| `finlytics-tracker` | Finlytics | |
-| `pulsegrid` | PulseGrid | |
+| # | id | Title | Featured |
+|---|---|---|---|
+| 1 | `finlexpurple` | FinLexPurple | ✅ (lead) |
+| 2 | `ai-voice-agent-for-business` | AI Voice Agent for Business | ✅ |
+| 3 | `sn-noor-herbal-store` | SN Noor Herbal Store (client, private repo) | ✅ |
+| 4 | `autonomous-ai-business-operations-agent` | Autonomous AI Business Operations Agent | ✅ |
+| 5 | `lead-generation-agent-inbound` | Lead Generation Agent (Inbound) | ✅ |
+| 6 | `bin-khalid-dairy-v2` | Bin Khalid Dairy Farm V2 | ✅ |
+| 7 | `finlytics-tracker` | Finlytics | ✅ |
+| 8 | `neurocode` | NeuroCode | ✅ |
+| 9 | `verdexai` | VerdexAI | ✅ |
+| | `imcs-scheduler` | IMCS Scheduler | |
+| | `ai-tutor-plr` | AI Tutor for Personalized Learning Recommendations | |
+| | `pulsegrid` | PulseGrid | |
 | `bin-khalid-dairy-farm` | Bin Khalid Dairy Farm V1 | |
 | `event-registration-system` | EventHub | |
 | `restaurant-management-system` | Restaurant Management System | |
@@ -76,9 +80,13 @@ item**:
 
 `""` hides a button. Always use full `https://` URLs.
 
+**Example: add the AI Voice Agent live demo.** In the `ai-voice-agent-for-business` project, replace
+`demoUrl: "",` with `demoUrl: "https://…your-demo-link…",`. The "Live demo" button appears on the cards and the
+case study page.
+
 **Example: add the FinLexPurple terminal recording.** In the `finlexpurple` project, replace
 `videoUrl: "",` with `videoUrl: "https://…your-video-link…",`. The "Watch it run" button appears on the
-cards and the case study page. For the blog post, put its URL in the `Blog post` entry of `links`.
+cards and the case study page, and a YouTube link is also embedded as a video section on the case study page. For the blog post, put its URL in the `Blog post` entry of `links`.
 
 ## Feature or unfeature
 

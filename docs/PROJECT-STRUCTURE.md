@@ -108,7 +108,7 @@ Never introduce a new accent colour; reuse the tokens.
 | `styles/legacy.css` | Older styles still used by the `/gallery` page and `ImageLightbox` |
 | `theme/motion.js` | Shared animation timings |
 | `utils/siteUrl.js` | Public site URL for metadata and sitemap |
-| `utils/projectLinks.js` | Builds a project's buttons (demo, GitHub, video, extra links) |
+| `utils/projectLinks.js` | Builds a project's buttons (live site/demo, GitHub or private repo, video, extra links) and YouTube embed URLs |
 | `utils/useSpotlight.js` | Mouse-follow glow on cards |
 | `utils/galleryLoader.js` | Gallery file list and captions |
 | `utils/highlight.js` | Highlights phrases in the About text |

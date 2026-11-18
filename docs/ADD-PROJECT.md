@@ -42,6 +42,7 @@ Every project is one object inside the `projectsData` array. Adding an object au
       "Web & Full-Stack"
     ],
     demoUrl: "https://my-new-project.vercel.app/",
+    demoLabel: "Live website",
     githubUrl: "https://github.com/mibrahim-O2/my-new-project",
     videoUrl: "",
     links: [],
@@ -80,12 +81,12 @@ every field, including the optional ones.
 |---|---|---|---|
 | `id` | **Yes** | Unique name used in the URL: `/projects/<id>`. Lowercase, words joined by `-`, no spaces. **Never reuse an id.** Changing it later breaks shared links. | `"imcs-scheduler"` |
 | `title` | **Yes** | Project name. | `"IMCS Scheduler"` |
-| `description` | **Yes** | Main text on featured cards. 1–3 sentences. | FinLexPurple's description |
-| `subtitle` | **Yes** | One line. Used on the compact archive cards and under the title on the case study page. | `"An open-source security agent for financial apps…"` |
+| `description` | **Yes** | The full summary: shown on the large lead card and in search/link previews. 1–4 sentences. | FinLexPurple's description |
+| `subtitle` | **Yes** | One short line. Shown on every other card (homepage grid and archive) and under the title on the case study page. Keep it under ~110 characters. | `"An open-source security agent for financial apps…"` |
 | `highlight` | No | One short line shown in a monospace font on featured cards and the case study page. Good for "Open source · v0.4.0 on PyPI"-style facts. `""` = hidden. | FinLexPurple's highlight |
 | `image` | No | Card image. A path in `public/` (starts with `/`) or a full `https://` URL. If empty or broken, a generated cover with an icon and the title is shown instead, so you never get a broken image. | `"/images/projects/finlexpurple.webp"` |
 | `tags` | **Yes** | Technology stack. Cards show the first few (8 on the lead card, 5 on featured cards, 4 in the archive) plus "+N"; the case study page shows all. Put the most important first. | `["Python", "Sigstore", …]` |
-| `categories` | **Yes** | Which archive filter buttons the project appears under. **Must match a `key` in `projectCategories` exactly.** | `["Security", "AI & Machine Learning"]` |
+| `categories` | **Yes** | Which archive filter buttons the project appears under. **Must match a `key` in `projectCategories` exactly.** | `["AI Agents", "AI & Machine Learning"]` |
 | `badge` | No | Small label next to the card number, e.g. `"Solo Project"`, `"Client Project"`, `"Solo Project · Open Source"`. | |
 | `status` | No | Status pill. Use exactly `"Live"`, `"Completed"` or `"In progress"`. | `"Live"` |
 | `featured` | **Yes** | `true` = shown in the homepage Featured projects section. See [Featured projects](#featured-projects). | `true` |
@@ -98,13 +99,17 @@ Buttons appear only for fields that have a URL. An empty `""` never shows a butt
 | Field | Button | Notes |
 |---|---|---|
 | (always) | **Case study** | Opens `/projects/<id>` |
-| `demoUrl` | **Live demo** | Leave `""` when there is no hosted demo |
-| `githubUrl` | **GitHub** | Leave `""` for private repositories |
+| `demoUrl` | **Live demo** | Leave `""` when there is no hosted demo (the button is hidden). Set `demoLabel` to change the text, e.g. `demoLabel: "Live website"` for a real product or client site, `"Live demo"` for a demo. |
+| `githubUrl` | **GitHub** | Leave `""` to hide it. For a **private** repository you still want to show (e.g. a client project the client can open), keep the URL and add `githubPrivate: true`: the button then reads **Private repo** with a lock icon, so visitors know it may not open for them. |
 | `videoUrl` | **Watch video** | The text can be changed with `videoLabel`, e.g. `videoLabel: "Watch it run"` |
 | `links` | Extra buttons | A list of `{ label, url, icon }`, e.g. `{ label: "PyPI", url: "https://pypi.org/project/finlexpurple/", icon: "fab fa-python" }`. `icon` is a Font Awesome class (optional). An entry with `url: ""` is hidden, so you can keep placeholders. |
 
-Featured cards show **Case study + the first 2 external buttons** (the lead card shows all); the case study page
-shows all of them.
+Cards show **Case study + the first 2 external buttons** (the lead card shows all); the case study page
+shows all of them. Order: live site/demo, GitHub, video, then `links`.
+
+On the case study page, a project with a `videoUrl` also gets a video section (titled with `videoLabel`).
+YouTube links (`youtu.be/…` or `youtube.com/watch?v=…`) are embedded as a player; any other URL is shown as a
+button. With `videoUrl: ""` nothing is shown.
 
 **Placeholders:** to prepare a button for something that doesn't exist yet, keep its URL empty, e.g.
 `videoUrl: ""` with `videoLabel: "Watch it run"`, or `{ label: "Blog post", url: "", icon: "fas fa-pen-nib" }`.
@@ -135,6 +140,7 @@ The filter buttons on `/projects` come from `projectCategories` at the top of `d
 export const projectCategories = [
   { key: 'all', label: 'All Projects' },
   { key: "AI & Machine Learning", label: "AI & Machine Learning" },
+  { key: "AI Agents", label: "AI Agents" },
   { key: "Web & Full-Stack", label: "Web & Full-Stack" },
   { key: "Security", label: "Security" },
   { key: "Optimization", label: "Optimization" },
@@ -158,10 +164,12 @@ Use official spelling (`"Next.js"`, `"PostgreSQL"`, `"Tailwind CSS"`). Most impo
 
 - The **first** featured project (in array order) becomes the large lead card with the full-width screenshot.
   Currently that is **FinLexPurple**, your top project.
-- The other featured projects appear in a two-column grid below it.
-- Current featured projects: FinLexPurple, NeuroCode, VerdexAI, IMCS Scheduler, Bin Khalid Dairy Farm V2.
-- An **odd** number of featured projects (lead + an even number in the grid) gives the neatest layout:
-  3 or 5 is ideal.
+- The other featured projects appear in a two-column grid below it, in array order.
+- Current featured projects, in order: FinLexPurple, AI Voice Agent for Business, SN Noor Herbal Store,
+  Autonomous AI Business Operations Agent, Lead Generation Agent (Inbound), Bin Khalid Dairy Farm V2,
+  Finlytics, NeuroCode, VerdexAI. The remaining projects (`featured: false`) appear only in the `/projects`
+  archive, after the featured ones.
+- An **odd** number of featured projects (lead + an even number in the grid) gives the neatest layout.
 - The first featured project is also shown in the hero's "Featured project" chip.
 
 To change which project leads, move its block to the top of `projectsData` (or above the other featured ones).
@@ -188,9 +196,10 @@ time, with "Previous / Next project" links at the bottom. After deploying, open 
 5. Reference it as `image: "/images/projects/my-new-project.webp"` (no `public` in the path), and usually the
    same for `heroBanner`.
 
-Several older projects still use stock photos from `images.unsplash.com`. Replacing them with real
-screenshots is the single biggest improvement you can make. Other remote image hosts must be added to
-`images.remotePatterns` in `next.config.js` before they work; local files never need that.
+**Never use unrelated stock photos.** A project without a real screenshot uses `image: ""`, which shows the
+generated cover (icon + title). Good sources for a real image: a screenshot of the live site, an image
+from the repository (`docs/`, `Screenshots/`, `public/`), or the project's own Open Graph image.
+Remote image hosts must be listed in `images.remotePatterns` in `next.config.js`; local files never need that.
 
 ## Project icon (optional)
 
