@@ -1,19 +1,148 @@
+/* Portrait (left) + bio card (right); stacked on phones */
 .layout {
   display: grid;
-  gap: clamp(2rem, 5vw, 4rem);
-  align-items: start;
-  max-width: 52rem;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
 }
 
+@media (min-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+}
 
+.portraitWrap {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 360px);
+}
 
+/* glowing frame behind the photo */
+.portraitWrap::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 34px;
+  background: conic-gradient(from 210deg, rgba(var(--accent-rgb), 0.55), rgba(var(--accent-2-rgb), 0.35), transparent 40%, transparent 70%, rgba(var(--accent-rgb), 0.45));
+  filter: blur(18px);
+  opacity: 0.55;
+  z-index: -1;
+}
 
+.portrait {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 26px;
+  border: 1px solid var(--border-accent);
+  background: var(--surface-2);
+}
 
+.portrait img {
+  object-fit: cover;
+  object-position: center 30%;
+}
 
+.portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(var(--bg-rgb), 0.85));
+}
+
+.nameTag {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-strong);
+  background: rgba(var(--surface-rgb), 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nameTag strong {
+  font-size: 1rem;
+}
+
+.nameTag span {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* Premium bio card */
+.bioCard {
+  display: grid;
+  gap: 1.35rem;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  border-radius: 24px;
+  border-color: var(--border-accent);
+  background:
+    radial-gradient(90% 70% at 100% 0%, rgba(var(--accent-rgb), 0.12), transparent 60%),
+    radial-gradient(70% 60% at 0% 100%, rgba(var(--accent-2-rgb), 0.07), transparent 60%),
+    var(--surface);
+  box-shadow: 0 30px 70px -40px rgba(var(--accent-rgb), 0.5);
+}
+
+.quote {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: var(--gradient-accent);
+  color: var(--on-accent);
+  font-size: 1rem;
+}
+
+.summary {
+  font-size: clamp(1.05rem, 0.98rem + 0.35vw, 1.22rem);
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+.points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.points li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.025);
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+.points i {
+  color: var(--accent-2);
+  width: 1.1rem;
+  text-align: center;
+}
+
+.bioActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
 
 .text {
   display: grid;
   gap: 1.25rem;
+  max-width: 52rem;
+  margin: clamp(2.5rem, 5vw, 3.5rem) auto 0;
 }
 
 .paragraph {
@@ -27,10 +156,6 @@
   font-weight: 500;
   background: transparent;
 }
-
-
-
-
 
 .beyond {
   display: grid;

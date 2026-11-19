@@ -45,7 +45,7 @@ export default function AboutPage() {
   return (
     <div className="subpage">
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(jsonLd)} />
-      <AboutSection headingLevel="h1" />
+      <AboutSection headingLevel="h1" full />
       <section className="section" aria-labelledby="quick-facts">
         <div className="container">
           <SectionHeader eyebrow="Quick facts" title={<span id="quick-facts">The short version</span>} />

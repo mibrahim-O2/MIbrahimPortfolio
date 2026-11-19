@@ -47,7 +47,7 @@ export default function FooterSection() {
         <div className={styles.grid}>
           <div className={styles.brand}>
             <p className={styles.name}>
-              <Logo size={32} />
+              <Logo size={36} />
               {personalInfo.name}
             </p>
             <p className={styles.tagline}>{personalInfo.title}. Building AI agents, business automation and full-stack products.</p>

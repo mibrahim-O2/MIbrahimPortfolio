@@ -25,11 +25,11 @@ export default function Home() {
       {/* Structured data: WebSite + ProfilePage + Person (utils/schema.js) */}
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(profilePageGraph('/'))} />
       <HeroSection />
+      <AboutSection />
       <ProjectsSection />
       <ServicesSection />
       <ExpertiseSection />
       <ExperienceSection />
-      <AboutSection />
       <SkillsSection />
       <EducationSection />
       <ContactSection />

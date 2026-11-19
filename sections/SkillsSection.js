@@ -19,7 +19,9 @@ export default function SkillsSection({ headingLevel = 'h2' }) {
           {skillCategories.map((category, index) => (
             <Reveal key={category.id} delay={(index % 3) * 0.06} className={`card fx ${styles.card}`}>
               <H3 className={styles.title}>
-                <i className={category.icon} aria-hidden="true"></i>
+                <span className={styles.catIcon} aria-hidden="true">
+                  <i className={category.icon}></i>
+                </span>
                 {category.title}
                 {category.live && (
                   <span className={styles.live}>
@@ -30,8 +32,10 @@ export default function SkillsSection({ headingLevel = 'h2' }) {
               <ul className={styles.chips}>
                 {category.items.map((item) => (
                   <li key={item.name} className={styles.chip} style={{ '--brand': item.color || 'var(--accent)' }}>
-                    <i className={item.icon} aria-hidden="true"></i>
-                    {item.name}
+                    <span className={styles.chipIcon} aria-hidden="true">
+                      <i className={item.icon}></i>
+                    </span>
+                    <span className={styles.chipName}>{item.name}</span>
                   </li>
                 ))}
               </ul>

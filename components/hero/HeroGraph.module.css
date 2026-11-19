@@ -45,20 +45,23 @@
 
 .pause {
   position: absolute;
-  /* top right of the hero, under the navigation, so it is always on screen */
-  top: calc(var(--nav-h) + 1.25rem);
+  /* top right of the hero, on the same line as the "Open to Work" badge (same top as the hero's
+     padding in HeroSection.module.css, and the same height as the badge) */
+  top: calc(var(--nav-h) + clamp(2.75rem, 6vh, 4.5rem));
   right: max(var(--gutter), calc((100vw - var(--container)) / 2));
   z-index: 2;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  min-height: 32px;
-  padding: 0.3rem 0.7rem;
-  border-radius: 999px;
+  height: var(--hero-badge-h, 36px);
+  padding: 0 0.85rem;
+  border-radius: 14px;
   border: 1px solid var(--border);
   background: rgba(var(--bg-rgb), 0.6);
   color: var(--text-dim);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   transition: color var(--dur-fast), border-color var(--dur-fast);
 }
 
