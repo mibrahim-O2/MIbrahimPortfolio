@@ -4,10 +4,9 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: min(100svh, 980px);
-  /* a fixed gap under the navigation, whatever the screen height */
+  /* sized by its content (no empty band below it); a fixed gap under the navigation */
   padding-top: calc(var(--nav-h) + clamp(2.75rem, 6vh, 4.5rem));
-  padding-bottom: clamp(4.5rem, 9vh, 6.5rem);
+  padding-bottom: clamp(2.5rem, 5vh, 3.5rem);
   overflow: hidden;
 }
 
@@ -21,10 +20,11 @@
 
 .glow {
   position: absolute;
-  right: -10%;
-  bottom: -25%;
-  width: min(1100px, 140vw);
-  aspect-ratio: 1.6;
+  /* kept inside the hero, so its edge is never cut off into a hard line */
+  right: -12%;
+  top: 8%;
+  width: min(1000px, 130vw);
+  aspect-ratio: 1.7;
   border-radius: 50%;
   background:
     radial-gradient(closest-side, rgba(var(--accent-rgb), 0.16), transparent 70%),
@@ -35,7 +35,68 @@
 .inner {
   position: relative;
   z-index: 1;
+  display: grid;
+  gap: 2rem;
+  align-items: end;
 }
+
+@media (min-width: 960px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+/* ---- Counts: glass panel ---- */
+.statsPanel {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 24px 50px -30px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.stat {
+  display: grid;
+  gap: 0.15rem;
+  padding: 1rem 1.25rem;
+}
+
+.stat + .stat {
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stat dd {
+  font-size: clamp(1.6rem, 1.2rem + 1.2vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stat dt {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(var(--text-rgb), 0.7);
+  white-space: nowrap;
+}
+
+/* Computers: a compact panel at the bottom right, level with the buttons */
+@media (min-width: 960px) {
+  .statsPanel {
+    min-width: 25rem;
+    margin-bottom: 3.9rem; /* lines up with the main buttons */
+  }
+}
+
 
 .content {
   display: grid;
@@ -236,7 +297,7 @@
 }
 
 
-/* ---- Portrait + counts card and social icons ---- */
+/* ---- Social icons row ---- */
 .meta {
   display: flex;
   flex-wrap: wrap;
@@ -245,97 +306,13 @@
   margin-top: 0.3rem;
 }
 
-.me {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.55rem 1.1rem 0.55rem 0.55rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-strong);
-  background: rgba(var(--surface-rgb), 0.6);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
 
-.photo {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  object-fit: cover;
-  object-position: center 30%;
-  flex-shrink: 0;
-}
 
-.stats {
-  display: flex;
-  gap: 1.1rem;
-}
 
-.stats > div {
-  display: flex;
-  flex-direction: column-reverse;
-}
 
-.stats dd {
-  font-size: 1.3rem;
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
 
-.stats dt {
-  font-family: var(--font-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  white-space: nowrap;
-}
 
-/* ---- Scroll cue ---- */
-.scrollCue {
-  position: absolute;
-  left: 50%;
-  bottom: 1.5rem;
-  display: none;
-  width: 24px;
-  height: 38px;
-  margin-left: -12px;
-  border-radius: 999px;
-  border: 1.5px solid var(--border-strong);
-}
 
-.scrollCue span {
-  position: absolute;
-  left: 50%;
-  top: 8px;
-  width: 3px;
-  height: 7px;
-  margin-left: -1.5px;
-  border-radius: 2px;
-  background: var(--accent);
-  animation: cue 1.8s var(--ease) infinite;
-}
-
-@keyframes cue {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  70% {
-    transform: translateY(12px);
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@media (min-width: 960px) {
-  .scrollCue {
-    display: block;
-  }
-}
 
 /* Phones and tablets: the terrain gets its own band at the top (see HeroGraph.module.css) and the text starts below it */
 @media (max-width: 959px) {
@@ -354,6 +331,15 @@
 }
 
 @media (max-width: 559px) {
+  .stat {
+    padding: 0.85rem 0.8rem;
+  }
+
+  .stat dt {
+    font-size: 0.56rem;
+    letter-spacing: 0.03em;
+  }
+
   .intro {
     flex-direction: column;
     align-items: flex-start;
@@ -364,9 +350,6 @@
     display: none;
   }
 
-  .stats {
-    gap: 0.8rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -374,8 +357,7 @@
   .enter,
   .enterSoft,
   .fadeIn,
-  .badgeDot::after,
-  .scrollCue span {
+  .badgeDot::after {
     animation: none;
   }
 }

@@ -11,3 +11,17 @@ export const aboutParagraphs = [
     highlights: ["NeuroCode", "VerdexAI", "led a team of three", "production software"]
   }
 ];
+
+// Short version shown on the homepage About card (the full paragraphs above are shown on /about).
+// Keep it true and in sync with the paragraphs; each `highlights` entry must appear in `text`.
+export const aboutSummary = {
+  text: "I build AI agents you can depend on: they are tested offline before any paid model is called, they call tools through MCP servers with clear risk levels, their answers cite sources, and anything that changes data waits for a person. I also ship production software for real clients, from an e-commerce store on Cloudflare Workers to a dairy billing system.",
+  highlights: ["AI agents you can depend on", "MCP servers", "waits for a person", "production software"],
+  // Proof points shown as tiles under the text (all from real projects)
+  points: [
+    { icon: "fa-solid fa-plug", label: "MCP tool servers" },
+    { icon: "fa-solid fa-user-check", label: "Human approval" },
+    { icon: "fa-solid fa-magnifying-glass-chart", label: "Grounded answers" },
+    { icon: "fa-solid fa-link", label: "Audit trails" }
+  ]
+};

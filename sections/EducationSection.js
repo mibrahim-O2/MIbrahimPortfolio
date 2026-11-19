@@ -39,14 +39,13 @@ export default function EducationSection({ show = 'both', headingLevel = 'h2' })
         {showEducation && (
           <ol className={styles.timeline}>
             {educationData.map((entry, index) => (
-              <Reveal as="li" key={entry.id} delay={index * 0.05} className={`card fx ${styles.edu} ${entry.status ? styles.current : ''}`}>
-                <div className={styles.logos}>
-                  {(entry.logos || []).map((logo) => (
-                    <span key={logo.src} className={styles.logo}>
-                      <Image src={logo.src} alt={logo.alt} width={40} height={40} />
-                    </span>
-                  ))}
-                </div>
+              <Reveal as="li" key={entry.id} delay={index * 0.05} className={`card fx ${styles.edu} ${entry.status ? styles.current : ''} ${entry.logos && entry.logos.length > 1 ? styles.twoLogos : ''}`}>
+                {/* Two logos: one on each side of the card. One logo: on the left. */}
+                {entry.logos && entry.logos[0] && (
+                  <span className={`${styles.logo} ${styles.logoStart}`}>
+                    <Image src={entry.logos[0].src} alt={entry.logos[0].alt} width={48} height={48} />
+                  </span>
+                )}
                 <div className={styles.eduBody}>
                   <div className={styles.eduMeta}>
                     <span className={styles.period}>{entry.period}</span>
@@ -73,6 +72,11 @@ export default function EducationSection({ show = 'both', headingLevel = 'h2' })
                     </ul>
                   )}
                 </div>
+                {entry.logos && entry.logos[1] && (
+                  <span className={`${styles.logo} ${styles.logoEnd}`}>
+                    <Image src={entry.logos[1].src} alt={entry.logos[1].alt} width={48} height={48} />
+                  </span>
+                )}
               </Reveal>
             ))}
           </ol>
@@ -84,16 +88,26 @@ export default function EducationSection({ show = 'both', headingLevel = 'h2' })
             <ul className={styles.certs}>
               {certificatesData.map((cert, index) => (
                 <Reveal as="li" key={cert.id} delay={(index % 3) * 0.05} className={`card fx ${styles.cert}`}>
-                  <span className={styles.certLogo}>
-                    {cert.logo ? <Image src={cert.logo} alt={`${cert.issuer} logo`} width={40} height={40} /> : <i className="fas fa-certificate" aria-hidden="true"></i>}
-                  </span>
+                  <div className={styles.certTop}>
+                    <span className={styles.certLogo}>
+                      {cert.logo ? <Image src={cert.logo} alt={`${cert.issuer} logo`} width={44} height={44} /> : <i className="fas fa-certificate" aria-hidden="true"></i>}
+                    </span>
+                    {cert.viaLogo && (
+                      <span className={`${styles.certLogo} ${styles.certVia}`}>
+                        <Image src={cert.viaLogo} alt={`${cert.issuerVia} logo`} width={44} height={44} />
+                      </span>
+                    )}
+                    <span className={styles.certDate}>
+                      <i className="fas fa-calendar-check" aria-hidden="true"></i> {cert.date}
+                    </span>
+                  </div>
                   <div className={styles.certText}>
                     <CertH className={styles.certTitle}>{cert.title}</CertH>
                     <p className={styles.certIssuer}>
                       {cert.issuer}
-                      {cert.issuerVia && <> · via {cert.issuerVia}</>}
-                      <span className={styles.certDate}>{cert.date}</span>
+                      {cert.issuerVia && <span className={styles.certViaText}> · via {cert.issuerVia}</span>}
                     </p>
+                    {cert.topics && <p className={styles.certTopics}>{cert.topics}</p>}
                     {cert.credentialText && <p className={styles.certCode}>{cert.credentialText}</p>}
                   </div>
                   <div className={styles.certActions}>

@@ -9,7 +9,7 @@ import styles from './HeroSection.module.css';
 
 // Hero (a Server Component: its HTML is complete without JavaScript).
 // Left: availability badge, H1 (name and role, then the headline), intro, buttons, social icons.
-// Below the buttons: a compact card with the portrait and counts, and social icons.
+// Below the buttons: social icons. Right side (computers) or under the buttons (phones): the counts.
 // Behind everything: the decorative 3D thermal terrain (components/hero/HeroGraph.js).
 
 // Icons shown under the hero buttons, in this order (all come from personalInfo.socialLinks)
@@ -112,19 +112,6 @@ export default function HeroSection() {
           </div>
 
           <div className={`${styles.meta} ${styles.enter}`} style={{ '--d': '600ms' }}>
-            <div className={styles.me}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={personalInfo.avatarUrl} alt={`Portrait of ${personalInfo.name}`} width="56" height="56" className={styles.photo} />
-              <dl className={styles.stats}>
-                {stats.map((stat) => (
-                  <div key={stat.label}>
-                    <dt>{stat.label}</dt>
-                    <dd>{stat.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-
             <ul className={styles.socials}>
               {heroSocials.map((social) => {
                 const external = social.url.startsWith('http');
@@ -144,11 +131,18 @@ export default function HeroSection() {
             </ul>
           </div>
         </div>
+
+        {/* Counts: a glass panel on the right on computers, a row under the buttons on phones */}
+        <dl className={`${styles.statsPanel} ${styles.enter}`} style={{ '--d': '700ms' }}>
+          {stats.map((stat) => (
+            <div key={stat.label} className={styles.stat}>
+              <dd>{stat.value}</dd>
+              <dt>{stat.label}</dt>
+            </div>
+          ))}
+        </dl>
       </div>
 
-      <a href="#projects" className={styles.scrollCue} aria-label="Scroll to projects">
-        <span />
-      </a>
     </section>
   );
 }
