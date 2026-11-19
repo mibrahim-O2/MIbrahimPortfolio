@@ -332,11 +332,11 @@ body::before {
 
 /* Touch screens: interactive cards press in slightly when tapped */
 @media (hover: none) {
-  .spotlight {
+  .fx {
     transition: transform var(--dur-fast) var(--ease);
   }
 
-  .spotlight:active {
+  .fx:active {
     transform: scale(0.985);
   }
 }
@@ -421,26 +421,94 @@ body::before {
   background-color: var(--surface);
 }
 
-/* Pointer spotlight used by interactive cards: set --mx/--my from JS */
-.spotlight {
+/* Interactive cards (.fx): a light-up border and soft glow that follow the mouse (--mx/--my are set by
+   the small pointer script in utils/revealScript.js), a lift on hover, and a one-time light sweep along the
+   top border when the card scrolls into view (useful on phones, which have no hover). */
+.fx {
   --mx: 50%;
-  --my: 0%;
+  --my: -30%;
+  isolation: isolate;
 }
 
-.spotlight::after {
+.fx::before,
+.fx::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.035), transparent 45%);
-  transition: opacity var(--dur) var(--ease);
+  transition: opacity 0.45s var(--ease);
+}
+
+/* border light */
+.fx::before {
+  z-index: 3;
+  padding: 1px;
+  background: radial-gradient(280px circle at var(--mx) var(--my), rgba(var(--accent-rgb), 0.95), rgba(var(--accent-2-rgb), 0.45) 38%, transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* inner glow (behind the card's content) */
+.fx::after {
+  z-index: -1;
+  background: radial-gradient(460px circle at var(--mx) var(--my), rgba(var(--accent-rgb), 0.09), transparent 60%);
 }
 
 @media (hover: hover) {
-  .spotlight:hover::after {
+  .fx {
+    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+
+  .fx:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 50px -28px rgba(var(--accent-rgb), 0.45);
+  }
+
+  .fx:hover::before,
+  .fx:hover::after {
     opacity: 1;
+  }
+}
+
+/* Light sweep when the card appears */
+@keyframes fx-arrive {
+  0% { opacity: 0; --my: -30%; }
+  25% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+[data-in] .fx::before,
+.fx[data-in]::before {
+  animation: fx-arrive 1.6s var(--ease) var(--reveal-delay, 0s) 1;
+}
+
+/* Cards rise and scale in a little more than text */
+.js-reveal:not(.reveal-safe) .reveal.fx:not([data-in]),
+.js-reveal:not(.reveal-safe) .reveal:not([data-in]) > .fx {
+  transform: translate3d(0, 34px, 0) scale(0.965);
+}
+
+.js-reveal .reveal:not([data-in]) > .fx {
+  opacity: 0;
+}
+
+.js-reveal .reveal[data-in] > .fx {
+  transition: opacity 0.7s var(--ease) var(--reveal-delay, 0s), transform 0.7s var(--ease) var(--reveal-delay, 0s), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx,
+  .fx:hover {
+    transform: none !important;
+  }
+
+  [data-in] .fx::before,
+  .fx[data-in]::before {
+    animation: none;
   }
 }
 

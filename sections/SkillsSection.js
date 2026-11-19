@@ -17,7 +17,7 @@ export default function SkillsSection({ headingLevel = 'h2' }) {
 
         <div className={styles.grid}>
           {skillCategories.map((category, index) => (
-            <Reveal key={category.id} delay={(index % 3) * 0.06} className={`card ${styles.card}`}>
+            <Reveal key={category.id} delay={(index % 3) * 0.06} className={`card fx ${styles.card}`}>
               <H3 className={styles.title}>
                 <i className={category.icon} aria-hidden="true"></i>
                 {category.title}

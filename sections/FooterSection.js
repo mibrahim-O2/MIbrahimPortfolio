@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { personalInfo } from '@/data/personal';
 import { hasExperience } from '@/data/experience';
 import XIcon from '@/components/XIcon';
+import Logo from '@/components/Logo';
 import styles from './FooterSection.module.css';
 
 // Social icons in the footer, in this order (URLs and icons come from personalInfo.socialLinks)
@@ -45,7 +46,10 @@ export default function FooterSection() {
 
         <div className={styles.grid}>
           <div className={styles.brand}>
-            <p className={styles.name}>{personalInfo.name}</p>
+            <p className={styles.name}>
+              <Logo size={32} />
+              {personalInfo.name}
+            </p>
             <p className={styles.tagline}>{personalInfo.title}. Building AI agents, business automation and full-stack products.</p>
             <ul className={styles.socials}>
               {footerSocials.map((social) => (

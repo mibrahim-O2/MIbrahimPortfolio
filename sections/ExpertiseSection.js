@@ -21,7 +21,7 @@ export default function ExpertiseSection({ headingLevel = 'h2' }) {
             const project = publishedProjects.find((p) => p.id === area.projectId);
             return (
               <Reveal key={area.category} delay={(index % 3) * 0.06} className={`${styles.cell} ${index < 2 ? styles.wide : ''}`}>
-                <article className={`card spotlight ${styles.card}`}>
+                <article className={`card fx ${styles.card}`}>
                   <div className={styles.top}>
                     <span className={styles.icon} aria-hidden="true">
                       <i className={area.icon}></i>

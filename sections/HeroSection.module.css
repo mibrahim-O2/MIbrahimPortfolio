@@ -3,10 +3,11 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 100svh;
-  padding-top: calc(var(--nav-h) + clamp(2rem, 6vw, 4rem));
-  padding-bottom: clamp(4rem, 8vw, 6rem);
+  justify-content: flex-start;
+  min-height: min(100svh, 980px);
+  /* a fixed gap under the navigation, whatever the screen height */
+  padding-top: calc(var(--nav-h) + clamp(2.75rem, 6vh, 4.5rem));
+  padding-bottom: clamp(4.5rem, 9vh, 6.5rem);
   overflow: hidden;
 }
 

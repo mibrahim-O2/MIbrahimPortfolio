@@ -93,7 +93,7 @@ export default function ProjectCard({ project, variant = 'featured', priority = 
   if (isLead) {
     // Desktop: screenshot, tags and links on the left; text on the right. Mobile: one column.
     return (
-      <article className={`card ${styles.card} ${styles.lead}`}>
+      <article className={`card fx ${styles.card} ${styles.lead}`}>
         <div className={styles.leadVisual}>
           {media}
           {tagList}
@@ -105,7 +105,7 @@ export default function ProjectCard({ project, variant = 'featured', priority = 
   }
 
   return (
-    <article className={`card ${styles.card} ${styles[variant]} ${wide ? styles.wide : ''}`}>
+    <article className={`card fx ${styles.card} ${styles[variant]} ${wide ? styles.wide : ''}`}>
       {media}
       <div className={styles.body}>
         {head}

@@ -39,7 +39,7 @@ export default function EducationSection({ show = 'both', headingLevel = 'h2' })
         {showEducation && (
           <ol className={styles.timeline}>
             {educationData.map((entry, index) => (
-              <Reveal as="li" key={entry.id} delay={index * 0.05} className={`card ${styles.edu} ${entry.status ? styles.current : ''}`}>
+              <Reveal as="li" key={entry.id} delay={index * 0.05} className={`card fx ${styles.edu} ${entry.status ? styles.current : ''}`}>
                 <div className={styles.logos}>
                   {(entry.logos || []).map((logo) => (
                     <span key={logo.src} className={styles.logo}>
@@ -83,7 +83,7 @@ export default function EducationSection({ show = 'both', headingLevel = 'h2' })
             {showEducation && <H3 className={styles.subhead}>Certifications</H3>}
             <ul className={styles.certs}>
               {certificatesData.map((cert, index) => (
-                <Reveal as="li" key={cert.id} delay={(index % 3) * 0.05} className={`card ${styles.cert}`}>
+                <Reveal as="li" key={cert.id} delay={(index % 3) * 0.05} className={`card fx ${styles.cert}`}>
                   <span className={styles.certLogo}>
                     {cert.logo ? <Image src={cert.logo} alt={`${cert.issuer} logo`} width={40} height={40} /> : <i className="fas fa-certificate" aria-hidden="true"></i>}
                   </span>

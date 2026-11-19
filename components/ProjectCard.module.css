@@ -27,6 +27,17 @@
   transition: transform 0.6s var(--ease);
 }
 
+/* Light sheen that sweeps across the screenshot on hover */
+.media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 226, 168, 0.18) 48%, rgba(255, 106, 43, 0.1) 54%, transparent 70%);
+  transform: translateX(-110%);
+}
+
 /* ---- Body ---- */
 .body {
   display: flex;
@@ -182,7 +193,12 @@
   }
 
   .card:hover .image {
-    transform: scale(1.03);
+    transform: scale(1.04);
+  }
+
+  .card:hover .media::after {
+    transform: translateX(110%);
+    transition: transform 0.9s var(--ease);
   }
 
   .card:hover .titleLink {

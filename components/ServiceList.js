@@ -8,7 +8,7 @@ export default function ServiceList({ headingLevel: H = 'h3' }) {
   return (
     <ul className={styles.list}>
       {servicesData.map((service, index) => (
-        <Reveal as="li" key={service.slug} delay={index * 0.06} className={`card ${styles.item}`}>
+        <Reveal as="li" key={service.slug} delay={index * 0.06} className={`card fx ${styles.item}`}>
           <span className={styles.itemIcon} aria-hidden="true">
             <i className={service.icon}></i>
           </span>

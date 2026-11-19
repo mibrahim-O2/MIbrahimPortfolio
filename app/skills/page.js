@@ -20,7 +20,7 @@ export default function SkillsPage() {
           <SectionHeader eyebrow="How I work" title="Working strengths" />
           <ul className={styles.grid}>
             {softSkills.map((skill, index) => (
-              <Reveal as="li" key={skill.id} delay={(index % 3) * 0.06} className={`card ${styles.card}`}>
+              <Reveal as="li" key={skill.id} delay={(index % 3) * 0.06} className={`card fx ${styles.card}`}>
                 <span className={styles.icon} aria-hidden="true">
                   <i className={skill.icon}></i>
                 </span>

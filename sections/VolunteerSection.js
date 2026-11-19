@@ -14,7 +14,7 @@ export default function VolunteerSection({ headingLevel = 'h2' }) {
 
         <ul className={styles.grid}>
           {volunteerData.map((item, index) => (
-            <Reveal as="li" key={item.id} delay={(index % 3) * 0.06} className={`card ${styles.card}`}>
+            <Reveal as="li" key={item.id} delay={(index % 3) * 0.06} className={`card fx ${styles.card}`}>
               <div className={styles.top}>
                 {item.logos && item.logos.length > 0 ? (
                   <span className={styles.logos}>
