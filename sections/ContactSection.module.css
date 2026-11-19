@@ -4,11 +4,12 @@
 
 .glow {
   position: absolute;
+  /* centred in the section so the clipped edge never shows as a hard line */
   left: 50%;
-  bottom: -40%;
+  top: 50%;
   width: min(1000px, 160vw);
   aspect-ratio: 2 / 1;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.16), transparent 70%);
   pointer-events: none;
   z-index: -1;

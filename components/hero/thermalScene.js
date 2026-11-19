@@ -102,7 +102,7 @@ export function createThermalScene(canvas, { mobile = false, speed = 1 } = {}) {
   const camera = new PerspectiveCamera(40, 1, 0.1, 100);
   const camBase = { x: 0, y: 3.2, z: 7.5 };
   camera.position.set(camBase.x, camBase.y, camBase.z);
-  camera.lookAt(0, -0.3, -4);
+  camera.lookAt(0, -1.6, -4);
 
   const uniforms = {
     uTime: { value: 0 },
@@ -181,7 +181,7 @@ export function createThermalScene(canvas, { mobile = false, speed = 1 } = {}) {
     uniforms.uTime.value = clock;
     sway += (pointer - sway) * 0.04;
     camera.position.x = camBase.x + sway * 0.8;
-    camera.lookAt(sway * 0.4, -0.3, -4);
+    camera.lookAt(sway * 0.4, -1.6, -4);
     renderer.render(scene, camera);
   }
 

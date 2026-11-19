@@ -37,14 +37,14 @@ export default function FooterSection() {
   return (
     <footer className={styles.footer}>
       <div className="container">
-        <div className={styles.cta}>
+        <div className={`card ${styles.cta}`}>
           <p className={styles.ctaText}>Have something in mind?</p>
           <a href={`mailto:${personalInfo.email}`} className={styles.ctaMail}>
             {personalInfo.email} <i className="fas fa-arrow-right" aria-hidden="true"></i>
           </a>
         </div>
 
-        <div className={styles.grid}>
+        <div className={`card ${styles.grid}`}>
           <div className={styles.brand}>
             <p className={styles.name}>
               <Logo size={36} />
@@ -85,14 +85,9 @@ export default function FooterSection() {
           </div>
         </div>
 
-        <div className={styles.bottom}>
-          <p>
-            &copy; {year} {personalInfo.name}. All rights reserved.
-          </p>
-          <a href="#main" className={styles.top}>
-            Back to top <i className="fas fa-arrow-up" aria-hidden="true"></i>
-          </a>
-        </div>
+        <p className={styles.bottom}>
+          &copy; {year} {personalInfo.name}. All rights reserved.
+        </p>
       </div>
     </footer>
   );

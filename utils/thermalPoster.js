@@ -43,7 +43,7 @@ export function thermalPosterPaths() {
   if (cached) return cached;
   const camera = new PerspectiveCamera(40, W / H, 0.1, 100);
   camera.position.set(0, 3.2, 7.5);
-  camera.lookAt(0, -0.3, -4);
+  camera.lookAt(0, -1.6, -4);
   camera.updateMatrixWorld();
   camera.matrixWorldInverse.copy(camera.matrixWorld).invert();
 
