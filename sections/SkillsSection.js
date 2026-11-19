@@ -5,6 +5,7 @@ import styles from './SkillsSection.module.css';
 
 // "Technology Stack": one card per category in data/skills.js, each chip with its brand-coloured icon.
 export default function SkillsSection({ headingLevel = 'h2' }) {
+  const H3 = headingLevel === 'h1' ? 'h2' : 'h3';
   return (
     <section id="skills" className="section">
       <div className="container">
@@ -17,7 +18,7 @@ export default function SkillsSection({ headingLevel = 'h2' }) {
         <div className={styles.grid}>
           {skillCategories.map((category, index) => (
             <Reveal key={category.id} delay={(index % 3) * 0.06} className={`card ${styles.card}`}>
-              <h3 className={styles.title}>
+              <H3 className={styles.title}>
                 <i className={category.icon} aria-hidden="true"></i>
                 {category.title}
                 {category.live && (
@@ -25,7 +26,7 @@ export default function SkillsSection({ headingLevel = 'h2' }) {
                     <span aria-hidden="true" /> active
                   </span>
                 )}
-              </h3>
+              </H3>
               <ul className={styles.chips}>
                 {category.items.map((item) => (
                   <li key={item.name} className={styles.chip} style={{ '--brand': item.color || 'var(--accent)' }}>

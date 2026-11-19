@@ -4,6 +4,8 @@ import ProjectMedia from '@/components/ProjectCover';
 import Reveal from '@/components/motion/Reveal';
 import { publishedProjects } from '@/data/projects';
 import { projectLinks, youtubeEmbedUrl } from '@/utils/projectLinks';
+import { buildMetadata } from '@/utils/seo';
+import { projectGraph, jsonLdScript } from '@/utils/schema';
 import styles from './project.module.css';
 
 export const dynamicParams = false;
@@ -15,14 +17,14 @@ export function generateStaticParams() {
 export function generateMetadata({ params }) {
   const project = publishedProjects.find((p) => p.id === params.id);
   if (!project) return {};
-  const title = `${project.title} | Case Study | Muhammad Ibrahim`;
-  const local = project.image && project.image.startsWith('/') ? project.image : null;
-  return {
-    title,
+  return buildMetadata({
+    title: `${project.title} | Case Study | Muhammad Ibrahim`,
     description: project.subtitle || project.description,
-    alternates: { canonical: `/projects/${project.id}` },
-    openGraph: { title, description: project.subtitle || project.description, ...(local ? { images: [local] } : {}) }
-  };
+    path: `/projects/${project.id}`,
+    image: `/og/${project.id}.jpg`, // built by scripts/build-og-images.py
+    imageAlt: `${project.title}, a case study by Muhammad Ibrahim`,
+    type: 'article'
+  });
 }
 
 function Block({ title, children }) {
@@ -49,6 +51,7 @@ export default function ProjectDetailPage({ params }) {
 
   return (
     <article className={styles.page}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(projectGraph(project))} />
       <header className={`container page-top ${styles.header}`}>
         <Reveal className={styles.headerInner}>
           <Link href="/projects" className={styles.back}>
@@ -184,7 +187,7 @@ export default function ProjectDetailPage({ params }) {
           )}
         </div>
 
-        <aside className={styles.aside}>
+        <div className={styles.aside}>
           <div className={`card ${styles.sideCard}`}>
             <h2 className={styles.sideTitle}>Tech stack</h2>
             <ul className={styles.tags}>
@@ -215,7 +218,7 @@ export default function ProjectDetailPage({ params }) {
               </>
             )}
           </div>
-        </aside>
+        </div>
       </div>
 
       {publishedProjects.length > 1 && (

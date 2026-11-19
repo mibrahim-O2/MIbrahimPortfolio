@@ -7,13 +7,14 @@ import Navbar from '@/components/Navbar';
 import FooterSection from '@/sections/FooterSection';
 import ScrollProgress from '@/components/ScrollProgress';
 import ScrollToTop from '@/components/ScrollToTop';
+import { REVEAL_SCRIPT } from '@/utils/revealScript';
 
 // Self-hosted at build time by next/font: no request to Google from the visitor's browser
 const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], display: 'swap', weight: ['400', '500'], variable: '--font-jetbrains' });
 
 const TITLE = 'Muhammad Ibrahim | Agentic AI & Automation Engineer';
-const DESCRIPTION = 'Portfolio of Muhammad Ibrahim, an agentic AI and automation engineer building AI agents, business automation and full-stack products with human approval and verifiable results.';
+const DESCRIPTION = 'Muhammad Ibrahim, Agentic AI & Automation Engineer in Pakistan: AI agents, voice agents and business automation with human approval, plus full-stack products.';
 // 1200x630 JPEG: LinkedIn and some other crawlers do not render WebP
 const OG_IMAGE = { url: '/og-image.jpg', width: 1200, height: 630, alt: 'Muhammad Ibrahim, Agentic AI & Automation Engineer' };
 
@@ -34,11 +35,9 @@ export const metadata = {
     'Next.js',
     'React',
     'Python',
-    'Sanghar',
     'Pakistan'
   ],
   authors: [{ name: 'Muhammad Ibrahim' }],
-  alternates: { canonical: '/' },
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
@@ -55,18 +54,25 @@ export const metadata = {
     images: [{ url: OG_IMAGE.url, alt: OG_IMAGE.alt }]
   },
   icons: {
-    icon: '/favicon.png',
-    apple: '/favicon.png'
-  }
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+      { url: '/favicon.png', type: 'image/png', sizes: '48x48' }
+    ],
+    apple: '/apple-touch-icon.png'
+  },
 };
 
 export const viewport = {
-  themeColor: '#0A0B0D'
+  themeColor: '#0E0D0C'
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrains.variable}`}>
+    <html lang="en" className={`${inter.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Runs before first paint: enables scroll reveals (see utils/revealScript.js) */}
+        <script dangerouslySetInnerHTML={{ __html: REVEAL_SCRIPT }} />
+      </head>
       <body>
         <a href="#main" className="skip-link">Skip to content</a>
         <ScrollProgress />

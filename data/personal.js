@@ -11,7 +11,7 @@ export const personalInfo = {
   // Résumé PDF (e.g. "/resume.pdf" after uploading public/resume.pdf). Empty = no résumé button.
   resumeUrl: "",
   statusPill: "Open to Work: Agentic AI, Automation and Full-Stack Roles",
-  avatarUrl: "https://github.com/mibrahim-O2.png?size=400",
+  avatarUrl: "/images/profile/portrait.webp", // self-hosted copy of the GitHub profile photo (460x460)
   location: "Pakistan",
   email: "contact@mibrahimdev.tech",
   gpa: "3.6 CGPA",

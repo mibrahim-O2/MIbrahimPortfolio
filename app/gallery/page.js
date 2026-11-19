@@ -308,7 +308,7 @@ export default function GalleryPage() {
 
                       {/* Card Content Footer */}
                       <div style={{ padding: '1.25rem 1.35rem', background: 'var(--card)' }}>
-                        <h4
+                        <h2
                           style={{
                             fontSize: '1.1rem',
                             fontWeight: 700,
@@ -318,7 +318,7 @@ export default function GalleryPage() {
                           }}
                         >
                           {item.title}
-                        </h4>
+                        </h2>
 
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.5rem' }}>
                           <span style={{ fontSize: '0.82rem', color: 'var(--primary)', fontWeight: 600 }}>

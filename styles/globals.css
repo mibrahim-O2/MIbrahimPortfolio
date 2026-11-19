@@ -8,13 +8,13 @@
   color-scheme: dark;
 
   /* ---- Colour ---- */
-  --bg: #0A0B0D;
-  --surface: #111317;
-  --surface-2: #171A1F;
-  --surface-3: #1E2228;
-  --accent: #D97B4A;          /* copper: the one signature accent */
+  --bg: #0E0D0C;              /* warm near-black */
+  --surface: #161412;
+  --surface-2: #1C1A17;
+  --surface-3: #24211D;
+  --accent: #D97B4A;          /* copper: the "human" colour (actions, approvals, focus) */
   --accent-hover: #E8935F;
-  --accent-2: #7FA3A6;        /* secondary accent: status "Live", small details only */
+  --accent-2: #7FA3A6;        /* cool teal: the "machine" colour (3D agent graph, Live status, service icons) */
   --text: #EDEEF0;
   --text-muted: #A1A7B0;
   --text-dim: #858C96;      /* smallest labels; >= 4.5:1 on every surface */
@@ -28,8 +28,8 @@
 
   --accent-rgb: 217, 123, 74;
   --accent-2-rgb: 127, 163, 166;
-  --bg-rgb: 10, 11, 13;
-  --surface-rgb: 17, 19, 23;
+  --bg-rgb: 14, 13, 12;
+  --surface-rgb: 22, 20, 18;
   --text-rgb: 237, 238, 240;
 
   --gradient-accent: linear-gradient(120deg, #F2A877 0%, #D97B4A 45%, #B8603A 100%);
@@ -69,7 +69,7 @@
   --teal-soft: var(--accent-2);
   --teal-rgb: var(--accent-2-rgb);
   --rust-rgb: 120, 60, 32;
-  --surface-2-rgb: 23, 26, 31;
+  --surface-2-rgb: 28, 26, 23;
   --background: var(--bg);
   --foreground: var(--text);
   --muted-foreground: var(--text-muted);
@@ -442,6 +442,28 @@ body::before {
   .spotlight:hover::after {
     opacity: 1;
   }
+}
+
+/* ==========================================================================
+   Scroll reveal (components/motion/Reveal.js + utils/revealScript.js)
+   Hidden only when the head script added .js-reveal; shown once marked [data-in].
+   ========================================================================== */
+
+.js-reveal:not(.reveal-safe) .reveal:not([data-in]) {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='left']:not([data-in]) { transform: translate3d(-32px, 0, 0); }
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='right']:not([data-in]) { transform: translate3d(32px, 0, 0); }
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='scale']:not([data-in]) { transform: scale(0.95); }
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='fade']:not([data-in]) { transform: none; }
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='rise']:not([data-in]) { transform: translate3d(0, 36px, 0); }
+
+.js-reveal .reveal[data-in] {
+  transition:
+    opacity 0.6s var(--ease) var(--reveal-delay, 0s),
+    transform 0.6s var(--ease) var(--reveal-delay, 0s);
 }
 
 /* ==========================================================================

@@ -1,14 +1,15 @@
+import { buildMetadata } from '@/utils/seo';
 import SkillsSection from '@/sections/SkillsSection';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Reveal from '@/components/motion/Reveal';
 import { softSkills } from '@/data/skills';
 import styles from './skills.module.css';
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: 'Skills & Tech Stack | Muhammad Ibrahim',
-  description: 'Technical skills, AI/ML tools, programming languages, databases, and working strengths of Muhammad Ibrahim.',
-  alternates: { canonical: '/skills' }
-};
+  description: 'Tools Muhammad Ibrahim uses in real projects: Python, OpenAI Agents SDK, MCP, RAG, FastAPI, Next.js, React, PostgreSQL, Supabase and more.',
+  path: '/skills'
+});
 
 export default function SkillsPage() {
   return (

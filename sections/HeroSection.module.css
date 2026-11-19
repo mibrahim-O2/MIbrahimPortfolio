@@ -1,6 +1,4 @@
 .hero {
-  --hx: 70%;
-  --hy: 30%;
   position: relative;
   isolation: isolate;
   display: flex;
@@ -12,7 +10,7 @@
   overflow: hidden;
 }
 
-/* ---- Signature backdrop: drifting copper aurora + masked grid + pointer spotlight ---- */
+/* ---- Backdrop: soft static glow + masked grid (the 3D agent graph sits in .visual) ---- */
 .backdrop {
   position: absolute;
   inset: -10% -10% 0;
@@ -20,29 +18,16 @@
   pointer-events: none;
 }
 
-.aurora,
-.aurora2 {
+.glow {
   position: absolute;
+  top: -10%;
+  right: -12%;
+  width: min(900px, 130vw);
+  aspect-ratio: 1;
   border-radius: 50%;
-  will-change: transform;
-}
-
-.aurora {
-  top: -12%;
-  right: -8%;
-  width: min(820px, 120vw);
-  aspect-ratio: 1;
-  background: radial-gradient(closest-side, rgba(var(--accent-rgb), 0.2), rgba(var(--accent-rgb), 0.05) 55%, transparent 72%);
-  animation: drift 22s ease-in-out infinite alternate;
-}
-
-.aurora2 {
-  bottom: 0;
-  left: -18%;
-  width: min(680px, 110vw);
-  aspect-ratio: 1;
-  background: radial-gradient(closest-side, rgba(var(--accent-2-rgb), 0.1), transparent 70%);
-  animation: drift2 26s ease-in-out infinite alternate;
+  background:
+    radial-gradient(closest-side, rgba(var(--accent-2-rgb), 0.14), transparent 70%),
+    radial-gradient(closest-side at 60% 55%, rgba(var(--accent-rgb), 0.1), transparent 75%);
 }
 
 .grid {
@@ -56,31 +41,7 @@
   -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 35%, #000 20%, transparent 75%);
 }
 
-.spot {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(520px circle at var(--hx) var(--hy), rgba(var(--accent-rgb), 0.06), transparent 60%);
-}
 
-@keyframes drift {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(-8%, 10%, 0) scale(1.12);
-  }
-}
-
-@keyframes drift2 {
-  from {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  to {
-    transform: translate3d(12%, -10%, 0) scale(1.1);
-  }
-}
 
 /* ---- Layout ---- */
 .inner {
@@ -90,6 +51,8 @@
 }
 
 .content {
+  position: relative;
+  z-index: 1;
   display: grid;
   justify-items: start;
   gap: 1.4rem;
@@ -145,6 +108,12 @@
   }
 }
 
+.h1 {
+  display: grid;
+  gap: 1.1rem;
+  font-weight: inherit;
+}
+
 .intro {
   display: flex;
   flex-wrap: wrap;
@@ -166,6 +135,7 @@
 }
 
 .title {
+  display: block;
   font-size: var(--fs-display);
   font-weight: 700;
   line-height: 1.02;
@@ -288,6 +258,7 @@
 
 .card {
   position: relative;
+  z-index: 1;
   overflow: hidden;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-strong);
@@ -433,9 +404,9 @@
     gap: 2.25rem;
   }
 
-  /* No scroll parallax on small screens: the card stays where it is */
+  /* The visual column is not positioned here, so the 3D graph inside it covers the whole hero */
   .visual {
-    transform: none !important;
+    position: static;
     justify-self: stretch;
     width: 100%;
     max-width: 30rem;
@@ -479,20 +450,12 @@
   }
 }
 
-.hero[data-paused='true'] .aurora,
-.hero[data-paused='true'] .aurora2,
-.hero[data-paused='true'] .badgeDot::after,
-.hero[data-paused='true'] .scrollCue span {
-  animation-play-state: paused;
-}
 
 @media (prefers-reduced-motion: reduce) {
   .word,
   .enter,
   .enterSoft,
   .fadeIn,
-  .aurora,
-  .aurora2,
   .badgeDot::after,
   .scrollCue span {
     animation: none;

@@ -122,7 +122,7 @@ export const projectsData = [
     title: "SN Noor Herbal Store",
     subtitle: "A production e-commerce store and admin for a Pakistani herbal hair care brand.",
     description: "An e-commerce website for SN Noor's herbal hair oil, herbal shampoo and Hair Care Kit, built as my 8th-semester BSCS E-commerce class project and shipped to the client as a freelance project, live at snnoor.com. Shoppers browse the catalog, check out with cash on delivery and track their orders, while the owner runs products, stock, orders, promotions, policy pages and settings from a role-based admin.",
-    highlight: "Freelance project shipped to the client · BSCS 8th semester E-commerce class project · Live at snnoor.com",
+    highlight: "Freelance project shipped to the client · BSCS 8th semester E-commerce class project · Live at snnoor.com, orders opening soon",
     image: "/images/projects/sn-noor-herbal-store.webp",
     tags: [
       "React 19",
@@ -166,7 +166,7 @@ export const projectsData = [
     architectureDiagram: "React storefront and admin (Vite, Tailwind CSS) -> Hono API on one Cloudflare Worker (same origin) -> zod validation, sessions and rate limits -> pricing engine and order service -> Cloudflare D1 -> email and payment providers",
     challenges: [],
     lessonsLearned: [],
-    results: "Built in four phases and deployed to snnoor.com, with an API test suite that runs inside the Workers runtime against a real local D1 database, and a written manual for the shop owner. The repository is private because it is client work."
+    results: "Built in four phases and deployed to snnoor.com (the store is live with orders paused until the owner's launch), with an API test suite that runs inside the Workers runtime against a real local D1 database, and a written manual for the shop owner. The repository is private because it is client work."
   },
   {
     id: "autonomous-ai-business-operations-agent",
@@ -262,7 +262,7 @@ export const projectsData = [
     architectureDiagram: "Enquiry (web form, webhook, CSV or Google Sheet) -> Runner with limits and duplicate check -> Agent (OpenAI Agents SDK) -> Tools and guardrails in code (scoring rubric, routing, draft checks) -> Local storage -> FastAPI server -> React dashboard where a person approves",
     challenges: [],
     lessonsLearned: [],
-    results: "Ships with 20 evaluation cases that run on a mock model in CI or on a real model on demand, 216 tests, and a demo dashboard on GitHub Pages using fictional data. Other model providers can be selected by configuration; only OpenAI has been run with a real key."
+    results: "Ships with 28 evaluation cases that run on a mock model in CI or on a real model on demand, 216 tests, and a demo dashboard on GitHub Pages using fictional data. Other model providers can be selected by configuration; only OpenAI has been run with a real key."
   },
   {
     id: "bin-khalid-dairy-v2",

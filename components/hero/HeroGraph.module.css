@@ -1,0 +1,68 @@
+/* The canvas fills the hero's visual column. It fades in after its first frame, so it never
+   shifts layout, and it never takes clicks or touches (scrolling is never trapped). */
+.wrap {
+  position: absolute;
+  inset: -42% -62%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease);
+}
+
+.wrap[data-state='ready'] {
+  opacity: 1;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pause {
+  position: absolute;
+  right: 0;
+  bottom: -3.25rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 32px;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(var(--bg-rgb), 0.6);
+  color: var(--text-dim);
+  font-size: 0.72rem;
+  transition: color var(--dur-fast), border-color var(--dur-fast);
+}
+
+.pause i {
+  font-size: 0.8em;
+}
+
+@media (hover: hover) {
+  .pause:hover {
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+}
+
+/* Phones and tablets: the graph sits behind the whole hero (the visual column is anchored to the
+   hero there, see HeroSection.module.css), quieter so the text stays easy to read */
+@media (max-width: 959px) {
+  .wrap {
+    inset: 0 0 auto;
+    height: min(80svh, 680px);
+    opacity: 0;
+  }
+
+  .wrap[data-state='ready'] {
+    opacity: 0.55;
+  }
+
+  .pause {
+    position: static;
+    margin-top: 0.75rem;
+  }
+}

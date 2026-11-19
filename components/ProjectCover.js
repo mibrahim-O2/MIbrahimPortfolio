@@ -13,15 +13,9 @@ const COVER_ICONS = {
   'lead-generation-agent-inbound': 'fa-solid fa-inbox',
   neurocode: 'fa-solid fa-brain',
   verdexai: 'fa-solid fa-user-tie',
-  'imcs-scheduler': 'fa-solid fa-calendar-days',
   'ai-tutor-plr': 'fa-solid fa-graduation-cap',
   'bin-khalid-dairy-v2': 'fa-solid fa-cow',
-  'bin-khalid-dairy-farm': 'fa-solid fa-jar',
-  'finlytics-tracker': 'fa-solid fa-chart-pie',
-  pulsegrid: 'fa-solid fa-microchip',
-  'event-registration-system': 'fa-solid fa-ticket',
-  'restaurant-management-system': 'fa-solid fa-utensils',
-  'url-shortener': 'fa-solid fa-link'
+  'finlytics-tracker': 'fa-solid fa-chart-pie'
 };
 
 // Generated cover: shown when a project has no image or the image fails to load.
