@@ -1,12 +1,16 @@
-'use client';
-
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import HeroGraph from '@/components/hero/HeroGraph';
+import { thermalPosterPaths } from '@/utils/thermalPoster';
 import { personalInfo } from '@/data/personal';
 import { publishedProjects } from '@/data/projects';
 import { certificatesData } from '@/data/certificates';
 import styles from './HeroSection.module.css';
+
+// Hero (a Server Component: its HTML is complete without JavaScript).
+// Left: availability badge, H1 (name and role, then the headline), intro, buttons, social icons.
+// Below the buttons: a compact card with the portrait and counts, and social icons.
+// Behind everything: the decorative 3D thermal terrain (components/hero/HeroGraph.js).
 
 // Icons shown under the hero buttons, in this order (all come from personalInfo.socialLinks)
 const HERO_SOCIALS = ['GitHub', 'LinkedIn', 'Email'];
@@ -23,36 +27,20 @@ function headlineWords() {
   return words.map((word, index) => ({ word, isAccent: start > -1 && index >= start && index < start + accent.length }));
 }
 
+// Static SVG poster of the thermal terrain (shown before the live scene loads)
+function ThermalPoster() {
+  const { width, height, paths } = thermalPosterPaths();
+  return (
+    <svg className="thermal-poster" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      {paths.map((path, index) => (
+        <path key={index} d={path.d} fill="none" stroke={path.color} strokeOpacity={path.opacity} strokeWidth="1.1" vectorEffect="non-scaling-stroke" />
+      ))}
+    </svg>
+  );
+}
+
 export default function HeroSection() {
-  const sectionRef = useRef(null);
-
-  // Pause the looping background animations while the hero is off screen (saves battery on phones)
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el || !('IntersectionObserver' in window)) return undefined;
-    const observer = new IntersectionObserver(([entry]) => {
-      el.dataset.paused = entry.isIntersecting ? 'false' : 'true';
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
   const words = headlineWords();
-
-  // Pointer position -> soft spotlight behind the hero (CSS variables). Mouse only.
-  const onPointerMove = (event) => {
-    if (event.pointerType !== 'mouse' || !sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-    sectionRef.current.style.setProperty('--hx', `${x}px`);
-    sectionRef.current.style.setProperty('--hy', `${y}px`);
-  };
-
-  // Light parallax while scrolling past the hero
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
-  const visualY = useTransform(scrollYProgress, [0, 1], [0, 90]);
-  const glowY = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.25]);
 
   // Status badge: the part before the first colon ("Open to Work:") is highlighted
   const pill = personalInfo.statusPill || '';
@@ -60,48 +48,48 @@ export default function HeroSection() {
   const pillLabel = colon > -1 ? pill.slice(0, colon) : '';
   const pillText = colon > -1 ? pill.slice(colon + 1).trim() : pill;
 
+  // Counts come from the data files, so they stay accurate. "Live demos" = projects with a public link
+  // you can open (websites, demo dashboards, the PyPI package page).
   const stats = [
     { value: publishedProjects.length, label: 'Projects' },
-    { value: publishedProjects.filter((project) => project.status === 'Live').length, label: 'Live apps' },
+    { value: publishedProjects.filter((project) => project.demoUrl).length, label: 'Live demos' },
     { value: certificatesData.length, label: 'Certifications' }
   ];
 
   return (
-    <section id="home" ref={sectionRef} className={styles.hero} onPointerMove={onPointerMove}>
-      <motion.div className={styles.backdrop} style={{ y: glowY }} aria-hidden="true">
-        <div className={styles.aurora} />
-        <div className={styles.aurora2} />
-        <div className={styles.grid} />
-      </motion.div>
-      <div className={styles.spot} aria-hidden="true" />
+    <section id="home" className={styles.hero} aria-labelledby="hero-title">
+      <div className={styles.backdrop} aria-hidden="true">
+        <div className={styles.glow} />
+      </div>
+      {/* Decorative 3D thermal terrain (poster first, live scene after the page is idle) */}
+      <HeroGraph poster={<ThermalPoster />} />
 
       <div className={`container ${styles.inner}`}>
-        <motion.div className={styles.content} style={{ opacity: contentOpacity }}>
+        <div className={styles.content}>
           <p className={`${styles.badge} ${styles.enter}`}>
             <span className={styles.badgeDot} aria-hidden="true" />
             {pillLabel && <strong>{pillLabel}</strong>}
             <span>{pillText}</span>
           </p>
 
-          <p className={`${styles.intro} ${styles.enter}`} style={{ '--d': '80ms' }}>
-            <span className={styles.name}>{personalInfo.name}</span>
-            <span className={styles.sep} aria-hidden="true">/</span>
-            <span>{personalInfo.title}</span>
-          </p>
-
-          <h1 className={styles.title} aria-label={personalInfo.headline}>
-            {words.map(({ word, isAccent }, index) => (
-              <Fragment key={index}>
-                <span className={styles.wordMask} aria-hidden="true">
-                  <span
-                    className={`${styles.word} ${isAccent ? 'text-gradient' : ''}`}
-                    style={{ '--d': `${150 + index * 50}ms` }}
-                  >
-                    {word}
-                  </span>
-                </span>{' '}
-              </Fragment>
-            ))}
+          <h1 id="hero-title" className={styles.h1}>
+            <span className={`${styles.intro} ${styles.enter}`} style={{ '--d': '80ms' }}>
+              <span className={styles.name}>{personalInfo.name}</span>
+              <span className={styles.sep} aria-hidden="true">/</span>
+              <span>{personalInfo.title}</span>
+              <span className="sr-only">: </span>
+            </span>
+            <span className={styles.title}>
+              {words.map(({ word, isAccent }, index) => (
+                <Fragment key={index}>
+                  <span className={styles.wordMask}>
+                    <span className={`${styles.word} ${isAccent ? 'text-gradient' : ''}`} style={{ '--d': `${150 + index * 50}ms` }}>
+                      {word}
+                    </span>
+                  </span>{' '}
+                </Fragment>
+              ))}
+            </span>
           </h1>
 
           {/* Visible from the first paint (transform-only entrance), so it never delays the largest contentful paint */}
@@ -113,8 +101,8 @@ export default function HeroSection() {
             <Link href="/#projects" className="btn btn-primary">
               View selected work <i className="fas fa-arrow-down btn-arrow" aria-hidden="true"></i>
             </Link>
-            <Link href="/#contact" className="btn btn-ghost">
-              Get in touch
+            <Link href="/services" className="btn btn-ghost">
+              Services
             </Link>
             {personalInfo.resumeUrl && (
               <a href={personalInfo.resumeUrl} className="btn btn-ghost" target="_blank" rel="noopener noreferrer">
@@ -123,35 +111,10 @@ export default function HeroSection() {
             )}
           </div>
 
-          <ul className={`${styles.socials} ${styles.enter}`} style={{ '--d': '600ms' }}>
-            {heroSocials.map((social) => {
-              const external = social.url.startsWith('http');
-              return (
-                <li key={social.name}>
-                  <a
-                    href={social.url}
-                    className={styles.social}
-                    aria-label={social.name}
-                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  >
-                    <i className={social.icon} aria-hidden="true"></i>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </motion.div>
-
-        <motion.div
-          className={`${styles.visual} ${styles.fadeIn}`}
-          style={{ y: visualY }}
-        >
-          <div className={styles.card}>
-            <div className={styles.portrait}>
+          <div className={`${styles.meta} ${styles.enter}`} style={{ '--d': '600ms' }}>
+            <div className={styles.me}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={personalInfo.avatarUrl} alt={personalInfo.name} width="400" height="400" fetchPriority="high" />
-            </div>
-            <div className={styles.cardBody}>
+              <img src={personalInfo.avatarUrl} alt={`Portrait of ${personalInfo.name}`} width="56" height="56" className={styles.photo} />
               <dl className={styles.stats}>
                 {stats.map((stat) => (
                   <div key={stat.label}>
@@ -161,8 +124,26 @@ export default function HeroSection() {
                 ))}
               </dl>
             </div>
+
+            <ul className={styles.socials}>
+              {heroSocials.map((social) => {
+                const external = social.url.startsWith('http');
+                return (
+                  <li key={social.name}>
+                    <a
+                      href={social.url}
+                      className={styles.social}
+                      aria-label={social.name}
+                      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    >
+                      <i className={social.icon} aria-hidden="true"></i>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <a href="#projects" className={styles.scrollCue} aria-label="Scroll to projects">

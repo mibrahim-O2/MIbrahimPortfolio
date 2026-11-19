@@ -6,12 +6,14 @@ import { usePathname } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { personalInfo } from '@/data/personal';
 import { hasExperience } from '@/data/experience';
+import Logo from '@/components/Logo';
 import styles from './Navbar.module.css';
 
 // Main navigation. `id` = the homepage section it scrolls to; `pages` = routes that mark it active.
 // Experience is listed only while data/experience.js has at least one role.
 const NAV_ITEMS = [
   { label: 'Projects', id: 'projects', pages: ['/projects'] },
+  { label: 'Services', id: 'services', pages: ['/services'] },
   { label: 'Expertise', id: 'expertise', pages: [] },
   { label: 'Experience', id: 'experience', pages: ['/experience'], show: hasExperience },
   { label: 'About', id: 'about', pages: ['/about', '/volunteer', '/gallery'] },
@@ -94,13 +96,11 @@ export default function Navbar() {
     <>
       <header className={`${styles.header} ${scrolled || open ? styles.scrolled : ''} ${hidden && !open ? styles.hidden : ''}`}>
         <nav className={`container ${styles.nav}`} aria-label="Main">
-          <Link href="/" className={styles.brand} aria-label={`${personalInfo.name}, home`}>
-            <span className={styles.mark} aria-hidden="true">
-              {firstName.charAt(0)}
-              {rest.join(' ').charAt(0)}
-            </span>
+          <Link href="/" className={styles.brand}>
+            <Logo size={36} className={styles.mark} />
             <span className={styles.brandName}>
               {firstName} <span className={styles.brandLast}>{rest.join(' ')}</span>
+              <span className="sr-only">, home</span>
             </span>
           </Link>
 

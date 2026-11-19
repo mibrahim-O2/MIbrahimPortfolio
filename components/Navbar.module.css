@@ -39,23 +39,14 @@
 }
 
 .mark {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: var(--gradient-accent);
-  color: var(--on-accent);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  box-shadow: 0 6px 20px -8px rgba(var(--accent-rgb), 0.8);
-  transition: transform var(--dur) var(--ease);
+  flex-shrink: 0;
+  filter: drop-shadow(0 6px 16px rgba(var(--accent-rgb), 0.35));
+  transition: transform var(--dur) var(--ease), filter var(--dur) var(--ease);
 }
 
 .brand:hover .mark {
-  transform: rotate(-6deg) scale(1.05);
+  transform: rotate(-4deg) scale(1.06);
+  filter: drop-shadow(0 8px 22px rgba(var(--accent-rgb), 0.6));
 }
 
 .brandName {

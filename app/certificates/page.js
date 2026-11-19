@@ -1,10 +1,11 @@
+import { buildMetadata } from '@/utils/seo';
 import EducationSection from '@/sections/EducationSection';
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: 'Certifications | Muhammad Ibrahim',
-  description: 'Certifications of Muhammad Ibrahim in AI, cybersecurity and software automation, with verification links.',
-  alternates: { canonical: '/certificates' }
-};
+  description: 'Certifications of Muhammad Ibrahim, Agentic AI & Automation Engineer, in AI, cybersecurity and IT automation, with verification links.',
+  path: '/certificates'
+});
 
 export default function CertificatesPage() {
   return (

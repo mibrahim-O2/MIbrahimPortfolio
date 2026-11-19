@@ -1,11 +1,14 @@
+import { buildMetadata } from '@/utils/seo';
 import PageIntro from '@/components/PageIntro';
 import ProjectArchive from '@/components/ProjectArchive';
+import { publishedProjects, projectCategories } from '@/data/projects';
+import { toCardProject } from '@/utils/projectLinks';
 
-export const metadata = {
-  title: 'Projects | Muhammad Ibrahim',
-  description: 'Projects by Muhammad Ibrahim: AI agents, business automation, security tooling and full-stack web applications.',
-  alternates: { canonical: '/projects' }
-};
+export const metadata = buildMetadata({
+  title: 'Projects | Muhammad Ibrahim, Agentic AI & Automation Engineer',
+  description: 'Ten projects by Muhammad Ibrahim: AI voice and lead agents, a multi-agent operations platform, an open-source security agent, and full-stack apps for real businesses.',
+  path: '/projects'
+});
 
 export default function ProjectsPage() {
   return (
@@ -16,7 +19,8 @@ export default function ProjectsPage() {
         lead="Ten projects, from AI agents and security tooling to client software. Filter by area, or open a case study."
       />
       <section className="container" style={{ paddingBottom: 'var(--space-section)' }}>
-        <ProjectArchive />
+        <h2 className="sr-only">All projects</h2>
+        <ProjectArchive projects={publishedProjects.map(toCardProject)} categories={projectCategories} />
       </section>
     </>
   );

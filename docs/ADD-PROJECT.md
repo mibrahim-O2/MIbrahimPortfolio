@@ -244,3 +244,11 @@ Details:
 - case study: problem, solution, features, architecture, challenges, lessons, results: …
 Work on a new branch, run the build, and give me the Vercel Preview URL.
 ```
+
+## After adding a project (search and sharing)
+
+1. Add `updatedAt: "YYYY-MM-DD"` to the project (used in sitemap.xml; change it only when the case study really changes).
+2. Run `python3 scripts/build-og-images.py` to create `public/og/<id>.jpg`, the image shown when the case study is shared.
+3. If the project proves a service, add its id to that service's `proof` list in `data/services.js`.
+
+See [SEO.md](./SEO.md).

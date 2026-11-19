@@ -1,17 +1,12 @@
-'use client';
-
 import Link from 'next/link';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Reveal from '@/components/motion/Reveal';
 import { focusAreas } from '@/data/focusAreas';
 import { publishedProjects } from '@/data/projects';
-import useSpotlight from '@/utils/useSpotlight';
 import styles from './ExpertiseSection.module.css';
 
 // "Technical Expertise": one card per focus area in data/focusAreas.js, each linked to the project that proves it.
 export default function ExpertiseSection({ headingLevel = 'h2' }) {
-  const onPointerMove = useSpotlight();
-
   return (
     <section id="expertise" className="section">
       <div className="container">
@@ -26,7 +21,7 @@ export default function ExpertiseSection({ headingLevel = 'h2' }) {
             const project = publishedProjects.find((p) => p.id === area.projectId);
             return (
               <Reveal key={area.category} delay={(index % 3) * 0.06} className={`${styles.cell} ${index < 2 ? styles.wide : ''}`}>
-                <article className={`card spotlight ${styles.card}`} onPointerMove={onPointerMove}>
+                <article className={`card fx ${styles.card}`}>
                   <div className={styles.top}>
                     <span className={styles.icon} aria-hidden="true">
                       <i className={area.icon}></i>

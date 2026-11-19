@@ -1,8 +1,10 @@
-export const metadata = {
+import { buildMetadata } from '@/utils/seo';
+
+export const metadata = buildMetadata({
   title: 'Gallery | Muhammad Ibrahim',
-  description: 'Moments from university, exhibitions, sports galas, volunteering and trips.',
-  alternates: { canonical: '/gallery' }
-};
+  description: 'Photos of Muhammad Ibrahim from university, project exhibitions, sports galas, volunteering and trips.',
+  path: '/gallery'
+});
 
 export default function GalleryLayout({ children }) {
   return children;

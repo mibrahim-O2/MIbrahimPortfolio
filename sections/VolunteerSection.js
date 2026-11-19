@@ -6,6 +6,7 @@ import styles from './VolunteerSection.module.css';
 
 // Volunteer work from data/volunteer.js (shown on /volunteer).
 export default function VolunteerSection({ headingLevel = 'h2' }) {
+  const H3 = headingLevel === 'h1' ? 'h2' : 'h3';
   return (
     <section id="volunteer" className="section">
       <div className="container">
@@ -13,7 +14,7 @@ export default function VolunteerSection({ headingLevel = 'h2' }) {
 
         <ul className={styles.grid}>
           {volunteerData.map((item, index) => (
-            <Reveal as="li" key={item.id} delay={(index % 3) * 0.06} className={`card ${styles.card}`}>
+            <Reveal as="li" key={item.id} delay={(index % 3) * 0.06} className={`card fx ${styles.card}`}>
               <div className={styles.top}>
                 {item.logos && item.logos.length > 0 ? (
                   <span className={styles.logos}>
@@ -30,7 +31,7 @@ export default function VolunteerSection({ headingLevel = 'h2' }) {
                 )}
                 <span className={styles.period}>{item.period}</span>
               </div>
-              <h3 className={styles.role}>{item.role}</h3>
+              <H3 className={styles.role}>{item.role}</H3>
               {item.organization && <p className={styles.org}>{item.organization}</p>}
               <p className={styles.desc}>{item.description}</p>
               {item.years && item.years.length > 0 && (

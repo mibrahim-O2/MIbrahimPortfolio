@@ -3,11 +3,12 @@
 import { useState } from 'react';
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import ProjectCard from '@/components/ProjectCard';
-import { publishedProjects, projectCategories } from '@/data/projects';
 import styles from './ProjectArchive.module.css';
 
 // /projects: every published project with category filters. Categories without projects are hidden.
-export default function ProjectArchive() {
+// The data comes in as props from the server page (app/projects/page.js), so data/projects.js, which also
+// holds unpublished projects, is never bundled into browser JavaScript.
+export default function ProjectArchive({ projects: publishedProjects, categories: projectCategories }) {
   const [active, setActive] = useState('all');
   const categories = projectCategories.filter(
     (cat) => cat.key === 'all' || publishedProjects.some((project) => (project.categories || []).includes(cat.key))

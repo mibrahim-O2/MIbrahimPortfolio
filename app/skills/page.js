@@ -1,14 +1,15 @@
+import { buildMetadata } from '@/utils/seo';
 import SkillsSection from '@/sections/SkillsSection';
 import SectionHeader from '@/components/ui/SectionHeader';
 import Reveal from '@/components/motion/Reveal';
 import { softSkills } from '@/data/skills';
 import styles from './skills.module.css';
 
-export const metadata = {
+export const metadata = buildMetadata({
   title: 'Skills & Tech Stack | Muhammad Ibrahim',
-  description: 'Technical skills, AI/ML tools, programming languages, databases, and working strengths of Muhammad Ibrahim.',
-  alternates: { canonical: '/skills' }
-};
+  description: 'Tools Muhammad Ibrahim uses in real projects: Python, OpenAI Agents SDK, MCP, RAG, FastAPI, Next.js, React, PostgreSQL, Supabase and more.',
+  path: '/skills'
+});
 
 export default function SkillsPage() {
   return (
@@ -19,7 +20,7 @@ export default function SkillsPage() {
           <SectionHeader eyebrow="How I work" title="Working strengths" />
           <ul className={styles.grid}>
             {softSkills.map((skill, index) => (
-              <Reveal as="li" key={skill.id} delay={(index % 3) * 0.06} className={`card ${styles.card}`}>
+              <Reveal as="li" key={skill.id} delay={(index % 3) * 0.06} className={`card fx ${styles.card}`}>
                 <span className={styles.icon} aria-hidden="true">
                   <i className={skill.icon}></i>
                 </span>

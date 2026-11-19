@@ -23,6 +23,9 @@ then merge it into `main`.
 | Name, hero headline and intro, email, location, social links, résumé link | `data/personal.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
 | About text | `data/about.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
 | Technical Expertise cards | `data/focusAreas.js` | [UPDATE-PROFILE.md](./UPDATE-PROFILE.md) |
+| Services pages (/services) | `data/services.js` | [UPDATE-SERVICES.md](./UPDATE-SERVICES.md) |
+| Search engines, share images, structured data, sitemap dates | `utils/seo.js`, `utils/schema.js`, `data/siteDates.js` | [SEO.md](./SEO.md) |
+| 3D agent graph in the hero | `components/hero/` | [HERO-3D.md](./HERO-3D.md) |
 | Volunteer work | `data/volunteer.js` | [PROJECT-STRUCTURE.md](./PROJECT-STRUCTURE.md) |
 | Gallery photos and categories | `public/gallery/`, `data/gallery.js`, `utils/galleryLoader.js` | [UPDATE-IMAGES.md](./UPDATE-IMAGES.md) |
 | Any image (screenshots, logos, certificates) | `public/…` | [UPDATE-IMAGES.md](./UPDATE-IMAGES.md) |

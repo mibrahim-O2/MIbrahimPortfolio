@@ -7,32 +7,32 @@
 :root {
   color-scheme: dark;
 
-  /* ---- Colour ---- */
-  --bg: #0A0B0D;
-  --surface: #111317;
-  --surface-2: #171A1F;
-  --surface-3: #1E2228;
-  --accent: #D97B4A;          /* copper: the one signature accent */
-  --accent-hover: #E8935F;
-  --accent-2: #7FA3A6;        /* secondary accent: status "Live", small details only */
-  --text: #EDEEF0;
-  --text-muted: #A1A7B0;
-  --text-dim: #858C96;      /* smallest labels; >= 4.5:1 on every surface */
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --border-accent: rgba(217, 123, 74, 0.38);
+  /* ---- Colour: "Thermal" palette (charcoal + infrared + amber), matches the hero's thermal terrain ---- */
+  --bg: #0B0706;              /* charcoal */
+  --surface: #15100E;
+  --surface-2: #1D1613;
+  --surface-3: #261D19;
+  --accent: #FF6A2B;          /* infrared: the primary accent (buttons, links, focus, highlights) */
+  --accent-hover: #FF8A55;
+  --accent-2: #FFB23F;        /* amber: signals (Live status, service icons, small details) */
+  --text: #F6EEEA;
+  --text-muted: #B8A9A2;
+  --text-dim: #9A8B84;        /* smallest labels; >= 4.5:1 on every surface */
+  --border: rgba(255, 220, 200, 0.09);
+  --border-strong: rgba(255, 220, 200, 0.16);
+  --border-accent: rgba(255, 106, 43, 0.42);
   --success: #4ADE80;         /* status only: "available" and "active" dots */
   --success-rgb: 74, 222, 128;
-  --on-accent: #1A120D;       /* text and icons placed on the copper accent */
+  --on-accent: #1C0700;       /* text and icons placed on the infrared accent */
   --plate: #F4F1EC;           /* light tile behind organisation logos */
 
-  --accent-rgb: 217, 123, 74;
-  --accent-2-rgb: 127, 163, 166;
-  --bg-rgb: 10, 11, 13;
-  --surface-rgb: 17, 19, 23;
-  --text-rgb: 237, 238, 240;
+  --accent-rgb: 255, 106, 43;
+  --accent-2-rgb: 255, 178, 63;
+  --bg-rgb: 11, 7, 6;
+  --surface-rgb: 21, 16, 14;
+  --text-rgb: 246, 238, 234;
 
-  --gradient-accent: linear-gradient(120deg, #F2A877 0%, #D97B4A 45%, #B8603A 100%);
+  --gradient-accent: linear-gradient(110deg, #FFE2A8 0%, #FF9A3C 45%, #F0501C 100%);
   --glow-accent: 0 0 0 1px rgba(var(--accent-rgb), 0.35), 0 12px 40px -12px rgba(var(--accent-rgb), 0.45);
 
   /* ---- Typography ---- */
@@ -64,18 +64,18 @@
   /* ---- Aliases read by older styles (styles/legacy.css, /gallery page) ---- */
   --primary: var(--accent);
   --accent-soft: var(--accent-hover);
-  --accent-soft-rgb: 232, 147, 95;
+  --accent-soft-rgb: 255, 138, 85;
   --teal: var(--accent-2);
   --teal-soft: var(--accent-2);
   --teal-rgb: var(--accent-2-rgb);
-  --rust-rgb: 120, 60, 32;
-  --surface-2-rgb: 23, 26, 31;
+  --rust-rgb: 120, 30, 12;
+  --surface-2-rgb: 29, 22, 19;
   --background: var(--bg);
   --foreground: var(--text);
   --muted-foreground: var(--text-muted);
   --gradient-text: var(--gradient-accent);
   --card: var(--surface);
-  --gradient-button: linear-gradient(135deg, #B8603A, #D97B4A);
+  --gradient-button: linear-gradient(135deg, #F0501C, #FF6A2B);
 }
 
 /* ==========================================================================
@@ -332,11 +332,11 @@ body::before {
 
 /* Touch screens: interactive cards press in slightly when tapped */
 @media (hover: none) {
-  .spotlight {
+  .fx {
     transition: transform var(--dur-fast) var(--ease);
   }
 
-  .spotlight:active {
+  .fx:active {
     transform: scale(0.985);
   }
 }
@@ -421,27 +421,117 @@ body::before {
   background-color: var(--surface);
 }
 
-/* Pointer spotlight used by interactive cards: set --mx/--my from JS */
-.spotlight {
+/* Interactive cards (.fx): a light-up border and soft glow that follow the mouse (--mx/--my are set by
+   the small pointer script in utils/revealScript.js), a lift on hover, and a one-time light sweep along the
+   top border when the card scrolls into view (useful on phones, which have no hover). */
+.fx {
   --mx: 50%;
-  --my: 0%;
+  --my: -30%;
+  isolation: isolate;
 }
 
-.spotlight::after {
+.fx::before,
+.fx::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(255, 255, 255, 0.035), transparent 45%);
-  transition: opacity var(--dur) var(--ease);
+  transition: opacity 0.45s var(--ease);
+}
+
+/* border light */
+.fx::before {
+  z-index: 3;
+  padding: 1px;
+  background: radial-gradient(280px circle at var(--mx) var(--my), rgba(var(--accent-rgb), 0.95), rgba(var(--accent-2-rgb), 0.45) 38%, transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* inner glow (behind the card's content) */
+.fx::after {
+  z-index: -1;
+  background: radial-gradient(460px circle at var(--mx) var(--my), rgba(var(--accent-rgb), 0.09), transparent 60%);
 }
 
 @media (hover: hover) {
-  .spotlight:hover::after {
+  .fx {
+    transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+
+  .fx:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 50px -28px rgba(var(--accent-rgb), 0.45);
+  }
+
+  .fx:hover::before,
+  .fx:hover::after {
     opacity: 1;
   }
+}
+
+/* Light sweep when the card appears */
+@keyframes fx-arrive {
+  0% { opacity: 0; --my: -30%; }
+  25% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+[data-in] .fx::before,
+.fx[data-in]::before {
+  animation: fx-arrive 1.6s var(--ease) var(--reveal-delay, 0s) 1;
+}
+
+/* Cards rise and scale in a little more than text */
+.js-reveal:not(.reveal-safe) .reveal.fx:not([data-in]),
+.js-reveal:not(.reveal-safe) .reveal:not([data-in]) > .fx {
+  transform: translate3d(0, 34px, 0) scale(0.965);
+}
+
+.js-reveal .reveal:not([data-in]) > .fx {
+  opacity: 0;
+}
+
+.js-reveal .reveal[data-in] > .fx {
+  transition: opacity 0.7s var(--ease) var(--reveal-delay, 0s), transform 0.7s var(--ease) var(--reveal-delay, 0s), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx,
+  .fx:hover {
+    transform: none !important;
+  }
+
+  [data-in] .fx::before,
+  .fx[data-in]::before {
+    animation: none;
+  }
+}
+
+/* ==========================================================================
+   Scroll reveal (components/motion/Reveal.js + utils/revealScript.js)
+   Hidden only when the head script added .js-reveal; shown once marked [data-in].
+   ========================================================================== */
+
+.js-reveal:not(.reveal-safe) .reveal:not([data-in]) {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+}
+
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='left']:not([data-in]) { transform: translate3d(-32px, 0, 0); }
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='right']:not([data-in]) { transform: translate3d(32px, 0, 0); }
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='scale']:not([data-in]) { transform: scale(0.95); }
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='fade']:not([data-in]) { transform: none; }
+.js-reveal:not(.reveal-safe) .reveal[data-reveal='rise']:not([data-in]) { transform: translate3d(0, 36px, 0); }
+
+.js-reveal .reveal[data-in] {
+  transition:
+    opacity 0.6s var(--ease) var(--reveal-delay, 0s),
+    transform 0.6s var(--ease) var(--reveal-delay, 0s);
 }
 
 /* ==========================================================================

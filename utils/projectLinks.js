@@ -25,3 +25,11 @@ export function youtubeEmbedUrl(url) {
   const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
   return match ? `https://www.youtube-nocookie.com/embed/${match[1]}` : null;
 }
+
+// Only the fields a project card needs. Used when project data is passed to client components,
+// so long case-study text (and any unpublished project) never ships in browser JavaScript.
+const CARD_FIELDS = ['id', 'title', 'subtitle', 'description', 'highlight', 'badge', 'status', 'image', 'tags', 'categories', 'demoUrl', 'demoLabel', 'githubUrl', 'githubPrivate', 'videoUrl', 'videoLabel', 'links'];
+
+export function toCardProject(project) {
+  return Object.fromEntries(CARD_FIELDS.filter((key) => project[key] !== undefined).map((key) => [key, project[key]]));
+}

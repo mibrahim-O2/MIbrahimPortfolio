@@ -28,12 +28,13 @@ back-to-top button are not sections. They come from `app/layout.js` and appear o
 |---|---|---|---|---|---|
 | 1 | `HeroSection` | `sections/HeroSection.js` | `home` | `data/personal.js` (+ counts from projects, experience, certificates) | - |
 | 2 | `ProjectsSection` | `sections/ProjectsSection.js` | `projects` | featured projects in `data/projects.js` | `/projects` (archive) |
-| 3 | `ExpertiseSection` | `sections/ExpertiseSection.js` | `expertise` | `data/focusAreas.js` | shown on `/about` |
-| 4 | `ExperienceSection` | `sections/ExperienceSection.js` | `experience` | `data/experience.js` (**hidden while empty**, see [EXPERIENCE.md](./EXPERIENCE.md)) | `/experience` |
-| 5 | `AboutSection` | `sections/AboutSection.js` | `about` | `data/about.js`, gallery highlights | `/about` |
-| 6 | `SkillsSection` | `sections/SkillsSection.js` | `skills` | `data/skills.js` | `/skills` |
-| 7 | `EducationSection` | `sections/EducationSection.js` | `education` | `data/education.js` + `data/certificates.js` | `/education`, `/certificates` |
-| 8 | `ContactSection` | `sections/ContactSection.js` | `contact` | `data/personal.js` | `/contact` |
+| 3 | `ServicesSection` | `sections/ServicesSection.js` | `services` | `data/services.js` | `/services` |
+| 4 | `ExpertiseSection` | `sections/ExpertiseSection.js` | `expertise` | `data/focusAreas.js` | shown on `/about` |
+| 5 | `ExperienceSection` | `sections/ExperienceSection.js` | `experience` | `data/experience.js` (**hidden while empty**, see [EXPERIENCE.md](./EXPERIENCE.md)) | `/experience` |
+| 6 | `AboutSection` | `sections/AboutSection.js` | `about` | `data/about.js`, gallery highlights | `/about` |
+| 7 | `SkillsSection` | `sections/SkillsSection.js` | `skills` | `data/skills.js` | `/skills` |
+| 8 | `EducationSection` | `sections/EducationSection.js` | `education` | `data/education.js` + `data/certificates.js` | `/education`, `/certificates` |
+| 9 | `ContactSection` | `sections/ContactSection.js` | `contact` | `data/personal.js` | `/contact` |
 
 Not on the homepage, own pages only: `VolunteerSection` (`/volunteer`) and the gallery (`/gallery`). Both are
 linked from the About section's "Beyond code" card and from the footer.

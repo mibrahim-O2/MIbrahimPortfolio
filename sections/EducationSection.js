@@ -11,7 +11,16 @@ import { certificatesData } from '@/data/certificates';
 import styles from './EducationSection.module.css';
 
 // "Education & Certifications". `show` = "both" (homepage), "education" (/education) or "certificates" (/certificates).
+function showEducationFor(show) {
+  return show !== 'certificates';
+}
+
 export default function EducationSection({ show = 'both', headingLevel = 'h2' }) {
+  // Heading levels follow the section heading (h1 on its own page, h2 on the homepage)
+  const level = headingLevel === 'h1' ? 1 : 2;
+  const H3 = `h${level + 1}`;
+  const H4 = `h${level + 2}`;
+  const CertH = showEducationFor(show) ? H4 : H3;
   const [activeCert, setActiveCert] = useState(null);
   const showEducation = show !== 'certificates';
   const showCerts = show !== 'education';
@@ -30,7 +39,7 @@ export default function EducationSection({ show = 'both', headingLevel = 'h2' })
         {showEducation && (
           <ol className={styles.timeline}>
             {educationData.map((entry, index) => (
-              <Reveal as="li" key={entry.id} delay={index * 0.05} className={`card ${styles.edu} ${entry.status ? styles.current : ''}`}>
+              <Reveal as="li" key={entry.id} delay={index * 0.05} className={`card fx ${styles.edu} ${entry.status ? styles.current : ''}`}>
                 <div className={styles.logos}>
                   {(entry.logos || []).map((logo) => (
                     <span key={logo.src} className={styles.logo}>
@@ -48,7 +57,7 @@ export default function EducationSection({ show = 'both', headingLevel = 'h2' })
                       </span>
                     )}
                   </div>
-                  <h3 className={styles.eduTitle}>{entry.title}</h3>
+                  <H3 className={styles.eduTitle}>{entry.title}</H3>
                   <p className={styles.institution}>
                     {entry.institutionName}
                     {entry.chip && <span className={styles.chip}> · {entry.chip}</span>}
@@ -71,15 +80,15 @@ export default function EducationSection({ show = 'both', headingLevel = 'h2' })
 
         {showCerts && (
           <>
-            {showEducation && <h3 className={styles.subhead}>Certifications</h3>}
+            {showEducation && <H3 className={styles.subhead}>Certifications</H3>}
             <ul className={styles.certs}>
               {certificatesData.map((cert, index) => (
-                <Reveal as="li" key={cert.id} delay={(index % 3) * 0.05} className={`card ${styles.cert}`}>
+                <Reveal as="li" key={cert.id} delay={(index % 3) * 0.05} className={`card fx ${styles.cert}`}>
                   <span className={styles.certLogo}>
                     {cert.logo ? <Image src={cert.logo} alt={`${cert.issuer} logo`} width={40} height={40} /> : <i className="fas fa-certificate" aria-hidden="true"></i>}
                   </span>
                   <div className={styles.certText}>
-                    <h4 className={styles.certTitle}>{cert.title}</h4>
+                    <CertH className={styles.certTitle}>{cert.title}</CertH>
                     <p className={styles.certIssuer}>
                       {cert.issuer}
                       {cert.issuerVia && <> · via {cert.issuerVia}</>}

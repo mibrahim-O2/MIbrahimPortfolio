@@ -4,7 +4,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 1.25rem 2rem;
-  margin-bottom: clamp(2.25rem, 4vw, 3.5rem);
+  margin-bottom: clamp(2.25rem, 4vw, 3.25rem);
 }
 
 .text {
@@ -14,10 +14,36 @@
   max-width: 60rem;
 }
 
+/* Icon tile above the eyebrow: infrared glyph on a soft glowing tile */
+.icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 0.35rem;
+  border-radius: 16px;
+  border: 1px solid var(--border-accent);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(var(--accent-2-rgb), 0.22), transparent 70%),
+    rgba(var(--accent-rgb), 0.08);
+  color: var(--accent);
+  font-size: 1.2rem;
+  box-shadow: 0 10px 30px -12px rgba(var(--accent-rgb), 0.55);
+}
+
+.icon::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 20px;
+  border: 1px solid rgba(var(--accent-rgb), 0.12);
+}
+
 .title {
   font-size: var(--fs-2xl);
   letter-spacing: -0.03em;
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 
 .lead {
@@ -31,12 +57,19 @@
   flex-shrink: 0;
 }
 
+/* Centred (default) */
 .center {
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   text-align: center;
 }
 
 .center .text {
   justify-items: center;
+  margin-inline: auto;
+}
+
+.center .lead {
   margin-inline: auto;
 }
