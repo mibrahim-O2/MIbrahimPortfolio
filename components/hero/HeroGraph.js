@@ -24,10 +24,13 @@ function readPaused() {
 
 // Decorative 3D thermal terrain behind the hero (scene: ./thermalScene.js).
 //
-// Progressive enhancement: the hero is complete without it (a static poster of the same scene). three.js is only downloaded
-// when all of these hold: the visitor has not asked for reduced motion, WebGL works, and the page has
-// finished loading and gone idle (or the visitor has scrolled, tapped or moved the mouse). It renders
-// only while the hero is on screen and the tab is visible, and a button lets anyone pause it (WCAG 2.2.2).
+// Progressive enhancement: the hero is complete without it (a static SVG poster of the same scene).
+// three.js is downloaded once the page has loaded and gone idle (or the visitor scrolls, taps or moves the
+// mouse), on phones and computers alike. It renders only while the hero is on screen and the tab is visible.
+// The Pause / Play button is always shown once the scene is running (WCAG 2.2.2).
+// If the device asks for reduced motion (on Windows: "Animation effects" off), the terrain still moves,
+// but at a third of the speed and without the mouse tilt. Only devices without WebGL, or with very little
+// memory, keep the static poster.
 export default function HeroGraph({ poster = null }) {
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
@@ -39,7 +42,8 @@ export default function HeroGraph({ poster = null }) {
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (reduce.matches || !webglAvailable()) {
+    const veryLowMemory = navigator.deviceMemory && navigator.deviceMemory <= 1;
+    if (!webglAvailable() || veryLowMemory) {
       setState('off');
       return undefined;
     }
@@ -51,11 +55,7 @@ export default function HeroGraph({ poster = null }) {
     let idleId = 0;
     let timer = 0;
     const mobile = window.matchMedia('(max-width: 959px), (pointer: coarse)').matches;
-    const lowEnd = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) || (navigator.deviceMemory && navigator.deviceMemory <= 2);
-    if (lowEnd) {
-      setState('off');
-      return undefined;
-    }
+    const speedFor = () => (reduce.matches ? 0.35 : 1);
 
     const update = () => {
       const scene = sceneRef.current;
@@ -70,12 +70,14 @@ export default function HeroGraph({ poster = null }) {
       try {
         const { createThermalScene } = await import('./thermalScene');
         if (cancelled || !canvasRef.current) return;
-        const scene = createThermalScene(canvasRef.current, { mobile });
+        const scene = createThermalScene(canvasRef.current, { mobile, speed: speedFor() });
         sceneRef.current = scene;
         scene.renderOnce();
         setState('ready');
         update();
-      } catch {
+      } catch (error) {
+        // Keep the poster; leave a hint for debugging in the browser console
+        console.warn('Hero 3D scene could not start:', error);
         setState('off');
       }
     };
@@ -104,17 +106,14 @@ export default function HeroGraph({ poster = null }) {
     // Gentle tilt toward the mouse (desktop, fine pointer only)
     const fine = window.matchMedia('(pointer: fine)').matches;
     const onMove = (event) => {
-      if (sceneRef.current) sceneRef.current.setPointer((event.clientX / window.innerWidth) * 2 - 1);
+      if (sceneRef.current && !reduce.matches) sceneRef.current.setPointer((event.clientX / window.innerWidth) * 2 - 1);
     };
     if (fine) window.addEventListener('pointermove', onMove, { passive: true });
 
-    // Turn everything off if the visitor switches on reduced motion while on the page
+    // Follow the reduced-motion setting if it changes while the page is open
     const onReduce = () => {
-      if (reduce.matches) {
-        sceneRef.current?.dispose();
-        sceneRef.current = null;
-        setState('off');
-      }
+      sceneRef.current?.setSpeed(speedFor());
+      if (reduce.matches) sceneRef.current?.setPointer(0);
     };
     reduce.addEventListener?.('change', onReduce);
 

@@ -33,7 +33,7 @@ function ThermalPoster() {
   return (
     <svg className="thermal-poster" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
       {paths.map((path, index) => (
-        <path key={index} d={path.d} fill="none" stroke={path.color} strokeOpacity={path.opacity} strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
+        <path key={index} d={path.d} fill="none" stroke={path.color} strokeOpacity={path.opacity} strokeWidth="1.1" vectorEffect="non-scaling-stroke" />
       ))}
     </svg>
   );

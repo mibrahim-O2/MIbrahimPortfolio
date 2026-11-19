@@ -92,7 +92,7 @@ const POINT_FRAG = /* glsl */ `
   }
 `;
 
-export function createThermalScene(canvas, { mobile = false } = {}) {
+export function createThermalScene(canvas, { mobile = false, speed = 1 } = {}) {
   const renderer = new WebGLRenderer({ canvas, alpha: true, antialias: !mobile, powerPreference: 'low-power' });
   const pixelRatio = Math.min(window.devicePixelRatio || 1, mobile ? 1.25 : 1.5);
   renderer.setPixelRatio(pixelRatio);
@@ -169,12 +169,16 @@ export function createThermalScene(canvas, { mobile = false } = {}) {
   let last = 0;
   let running = false;
   const minFrame = mobile ? 1000 / 30 : 0; // 30 fps on phones
-  const start = performance.now();
+  let rate = speed; // 1 = normal; lower for reduced motion
+  let clock = 0; // scene time in seconds (advances only while playing)
+  let prev = 0;
 
   function frame(now) {
     if (minFrame && now - last < minFrame) return;
     last = now;
-    uniforms.uTime.value = (now - start) / 1000;
+    if (prev) clock += Math.min((now - prev) / 1000, 0.1) * rate;
+    prev = now;
+    uniforms.uTime.value = clock;
     sway += (pointer - sway) * 0.04;
     camera.position.x = camBase.x + sway * 0.8;
     camera.lookAt(sway * 0.4, -0.3, -4);
@@ -186,6 +190,7 @@ export function createThermalScene(canvas, { mobile = false } = {}) {
       if (running) return;
       running = true;
       last = 0;
+      prev = 0;
       renderer.setAnimationLoop(frame);
     },
     pause() {
@@ -194,7 +199,11 @@ export function createThermalScene(canvas, { mobile = false } = {}) {
     },
     renderOnce() {
       last = 0;
+      prev = 0;
       frame(performance.now());
+    },
+    setSpeed(value) {
+      rate = value;
     },
     // -1..1, from the mouse position (desktop only)
     setPointer(x) {

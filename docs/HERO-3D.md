@@ -17,8 +17,11 @@ The scene's own colours are `THERMAL` at the top of `thermalScene.js`; keep both
 - The hero is complete without it: a static SVG poster of the same terrain shows first. SVG lines are not
   counted as the largest paint, so the headline stays the LCP element (Lighthouse mobile: LCP about 1.2 s).
 - three.js (about 145 KB gzipped) loads only after the page is idle or the visitor interacts.
-- It does not load with "reduce motion" switched on, without WebGL, or on very low-end devices; the poster stays.
-- It renders only while visible, at 30 fps and lower resolution on phones, and has a Pause button.
+- It runs on phones and computers. With "reduce motion" switched on (Windows: Animation effects off) it
+  moves at a third of the speed without the mouse tilt. Only devices without WebGL or with very little
+  memory keep the static poster.
+- It renders only while visible, at 30 fps and lower resolution on phones, and has a Pause / Play button
+  (top right of the hero on computers, under the terrain band on phones).
 - The canvas is decorative: `aria-hidden`, no focus, no clicks or touches.
 
 **Common changes:**
