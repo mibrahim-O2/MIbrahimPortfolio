@@ -1,28 +1,48 @@
-/* The canvas fills the hero's visual column. It fades in after its first frame, so it never
-   shifts layout, and it never takes clicks or touches (scrolling is never trapped). */
+/* The 3D thermal terrain layer of the hero.
+   A static SVG poster of the same scene (utils/thermalPoster.js) shows first (and stays for reduced motion, no WebGL or low-end
+   devices); the live canvas crossfades in over it once it has drawn its first frame. It never takes
+   clicks or touches, so scrolling is never trapped. */
 .wrap {
   position: absolute;
-  inset: -42% -62%;
   z-index: 0;
+  inset: 16% 0 0 0;
   pointer-events: none;
+  /* fade the left side, where the headline and intro sit */
+  -webkit-mask-image: linear-gradient(90deg, transparent 34%, #000 70%);
+  mask-image: linear-gradient(90deg, transparent 34%, #000 70%);
+}
+
+.wrap :global(.thermal-poster) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 1.2s var(--ease);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
   opacity: 0;
   transition: opacity 1.2s var(--ease);
 }
 
-.wrap[data-state='ready'] {
+.wrap[data-state='ready'] .canvas {
   opacity: 1;
 }
 
-.canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
+.wrap[data-state='ready'] :global(.thermal-poster) {
+  opacity: 0;
 }
 
 .pause {
   position: absolute;
-  right: 0;
-  bottom: -3.25rem;
+  right: max(16px, calc((100vw - var(--container)) / 2));
+  bottom: 1.25rem;
   z-index: 2;
   display: inline-flex;
   align-items: center;
@@ -48,21 +68,18 @@
   }
 }
 
-/* Phones and tablets: the graph sits behind the whole hero (the visual column is anchored to the
-   hero there, see HeroSection.module.css), quieter so the text stays easy to read */
+/* Phones and tablets: a band at the top of the hero, above the headline (the hero adds matching top padding) */
 @media (max-width: 959px) {
   .wrap {
-    inset: 0 0 auto;
-    height: min(80svh, 680px);
-    opacity: 0;
-  }
-
-  .wrap[data-state='ready'] {
-    opacity: 0.55;
+    inset: calc(var(--nav-h) - 0.5rem) 0 auto;
+    height: min(40svh, 330px);
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent);
+    mask-image: linear-gradient(180deg, #000 70%, transparent);
   }
 
   .pause {
-    position: static;
-    margin-top: 0.75rem;
+    top: calc(var(--nav-h) + min(40svh, 330px) - 2.75rem);
+    bottom: auto;
+    right: 16px;
   }
 }

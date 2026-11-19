@@ -22,13 +22,13 @@ function readPaused() {
   }
 }
 
-// Decorative 3D agent graph behind the hero portrait (scene: ./agentGraphScene.js).
+// Decorative 3D thermal terrain behind the hero (scene: ./thermalScene.js).
 //
-// Progressive enhancement: the hero is complete without it (CSS backdrop). three.js is only downloaded
+// Progressive enhancement: the hero is complete without it (a static poster of the same scene). three.js is only downloaded
 // when all of these hold: the visitor has not asked for reduced motion, WebGL works, and the page has
 // finished loading and gone idle (or the visitor has scrolled, tapped or moved the mouse). It renders
 // only while the hero is on screen and the tab is visible, and a button lets anyone pause it (WCAG 2.2.2).
-export default function HeroGraph() {
+export default function HeroGraph({ poster = null }) {
   const wrapRef = useRef(null);
   const canvasRef = useRef(null);
   const sceneRef = useRef(null);
@@ -68,9 +68,9 @@ export default function HeroGraph() {
       if (cancelled || sceneRef.current) return;
       removeTriggers();
       try {
-        const { createAgentGraph } = await import('./agentGraphScene');
+        const { createThermalScene } = await import('./thermalScene');
         if (cancelled || !canvasRef.current) return;
-        const scene = createAgentGraph(canvasRef.current, { mobile });
+        const scene = createThermalScene(canvasRef.current, { mobile });
         sceneRef.current = scene;
         scene.renderOnce();
         setState('ready');
@@ -161,6 +161,8 @@ export default function HeroGraph() {
   return (
     <>
       <div ref={wrapRef} className={styles.wrap} data-state={state} aria-hidden="true">
+        {/* Static poster of the same scene (server-rendered SVG from utils/thermalPoster.js) */}
+        {poster}
         <canvas ref={canvasRef} className={styles.canvas} tabIndex={-1} />
       </div>
       {state === 'ready' && (

@@ -10,52 +10,37 @@
   overflow: hidden;
 }
 
-/* ---- Backdrop: soft static glow + masked grid (the 3D agent graph sits in .visual) ---- */
+/* ---- Backdrop: a soft infrared glow behind the terrain (the 3D layer is components/hero/HeroGraph.js) ---- */
 .backdrop {
   position: absolute;
-  inset: -10% -10% 0;
+  inset: 0;
   z-index: -2;
   pointer-events: none;
 }
 
 .glow {
   position: absolute;
-  top: -10%;
-  right: -12%;
-  width: min(900px, 130vw);
-  aspect-ratio: 1;
+  right: -10%;
+  bottom: -25%;
+  width: min(1100px, 140vw);
+  aspect-ratio: 1.6;
   border-radius: 50%;
   background:
-    radial-gradient(closest-side, rgba(var(--accent-2-rgb), 0.14), transparent 70%),
-    radial-gradient(closest-side at 60% 55%, rgba(var(--accent-rgb), 0.1), transparent 75%);
+    radial-gradient(closest-side, rgba(var(--accent-rgb), 0.16), transparent 70%),
+    radial-gradient(closest-side at 70% 40%, rgba(var(--accent-2-rgb), 0.08), transparent 75%);
 }
-
-.grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 70% 60% at 60% 35%, #000 20%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 35%, #000 20%, transparent 75%);
-}
-
-
 
 /* ---- Layout ---- */
 .inner {
-  display: grid;
-  gap: clamp(3rem, 6vw, 4rem);
-  align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .content {
-  position: relative;
-  z-index: 1;
   display: grid;
   justify-items: start;
   gap: 1.4rem;
+  max-width: 42rem;
   min-width: 0;
 }
 
@@ -249,84 +234,62 @@
   }
 }
 
-/* ---- Visual: portrait card with counts ---- */
-.visual {
-  position: relative;
-  justify-self: center;
-  width: min(100%, 360px);
+
+/* ---- Portrait + counts card and social icons ---- */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.25rem;
+  margin-top: 0.3rem;
 }
 
-.card {
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
+.me {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.55rem 1.1rem 0.55rem 0.55rem;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-strong);
-  background: var(--surface);
-  padding: 0.6rem;
-  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.9);
+  background: rgba(var(--surface-rgb), 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
-
-.portrait {
-  position: relative;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
+.photo {
+  width: 56px;
+  height: 56px;
   border-radius: 12px;
-  background: var(--surface-2);
-}
-
-.portrait img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
   object-position: center 30%;
+  flex-shrink: 0;
 }
-
-
-.cardBody {
-  position: relative;
-  display: grid;
-  padding: 0.9rem 0.6rem 0.4rem;
-}
-
-
 
 .stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  gap: 1.1rem;
 }
 
 .stats > div {
   display: flex;
   flex-direction: column-reverse;
-  gap: 0.1rem;
-}
-
-.stats > div + div {
-  padding-left: 0.9rem;
-  border-left: 1px solid var(--border);
 }
 
 .stats dd {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 .stats dt {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--text-dim);
+  white-space: nowrap;
 }
-
-
-
-
-
-
 
 /* ---- Scroll cue ---- */
 .scrollCue {
@@ -368,17 +331,24 @@
 }
 
 @media (min-width: 960px) {
-  .inner {
-    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
-  }
-
-  .visual {
-    justify-self: end;
-  }
-
-
   .scrollCue {
     display: block;
+  }
+}
+
+/* Phones and tablets: the terrain gets its own band at the top (see HeroGraph.module.css) and the text starts below it */
+@media (max-width: 959px) {
+  .hero {
+    min-height: auto;
+    justify-content: flex-start;
+    padding-top: calc(var(--nav-h) + min(40svh, 330px));
+  }
+
+  .glow {
+    top: 0;
+    bottom: auto;
+    right: -40%;
+    width: 160vw;
   }
 }
 
@@ -392,64 +362,11 @@
   .sep {
     display: none;
   }
-}
-
-/* Phones and tablets: a compact horizontal card (photo left, counts right) instead of a tall photo */
-@media (max-width: 959px) {
-  .hero {
-    min-height: auto;
-  }
-
-  .inner {
-    gap: 2.25rem;
-  }
-
-  /* The visual column is not positioned here, so the 3D graph inside it covers the whole hero */
-  .visual {
-    position: static;
-    justify-self: stretch;
-    width: 100%;
-    max-width: 30rem;
-  }
-
-  .card {
-    display: grid;
-    grid-template-columns: 92px minmax(0, 1fr);
-    align-items: center;
-    gap: 1rem;
-    padding: 0.75rem;
-  }
-
-  .portrait {
-    aspect-ratio: 1;
-    border-radius: 12px;
-  }
-
-  .cardBody {
-    margin-top: 0;
-    padding: 0;
-  }
-
-  .stats > div + div {
-    padding-left: 0.75rem;
-  }
-
-  .stats dd {
-    font-size: 1.3rem;
-  }
-
-  .stats dt {
-    font-size: 0.6rem;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-  }
 
   .stats {
-    grid-template-columns: auto auto auto;
-    justify-content: start;
+    gap: 0.8rem;
   }
 }
-
 
 @media (prefers-reduced-motion: reduce) {
   .word,

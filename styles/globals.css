@@ -7,32 +7,32 @@
 :root {
   color-scheme: dark;
 
-  /* ---- Colour ---- */
-  --bg: #0E0D0C;              /* warm near-black */
-  --surface: #161412;
-  --surface-2: #1C1A17;
-  --surface-3: #24211D;
-  --accent: #D97B4A;          /* copper: the "human" colour (actions, approvals, focus) */
-  --accent-hover: #E8935F;
-  --accent-2: #7FA3A6;        /* cool teal: the "machine" colour (3D agent graph, Live status, service icons) */
-  --text: #EDEEF0;
-  --text-muted: #A1A7B0;
-  --text-dim: #858C96;      /* smallest labels; >= 4.5:1 on every surface */
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --border-accent: rgba(217, 123, 74, 0.38);
+  /* ---- Colour: "Thermal" palette (charcoal + infrared + amber), matches the hero's thermal terrain ---- */
+  --bg: #0B0706;              /* charcoal */
+  --surface: #15100E;
+  --surface-2: #1D1613;
+  --surface-3: #261D19;
+  --accent: #FF6A2B;          /* infrared: the primary accent (buttons, links, focus, highlights) */
+  --accent-hover: #FF8A55;
+  --accent-2: #FFB23F;        /* amber: signals (Live status, service icons, small details) */
+  --text: #F6EEEA;
+  --text-muted: #B8A9A2;
+  --text-dim: #9A8B84;        /* smallest labels; >= 4.5:1 on every surface */
+  --border: rgba(255, 220, 200, 0.09);
+  --border-strong: rgba(255, 220, 200, 0.16);
+  --border-accent: rgba(255, 106, 43, 0.42);
   --success: #4ADE80;         /* status only: "available" and "active" dots */
   --success-rgb: 74, 222, 128;
-  --on-accent: #1A120D;       /* text and icons placed on the copper accent */
+  --on-accent: #1C0700;       /* text and icons placed on the infrared accent */
   --plate: #F4F1EC;           /* light tile behind organisation logos */
 
-  --accent-rgb: 217, 123, 74;
-  --accent-2-rgb: 127, 163, 166;
-  --bg-rgb: 14, 13, 12;
-  --surface-rgb: 22, 20, 18;
-  --text-rgb: 237, 238, 240;
+  --accent-rgb: 255, 106, 43;
+  --accent-2-rgb: 255, 178, 63;
+  --bg-rgb: 11, 7, 6;
+  --surface-rgb: 21, 16, 14;
+  --text-rgb: 246, 238, 234;
 
-  --gradient-accent: linear-gradient(120deg, #F2A877 0%, #D97B4A 45%, #B8603A 100%);
+  --gradient-accent: linear-gradient(110deg, #FFE2A8 0%, #FF9A3C 45%, #F0501C 100%);
   --glow-accent: 0 0 0 1px rgba(var(--accent-rgb), 0.35), 0 12px 40px -12px rgba(var(--accent-rgb), 0.45);
 
   /* ---- Typography ---- */
@@ -64,18 +64,18 @@
   /* ---- Aliases read by older styles (styles/legacy.css, /gallery page) ---- */
   --primary: var(--accent);
   --accent-soft: var(--accent-hover);
-  --accent-soft-rgb: 232, 147, 95;
+  --accent-soft-rgb: 255, 138, 85;
   --teal: var(--accent-2);
   --teal-soft: var(--accent-2);
   --teal-rgb: var(--accent-2-rgb);
-  --rust-rgb: 120, 60, 32;
-  --surface-2-rgb: 28, 26, 23;
+  --rust-rgb: 120, 30, 12;
+  --surface-2-rgb: 29, 22, 19;
   --background: var(--bg);
   --foreground: var(--text);
   --muted-foreground: var(--text-muted);
   --gradient-text: var(--gradient-accent);
   --card: var(--surface);
-  --gradient-button: linear-gradient(135deg, #B8603A, #D97B4A);
+  --gradient-button: linear-gradient(135deg, #F0501C, #FF6A2B);
 }
 
 /* ==========================================================================

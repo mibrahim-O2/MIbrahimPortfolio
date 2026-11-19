@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
 import HeroGraph from '@/components/hero/HeroGraph';
+import { thermalPosterPaths } from '@/utils/thermalPoster';
 import { personalInfo } from '@/data/personal';
 import { publishedProjects } from '@/data/projects';
 import { certificatesData } from '@/data/certificates';
@@ -8,7 +9,8 @@ import styles from './HeroSection.module.css';
 
 // Hero (a Server Component: its HTML is complete without JavaScript).
 // Left: availability badge, H1 (name and role, then the headline), intro, buttons, social icons.
-// Right: portrait card with counts, with the decorative 3D agent graph (components/hero/HeroGraph.js) behind it.
+// Below the buttons: a compact card with the portrait and counts, and social icons.
+// Behind everything: the decorative 3D thermal terrain (components/hero/HeroGraph.js).
 
 // Icons shown under the hero buttons, in this order (all come from personalInfo.socialLinks)
 const HERO_SOCIALS = ['GitHub', 'LinkedIn', 'Email'];
@@ -23,6 +25,18 @@ function headlineWords() {
   const accent = (personalInfo.headlineAccent || '').split(' ').filter(Boolean).map(norm);
   const start = accent.length ? words.findIndex((_, i) => accent.every((a, j) => norm(words[i + j] || '') === a)) : -1;
   return words.map((word, index) => ({ word, isAccent: start > -1 && index >= start && index < start + accent.length }));
+}
+
+// Static SVG poster of the thermal terrain (shown before the live scene loads)
+function ThermalPoster() {
+  const { width, height, paths } = thermalPosterPaths();
+  return (
+    <svg className="thermal-poster" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      {paths.map((path, index) => (
+        <path key={index} d={path.d} fill="none" stroke={path.color} strokeOpacity={path.opacity} strokeWidth="1.4" vectorEffect="non-scaling-stroke" />
+      ))}
+    </svg>
+  );
 }
 
 export default function HeroSection() {
@@ -46,8 +60,9 @@ export default function HeroSection() {
     <section id="home" className={styles.hero} aria-labelledby="hero-title">
       <div className={styles.backdrop} aria-hidden="true">
         <div className={styles.glow} />
-        <div className={styles.grid} />
       </div>
+      {/* Decorative 3D thermal terrain (poster first, live scene after the page is idle) */}
+      <HeroGraph poster={<ThermalPoster />} />
 
       <div className={`container ${styles.inner}`}>
         <div className={styles.content}>
@@ -96,33 +111,10 @@ export default function HeroSection() {
             )}
           </div>
 
-          <ul className={`${styles.socials} ${styles.enter}`} style={{ '--d': '600ms' }}>
-            {heroSocials.map((social) => {
-              const external = social.url.startsWith('http');
-              return (
-                <li key={social.name}>
-                  <a
-                    href={social.url}
-                    className={styles.social}
-                    aria-label={social.name}
-                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  >
-                    <i className={social.icon} aria-hidden="true"></i>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-
-        <div className={`${styles.visual} ${styles.fadeIn}`}>
-          <HeroGraph />
-          <div className={styles.card}>
-            <div className={styles.portrait}>
+          <div className={`${styles.meta} ${styles.enter}`} style={{ '--d': '600ms' }}>
+            <div className={styles.me}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={personalInfo.avatarUrl} alt={`Portrait of ${personalInfo.name}`} width="460" height="460" fetchPriority="high" />
-            </div>
-            <div className={styles.cardBody}>
+              <img src={personalInfo.avatarUrl} alt={`Portrait of ${personalInfo.name}`} width="56" height="56" className={styles.photo} />
               <dl className={styles.stats}>
                 {stats.map((stat) => (
                   <div key={stat.label}>
@@ -132,6 +124,24 @@ export default function HeroSection() {
                 ))}
               </dl>
             </div>
+
+            <ul className={styles.socials}>
+              {heroSocials.map((social) => {
+                const external = social.url.startsWith('http');
+                return (
+                  <li key={social.name}>
+                    <a
+                      href={social.url}
+                      className={styles.social}
+                      aria-label={social.name}
+                      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    >
+                      <i className={social.icon} aria-hidden="true"></i>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       </div>
